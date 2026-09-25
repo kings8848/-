@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>킹스양조장 | 봉신설주 · 프리미엄 특산주</title>
+  <meta name="description" content="킹스양조장 — 산돌배와 자색옥수수로 빚는 프리미엄 전통주. 대표 제품 봉신설주, 선물용 한정판.">
+  <meta property="og:title" content="킹스양조장 | 봉신설주">
+  <meta property="og:description" content="산돌배와 자색옥수수로 빚는 프리미엄 특산주, 1인 양조장이 직접 빚고 숙성합니다.">
+  <meta property="og:type" content="website">
+  <!-- TODO: 대표 이미지 교체 후 경로 입력 (1200x630) -->
+  <meta property="og:image" content="assets/img/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- 성인 인증 (주류 판매 사이트 필수) -->
+  <div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle" hidden>
+    <div class="age-gate__box">
+      <p class="age-gate__brand">KINGS BREWERY</p>
+      <h2 id="ageGateTitle">만 19세 이상이신가요?</h2>
+      <p>본 사이트는 주류 정보를 포함하고 있어<br>청소년의 접근을 제한합니다.</p>
+      <div class="age-gate__actions">
+        <button class="btn btn--primary" id="ageYes">네, 19세 이상입니다</button>
+        <a class="btn btn--ghost" href="https://www.youth.go.kr" rel="noopener">아니요</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a href="#top" class="logo">킹스양조장<span>KINGS BREWERY</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav">
+        <a href="#story">양조장 이야기</a>
+        <a href="#products">제품</a>
+        <a href="#process">빚는 과정</a>
+        <a href="#gift">선물·단체주문</a>
+        <a href="#visit">문의·오시는 길</a>
+        <!-- TODO: 스마트스토어 URL 입력 -->
+        <a href="#" class="nav__cta" data-link="store">구매하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="eyebrow">한 사람이 끝까지 빚는 술</p>
+        <h1>봉신설주<br><small>산돌배와 자색옥수수, 시간이 빚은 프리미엄 특산주</small></h1>
+        <p class="hero__lead">원료 선별부터 발효·증류·숙성·병입까지<br class="br-pc">킹스양조장 대표가 직접 손으로 빚고 기록합니다.</p>
+        <div class="hero__actions">
+          <a href="#products" class="btn btn--primary">제품 보기</a>
+          <a href="#gift" class="btn btn--ghost">선물용 한정판 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section" id="story">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">OUR STORY</p>
+          <h2 class="section__title">작은 양조장,<br>타협하지 않는 한 병</h2>
+        </div>
+        <div class="story__text">
+          <p>킹스양조장은 대표 한 사람이 운영하는 소규모 전통주 양조장입니다. 대량생산 대신 <strong>지역 원료</strong>와 <strong>긴 숙성</strong>, 그리고 <strong>데이터로 기록하는 양조</strong>를 택했습니다.</p>
+          <p>산에서 자란 돌배의 향, 자색옥수수의 깊은 빛깔을 술에 담기 위해 매 배치의 온도·당도·알코올 도수를 기록하고, 가장 좋은 결과만 병에 담습니다.</p>
+          <ul class="stats">
+            <li><b>100%</b><span>국내산 원료</span></li>
+            <li><b>1인</b><span>전 공정 직접 관리</span></li>
+            <li><b>배치별</b><span>발효·숙성 기록</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="section section--tint" id="products">
+      <div class="container">
+        <p class="eyebrow center">PRODUCTS</p>
+        <h2 class="section__title center">킹스양조장의 술</h2>
+        <p class="section__desc center">모든 제품은 소량 배치로 생산되어 조기 품절될 수 있습니다.</p>
+
+        <div class="products">
+          <article class="product product--featured">
+            <div class="product__img product__img--bongsin" role="img" aria-label="봉신설주 제품 사진 자리">
+              <span>봉신설주</span>
+            </div>
+            <div class="product__body">
+              <p class="product__tag">SIGNATURE</p>
+              <h3>봉신설주</h3>
+              <p>킹스양조장의 대표 프리미엄 특산주. 맑고 깨끗한 첫맛과 긴 여운을 목표로 빚었습니다.</p>
+              <!-- TODO: 실제 규격으로 교체 -->
+              <dl class="spec">
+                <div><dt>주종</dt><dd>[입력]</dd></div>
+                <div><dt>도수</dt><dd>[입력]%</dd></div>
+                <div><dt>용량</dt><dd>[입력]ml</dd></div>
+                <div><dt>원료</dt><dd>[입력]</dd></div>
+              </dl>
+              <a href="#" class="btn btn--primary btn--sm" data-link="store">구매하기</a>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product__img product__img--pear" role="img" aria-label="돌배 제품 사진 자리">
+              <span>돌배</span>
+            </div>
+            <div class="product__body">
+              <p class="product__tag">WILD PEAR</p>
+              <h3>산돌배 라인</h3>
+              <p>산돌배 특유의 새콤하고 싱그러운 향을 살린 술. 가벼운 식전주와 한식 페어링에 좋습니다.</p>
+              <dl class="spec">
+                <div><dt>도수</dt><dd>[입력]%</dd></div>
+                <div><dt>용량</dt><dd>[입력]ml</dd></div>
+              </dl>
+              <a href="#" class="btn btn--line btn--sm" data-link="store">구매하기</a>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product__img product__img--corn" role="img" aria-label="자색옥수수 제품 사진 자리">
+              <span>자색옥수수</span>
+            </div>
+            <div class="product__body">
+              <p class="product__tag">PURPLE CORN</p>
+              <h3>자색옥수수 라인</h3>
+              <p>자색옥수수의 은은한 보랏빛과 고소한 곡물향. 한우 숯불구이 등 진한 요리와 어울립니다.</p>
+              <dl class="spec">
+                <div><dt>도수</dt><dd>[입력]%</dd></div>
+                <div><dt>용량</dt><dd>[입력]ml</dd></div>
+              </dl>
+              <a href="#" class="btn btn--line btn--sm" data-link="store">구매하기</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section" id="process">
+      <div class="container">
+        <p class="eyebrow center">PROCESS</p>
+        <h2 class="section__title center">한 병이 되기까지</h2>
+        <ol class="process">
+          <li><span>01</span><h3>원료 선별</h3><p>산돌배·자색옥수수·쌀 등 국내산 원료를 직접 선별합니다.</p></li>
+          <li><span>02</span><h3>발효</h3><p>배치마다 온도·당도·pH를 기록하며 저온에서 천천히 발효합니다.</p></li>
+          <li><span>03</span><h3>증류</h3><p>향의 핵심만 남기도록 초류·후류를 분리해 정성껏 증류합니다.</p></li>
+          <li><span>04</span><h3>숙성</h3><p>충분한 시간 동안 숙성해 거친 맛을 다듬고 향을 둥글게 만듭니다.</p></li>
+          <li><span>05</span><h3>병입·출고</h3><p>배치 번호를 부여해 소량씩 병입하고 직접 검수 후 출고합니다.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- GIFT -->
+    <section class="section section--dark" id="gift">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">GIFT &amp; LIMITED</p>
+          <h2 class="section__title">명절·기업 선물용<br>한정판 세트</h2>
+          <p class="section__desc">설·추석 명절, 기업 VIP 선물, 답례품용 한정판 세트를 소량 제작합니다. 수량이 한정되어 있어 사전 예약을 권장합니다.</p>
+        </div>
+        <div>
+          <ul class="checklist">
+            <li>선물용 전용 패키지 (보자기/케이스)</li>
+            <li>기업 로고·메시지 카드 삽입 가능 (최소 수량 협의)</li>
+            <li>배치 번호가 새겨진 한정판 넘버링</li>
+            <li>명절 시즌 사전 예약 및 일괄 배송</li>
+          </ul>
+          <a href="#visit" class="btn btn--primary">단체·기업 주문 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT / CONTACT -->
+    <section class="section" id="visit">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">CONTACT</p>
+          <h2 class="section__title">문의 · 오시는 길</h2>
+          <!-- TODO: 실제 정보로 교체 -->
+          <dl class="info">
+            <div><dt>주소</dt><dd>[양조장 주소 입력]</dd></div>
+            <div><dt>전화</dt><dd><a href="tel:000-0000-0000">[전화번호 입력]</a></dd></div>
+            <div><dt>이메일</dt><dd>[이메일 입력]</dd></div>
+            <div><dt>방문</dt><dd>1인 운영으로 <strong>사전 예약제</strong>로만 방문 가능합니다.</dd></div>
+          </dl>
+          <div class="channels">
+            <a href="#" class="btn btn--line btn--sm" data-link="store">네이버 스마트스토어</a>
+            <a href="#" class="btn btn--line btn--sm" data-link="kakao">카카오톡 채널</a>
+            <a href="#" class="btn btn--line btn--sm" data-link="instagram">인스타그램</a>
+          </div>
+        </div>
+        <form class="form" id="contactForm">
+          <label>이름 / 회사명<input type="text" name="name" required></label>
+          <label>연락처<input type="tel" name="phone" required></label>
+          <label>문의 유형
+            <select name="type">
+              <option>선물세트·기업 단체주문</option>
+              <option>양조장 방문 예약</option>
+              <option>입점·유통 제안</option>
+              <option>수출 문의 (Export)</option>
+              <option>기타</option>
+            </select>
+          </label>
+          <label>문의 내용<textarea name="message" rows="4" placeholder="희망 수량, 납품 일정 등을 적어 주세요."></textarea></label>
+          <button type="submit" class="btn btn--primary">문의 보내기</button>
+          <p class="form__note" id="formNote" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__warning">지나친 음주는 뇌졸중, 기억력 손상이나 치매를 유발합니다. 임신 중 음주는 기형아 출생 위험을 높입니다.<br>19세 미만 청소년에게는 주류를 판매하지 않습니다.</p>
+      <!-- TODO: 사업자 정보 입력 (전자상거래법 표시 의무) -->
+      <p class="footer__biz">
+        상호 킹스양조장 · 대표 [입력] · 사업자등록번호 [입력] · 통신판매업신고 [입력]<br>
+        주류제조면허 [입력] · 주소 [입력] · 고객센터 [입력]
+      </p>
+      <p class="footer__copy">© <span id="year"></span> KINGS BREWERY. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
