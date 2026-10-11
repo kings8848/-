@@ -1,16 +1,20 @@
-// ===== 외부 채널 링크 — 여기만 수정하면 사이트 전체 버튼에 반영됩니다 =====
+// ===== 링크 설정 — 주소만 넣으면 사이트 전체 버튼에 반영됩니다 =====
+// 판매는 네이버 스마트스토어로 통일합니다.
+// 상품별 주소(gb17·gb25·gb40)가 비어 있으면 스마트스토어 메인(store)으로 연결됩니다.
 const LINKS = {
-  store: "",      // 예: https://smartstore.naver.com/kingsbrewery
-  kakao: "",      // 예: https://pf.kakao.com/_xxxxx
-  instagram: "",  // 예: https://instagram.com/kingsbrewery
+  store: "", // 스마트스토어 메인    예: https://smartstore.naver.com/kingsbrewery
+  gb17: "",  // 금배주 17도 상품 주소 예: https://smartstore.naver.com/kingsbrewery/products/0000000000
+  gb25: "",  // 금배주 25도 상품 주소
+  gb40: "",  // 금배주 40도 상품 주소
+  kakao: "", // 카카오톡 채널        예: https://pf.kakao.com/_xxxxx
+  blog: "",  // 네이버 블로그        예: https://blog.naver.com/xxxxx
 };
 
-// 문의 폼 접수 주소 — Formspree(formspree.io) 무료 가입 후 받은 주소 입력
-// 입력하면 문의가 대표님 이메일로 바로 도착합니다 (손님 메일 앱 불필요)
-const FORM_ENDPOINT = ""; // 예: https://formspree.io/f/xxxxxxx
+const FALLBACK = { gb17: "store", gb25: "store", gb40: "store" };
 
 document.querySelectorAll("[data-link]").forEach((a) => {
-  const url = LINKS[a.dataset.link];
+  const key = a.dataset.link;
+  const url = LINKS[key] || LINKS[FALLBACK[key]];
   if (url) {
     a.href = url;
     a.target = "_blank";
@@ -18,12 +22,12 @@ document.querySelectorAll("[data-link]").forEach((a) => {
   } else {
     a.addEventListener("click", (e) => {
       e.preventDefault();
-      alert("준비 중입니다. 문의 폼 또는 전화로 연락 주세요.");
+      alert("준비 중입니다. 033-672-2888 로 문의해 주세요.");
     });
   }
 });
 
-// ===== 성인 인증 =====
+// ===== 성인 확인 =====
 const gate = document.getElementById("ageGate");
 let verified = false;
 try { verified = localStorage.getItem("kings_age_ok") === "1"; } catch (e) {}
@@ -50,42 +54,5 @@ nav.querySelectorAll("a").forEach((a) =>
     toggle.setAttribute("aria-expanded", "false");
   })
 );
-
-// ===== 개인정보 안내 =====
-const privacy = document.getElementById("privacy");
-const openPrivacy = () => { privacy.hidden = false; };
-document.getElementById("privacyOpen").addEventListener("click", openPrivacy);
-document.querySelectorAll("[data-privacy]").forEach((b) => b.addEventListener("click", openPrivacy));
-document.getElementById("privacyClose").addEventListener("click", () => { privacy.hidden = true; });
-
-// ===== 문의 폼 =====
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const note = document.getElementById("formNote");
-  if (!FORM_ENDPOINT) {
-    note.textContent = LINKS.kakao
-      ? "온라인 접수 준비 중입니다. 카카오톡 채널로 문의해 주세요."
-      : "온라인 접수 준비 중입니다. 전화로 문의해 주세요.";
-    return;
-  }
-  const btn = form.querySelector('button[type="submit"]');
-  btn.disabled = true;
-  note.textContent = "전송 중입니다...";
-  try {
-    const res = await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { Accept: "application/json" },
-    });
-    if (!res.ok) throw new Error(res.status);
-    form.reset();
-    note.textContent = "문의가 접수되었습니다. 빠르게 연락드리겠습니다.";
-  } catch (err) {
-    note.textContent = "전송에 실패했습니다. 잠시 후 다시 시도하거나 전화로 문의해 주세요.";
-  } finally {
-    btn.disabled = false;
-  }
-});
 
 document.getElementById("year").textContent = new Date().getFullYear();
