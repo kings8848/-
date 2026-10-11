@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>시음 리뷰 | 킹스양조장</title>
+  <meta name="description" content="킹스양조장 금배주 시음 리뷰. 맛보신 술의 한 줄 리뷰를 남겨주세요.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="review-page">
+  <!-- 시안: 실제로는 아임웹 '시음 리뷰' 페이지(/review)에 입력폼 위젯으로 구현합니다 -->
+  <header class="header">
+    <div class="wrap header__inner">
+      <a href="index.html" class="logo">킹스양조장<span>KINGS DISTILLERY</span></a>
+      <a href="index.html" class="header__back">홈으로</a>
+    </div>
+  </header>
+
+  <main class="review">
+    <section class="review__intro">
+      <p class="eyebrow">양양 구룡령 킹스양조장</p>
+      <h1>오늘 맛보신 술,<br>어떠셨나요?</h1>
+      <p>한 줄 리뷰가 다음 배치를 더 좋게 만듭니다.<br>1분이면 충분합니다.</p>
+    </section>
+
+    <form class="rform" id="reviewForm">
+      <label class="check"><input type="checkbox" required> <span><b>(필수)</b> 만 19세 이상입니다</span></label>
+
+      <fieldset>
+        <legend>어디서 맛보셨나요? <em>필수</em></legend>
+        <div class="chips">
+          <label><input type="radio" name="where" required><span>행사장</span></label>
+          <label><input type="radio" name="where"><span>양조장 방문</span></label>
+          <label><input type="radio" name="where"><span>선물 받음</span></label>
+          <label><input type="radio" name="where"><span>기타</span></label>
+        </div>
+        <input type="text" placeholder="행사 이름 (선택) 예: 양양 송이축제">
+      </fieldset>
+
+      <fieldset>
+        <legend>가장 마음에 든 술 <em>필수</em></legend>
+        <div class="chips">
+          <label><input type="radio" name="best" required><span>금배주 17도</span></label>
+          <label><input type="radio" name="best"><span>금배주 25도</span></label>
+          <label><input type="radio" name="best"><span>금배주 40도</span></label>
+          <label><input type="radio" name="best"><span>설락</span></label>
+          <label><input type="radio" name="best"><span>봉신설주</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>별점 <em>필수</em></legend>
+        <div class="stars">
+          <input type="radio" name="star" id="s5" required><label for="s5" title="5점">★</label>
+          <input type="radio" name="star" id="s4"><label for="s4" title="4점">★</label>
+          <input type="radio" name="star" id="s3"><label for="s3" title="3점">★</label>
+          <input type="radio" name="star" id="s2"><label for="s2" title="2점">★</label>
+          <input type="radio" name="star" id="s1"><label for="s1" title="1점">★</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>맛 느낌 (여러 개 선택)</legend>
+        <div class="chips">
+          <label><input type="checkbox"><span>향긋함</span></label>
+          <label><input type="checkbox"><span>부드러움</span></label>
+          <label><input type="checkbox"><span>달콤함</span></label>
+          <label><input type="checkbox"><span>깔끔함</span></label>
+          <label><input type="checkbox"><span>진함</span></label>
+          <label><input type="checkbox"><span>독함</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>구매 의향</legend>
+        <div class="chips">
+          <label><input type="radio" name="buy"><span>본인용</span></label>
+          <label><input type="radio" name="buy"><span>선물용</span></label>
+          <label><input type="radio" name="buy"><span>아직 모르겠음</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>한 줄 리뷰 <em>필수</em></legend>
+        <textarea rows="3" required placeholder="향, 맛, 어울릴 음식 등 자유롭게 적어주세요."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>리뷰를 홈페이지에 소개해도 될까요? (이름 비공개) <em>필수</em></legend>
+        <div class="chips">
+          <label><input type="radio" name="share" required><span>예</span></label>
+          <label><input type="radio" name="share"><span>아니오</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="lucky">
+        <legend>추첨 참여 (선택)</legend>
+        <input type="text" placeholder="이름">
+        <input type="tel" placeholder="휴대폰 번호">
+        <label class="check"><input type="checkbox"> <span>개인정보 수집·이용에 동의합니다 (추첨 참여 시)</span></label>
+        <p class="rform__small">수집 항목: 이름, 휴대폰 번호 · 목적: 이벤트 추첨 및 경품 발송 · 보유 기간: 추첨·발송 완료 후 즉시 파기. 동의하지 않으셔도 리뷰 작성은 가능합니다.</p>
+      </fieldset>
+
+      <button type="submit" class="btn btn--gold btn--block">리뷰 보내기</button>
+      <p class="rform__done" id="done" role="status"></p>
+    </form>
+
+    <section class="review__next">
+      <h2>감사합니다. 이렇게 이어가 보세요</h2>
+      <a href="#" class="btn btn--line-dark btn--block" data-link="kakao">카카오톡 채널 추가하고 소식 받기</a>
+      <a href="#" class="btn btn--store btn--block" data-link="store">네이버 스마트스토어에서 구매하기</a>
+      <p class="rform__small">구매는 네이버 스마트스토어에서 성인인증 후 가능합니다.<br>지나친 음주는 건강을 해칩니다.</p>
+    </section>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

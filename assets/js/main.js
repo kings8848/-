@@ -27,32 +27,47 @@ document.querySelectorAll("[data-link]").forEach((a) => {
   }
 });
 
-// ===== 성인 확인 =====
+// ===== 성인 확인 (메인 페이지) =====
 const gate = document.getElementById("ageGate");
-let verified = false;
-try { verified = localStorage.getItem("kings_age_ok") === "1"; } catch (e) {}
-if (!verified) {
-  gate.hidden = false;
-  document.body.style.overflow = "hidden";
+if (gate) {
+  let verified = false;
+  try { verified = localStorage.getItem("kings_age_ok") === "1"; } catch (e) {}
+  if (!verified) {
+    gate.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  document.getElementById("ageYes").addEventListener("click", () => {
+    try { localStorage.setItem("kings_age_ok", "1"); } catch (e) {}
+    gate.hidden = true;
+    document.body.style.overflow = "";
+  });
 }
-document.getElementById("ageYes").addEventListener("click", () => {
-  try { localStorage.setItem("kings_age_ok", "1"); } catch (e) {}
-  gate.hidden = true;
-  document.body.style.overflow = "";
-});
 
 // ===== 모바일 메뉴 =====
 const toggle = document.getElementById("navToggle");
 const nav = document.getElementById("nav");
-toggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("is-open");
-  toggle.setAttribute("aria-expanded", open);
-});
-nav.querySelectorAll("a").forEach((a) =>
-  a.addEventListener("click", () => {
-    nav.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-  })
-);
+if (toggle && nav) {
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", open);
+  });
+  nav.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    })
+  );
+}
 
-document.getElementById("year").textContent = new Date().getFullYear();
+// ===== 시음 리뷰 폼 (시안 — 실제 접수는 아임웹 입력폼) =====
+const reviewForm = document.getElementById("reviewForm");
+if (reviewForm) {
+  reviewForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    document.getElementById("done").textContent =
+      "시안 화면입니다. 실제 접수는 아임웹 입력폼으로 연결됩니다.";
+  });
+}
+
+const year = document.getElementById("year");
+if (year) year.textContent = new Date().getFullYear();
