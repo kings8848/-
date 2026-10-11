@@ -5,8 +5,9 @@ const LINKS = {
   instagram: "",  // 예: https://instagram.com/kingsbrewery
 };
 
-// 문의 폼 수신 이메일 (폼 제출 시 메일 앱으로 연결)
-const CONTACT_EMAIL = ""; // 예: hello@kingsbrewery.kr
+// 문의 폼 접수 주소 — Formspree(formspree.io) 무료 가입 후 받은 주소 입력
+// 입력하면 문의가 대표님 이메일로 바로 도착합니다 (손님 메일 앱 불필요)
+const FORM_ENDPOINT = ""; // 예: https://formspree.io/f/xxxxxxx
 
 document.querySelectorAll("[data-link]").forEach((a) => {
   const url = LINKS[a.dataset.link];
@@ -50,19 +51,41 @@ nav.querySelectorAll("a").forEach((a) =>
   })
 );
 
+// ===== 개인정보 안내 =====
+const privacy = document.getElementById("privacy");
+const openPrivacy = () => { privacy.hidden = false; };
+document.getElementById("privacyOpen").addEventListener("click", openPrivacy);
+document.querySelectorAll("[data-privacy]").forEach((b) => b.addEventListener("click", openPrivacy));
+document.getElementById("privacyClose").addEventListener("click", () => { privacy.hidden = true; });
+
 // ===== 문의 폼 =====
-document.getElementById("contactForm").addEventListener("submit", (e) => {
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const f = new FormData(e.target);
+  const form = e.target;
   const note = document.getElementById("formNote");
-  if (!CONTACT_EMAIL) {
-    note.textContent = "수신 이메일이 아직 설정되지 않았습니다. 전화로 문의 부탁드립니다.";
+  if (!FORM_ENDPOINT) {
+    note.textContent = LINKS.kakao
+      ? "온라인 접수 준비 중입니다. 카카오톡 채널로 문의해 주세요."
+      : "온라인 접수 준비 중입니다. 전화로 문의해 주세요.";
     return;
   }
-  const subject = `[킹스양조장 문의] ${f.get("type")} - ${f.get("name")}`;
-  const body = `이름/회사: ${f.get("name")}\n연락처: ${f.get("phone")}\n유형: ${f.get("type")}\n\n${f.get("message")}`;
-  location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  note.textContent = "메일 앱이 열립니다. 전송을 눌러 주세요.";
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  note.textContent = "전송 중입니다...";
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(res.status);
+    form.reset();
+    note.textContent = "문의가 접수되었습니다. 빠르게 연락드리겠습니다.";
+  } catch (err) {
+    note.textContent = "전송에 실패했습니다. 잠시 후 다시 시도하거나 전화로 문의해 주세요.";
+  } finally {
+    btn.disabled = false;
+  }
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();

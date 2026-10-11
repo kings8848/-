@@ -18,9 +18,11 @@
 | 1 | 사업자 정보 (대표자, 사업자번호, 통신판매업 신고번호, 주류제조면허) — **전자상거래법 필수** | `index.html` footer `[입력]` |
 | 2 | 제품 규격 (주종·도수·용량·원료) | `index.html` 제품 섹션 `[입력]` |
 | 3 | 스마트스토어 / 카카오채널 / 인스타 URL | `assets/js/main.js` `LINKS` |
-| 4 | 문의 수신 이메일 | `assets/js/main.js` `CONTACT_EMAIL` |
+| 4 | 문의 접수 주소 (Formspree 무료 가입 → 주소 복사) | `assets/js/main.js` `FORM_ENDPOINT` |
 | 5 | 주소 · 전화번호 | `index.html` 문의 섹션 |
-| 6 | 사진 교체: `hero.jpg`, `bongsin.jpg`, 돌배·자색옥수수 제품컷, `og-image.jpg`(1200×630) | `assets/img/` + `style.css` 의 `TODO` 주석 |
+| 6 | 개인정보 보호책임자 이름·연락처 | `index.html` 개인정보 안내 `[대표자명]` |
+| 7 | 원료 원산지 확인 후 문구 확정 (표시광고법) | `index.html` 스토리·공정 섹션 |
+| 8 | 사진 교체: `hero.jpg`, `bongsin.jpg`, 돌배·자색옥수수 제품컷, `og-image.jpg`(1200×630) | `assets/img/` + `style.css` 의 `TODO` 주석 |
 
 ## 무료 배포 (GitHub Pages)
 
@@ -40,3 +42,4 @@
 
 - 만 19세 성인 확인 팝업
 - 과음 경고문구 · 청소년 판매 금지 문구 (footer)
+- 문의 폼 개인정보 수집·이용 동의 (필수 체크) + 개인정보처리방침

@@ -9,7 +9,10 @@
   <meta property="og:description" content="산돌배와 자색옥수수로 빚는 프리미엄 특산주, 1인 양조장이 직접 빚고 숙성합니다.">
   <meta property="og:type" content="website">
   <!-- TODO: 대표 이미지 교체 후 경로 입력 (1200x630) -->
+  <!-- TODO: 도메인 연결 후 전체 주소로 교체 (예: https://kingsbrewery.kr/assets/img/og-image.jpg) -->
   <meta property="og:image" content="assets/img/og-image.jpg">
+  <meta property="og:url" content="">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234b2360'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d9bf86' font-family='serif' font-weight='700'%3E%ED%82%B9%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -42,6 +45,7 @@
         <a href="#process">빚는 과정</a>
         <a href="#gift">선물·단체주문</a>
         <a href="#visit">문의·오시는 길</a>
+        <a href="#en" lang="en">EN</a>
         <!-- TODO: 스마트스토어 URL 입력 -->
         <a href="#" class="nav__cta" data-link="store">구매하기</a>
       </nav>
@@ -71,10 +75,10 @@
           <h2 class="section__title">작은 양조장,<br>타협하지 않는 한 병</h2>
         </div>
         <div class="story__text">
-          <p>킹스양조장은 대표 한 사람이 운영하는 소규모 전통주 양조장입니다. 대량생산 대신 <strong>지역 원료</strong>와 <strong>긴 숙성</strong>, 그리고 <strong>데이터로 기록하는 양조</strong>를 택했습니다.</p>
+          <p>킹스양조장은 대표 한 사람이 운영하는 소규모 전통주 양조장입니다. 대량생산 대신 <strong>엄선한 원료</strong>와 <strong>충분한 숙성</strong>, 그리고 <strong>데이터로 기록하는 양조</strong>를 택했습니다.</p>
           <p>산에서 자란 돌배의 향, 자색옥수수의 깊은 빛깔을 술에 담기 위해 매 배치의 온도·당도·알코올 도수를 기록하고, 가장 좋은 결과만 병에 담습니다.</p>
           <ul class="stats">
-            <li><b>100%</b><span>국내산 원료</span></li>
+            <li><b>소량</b><span>배치 생산</span></li>
             <li><b>1인</b><span>전 공정 직접 관리</span></li>
             <li><b>배치별</b><span>발효·숙성 기록</span></li>
           </ul>
@@ -150,9 +154,9 @@
         <p class="eyebrow center">PROCESS</p>
         <h2 class="section__title center">한 병이 되기까지</h2>
         <ol class="process">
-          <li><span>01</span><h3>원료 선별</h3><p>산돌배·자색옥수수·쌀 등 국내산 원료를 직접 선별합니다.</p></li>
+          <li><span>01</span><h3>원료 선별</h3><p>산돌배·자색옥수수 등 원료를 직접 확인하고 선별합니다.</p></li>
           <li><span>02</span><h3>발효</h3><p>배치마다 온도·당도·pH를 기록하며 저온에서 천천히 발효합니다.</p></li>
-          <li><span>03</span><h3>증류</h3><p>향의 핵심만 남기도록 초류·후류를 분리해 정성껏 증류합니다.</p></li>
+          <li><span>03</span><h3>증류 <em class="step-note">증류주 한정</em></h3><p>증류주는 향의 핵심만 남기도록 초류·후류를 분리해 증류합니다.</p></li>
           <li><span>04</span><h3>숙성</h3><p>충분한 시간 동안 숙성해 거친 맛을 다듬고 향을 둥글게 만듭니다.</p></li>
           <li><span>05</span><h3>병입·출고</h3><p>배치 번호를 부여해 소량씩 병입하고 직접 검수 후 출고합니다.</p></li>
         </ol>
@@ -175,6 +179,21 @@
             <li>명절 시즌 사전 예약 및 일괄 배송</li>
           </ul>
           <a href="#visit" class="btn btn--primary">단체·기업 주문 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENGLISH (수출 바이어용) -->
+    <section class="section section--tint" id="en" lang="en">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">FOR GLOBAL PARTNERS</p>
+          <h2 class="section__title">Kings Brewery, Korea</h2>
+        </div>
+        <div class="story__text">
+          <p>Kings Brewery is a one-person craft brewery producing premium Korean traditional liquor in small batches. Our signature, <strong>Bongsin Seolju</strong>, along with our <strong>wild pear</strong> and <strong>purple corn</strong> lines, is made, aged and bottled by hand, with every batch recorded from fermentation to bottling.</p>
+          <p>We welcome inquiries from importers, distributors and restaurants. Please use the inquiry form below and select <em>Export</em>.</p>
+          <a href="#visit" class="btn btn--line btn--sm">Contact for Export</a>
         </div>
       </div>
     </section>
@@ -211,12 +230,27 @@
             </select>
           </label>
           <label>문의 내용<textarea name="message" rows="4" placeholder="희망 수량, 납품 일정 등을 적어 주세요."></textarea></label>
+          <label class="consent"><input type="checkbox" name="consent" required> <span>(필수) 개인정보 수집·이용에 동의합니다. <button type="button" class="link-btn" id="privacyOpen">내용 보기</button></span></label>
           <button type="submit" class="btn btn--primary">문의 보내기</button>
           <p class="form__note" id="formNote" role="status"></p>
         </form>
       </div>
     </section>
   </main>
+
+  <!-- 개인정보처리방침 (개인정보보호법) -->
+  <div class="age-gate" id="privacy" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" hidden>
+    <div class="age-gate__box privacy">
+      <h2 id="privacyTitle">개인정보 수집·이용 안내</h2>
+      <table>
+        <tr><th>수집 항목</th><td>이름(회사명), 연락처, 문의 내용</td></tr>
+        <tr><th>이용 목적</th><td>문의 답변, 주문·방문 상담</td></tr>
+        <tr><th>보유 기간</th><td>문의 처리 완료 후 1년 이내 파기 (관계 법령에 따라 보존이 필요한 경우 해당 기간)</td></tr>
+      </table>
+      <p>동의를 거부할 수 있으나, 거부 시 문의 접수가 제한됩니다.<br>개인정보 보호책임자: [대표자명] / [연락처]</p>
+      <button class="btn btn--primary" id="privacyClose">확인</button>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="container">
@@ -226,6 +260,7 @@
         상호 킹스양조장 · 대표 [입력] · 사업자등록번호 [입력] · 통신판매업신고 [입력]<br>
         주류제조면허 [입력] · 주소 [입력] · 고객센터 [입력]
       </p>
+      <p class="footer__links"><button type="button" class="link-btn" data-privacy>개인정보처리방침</button></p>
       <p class="footer__copy">© <span id="year"></span> KINGS BREWERY. All rights reserved.</p>
     </div>
   </footer>

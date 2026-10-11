@@ -186,3 +186,18 @@ img { max-width: 100%; display: block; }
   .stats b { font-size: 21px; }
   .form { padding: 24px; }
 }
+
+/* ---------- 추가: 동의·개인정보·단계 표시 ---------- */
+.step-note { font: 500 11px/1 var(--sans); font-style: normal; color: var(--gold); border: 1px solid var(--gold-light); border-radius: 999px; padding: 3px 8px; vertical-align: middle; margin-left: 4px; }
+.consent { display: flex !important; grid-template-columns: none; align-items: flex-start; gap: 8px !important; font-weight: 400 !important; font-size: 13.5px !important; color: var(--muted); }
+.consent input { margin-top: 5px; width: 16px; height: 16px; accent-color: var(--purple-700); padding: 0; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--purple-700); text-decoration: underline; cursor: pointer; }
+.footer .link-btn { color: #d6cadb; }
+.footer__links { margin-bottom: 8px; }
+.privacy { text-align: left; max-width: 480px; }
+.privacy h2 { font-size: 21px; margin-top: 0; }
+.privacy table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0; }
+.privacy th, .privacy td { border-top: 1px solid var(--line); padding: 10px 6px; text-align: left; vertical-align: top; }
+.privacy th { width: 84px; color: var(--muted); font-weight: 500; }
+.privacy p { font-size: 13px !important; margin-bottom: 20px; }
+.privacy .btn { width: 100%; }
