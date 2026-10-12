@@ -1,0 +1,48 @@
+<!-- ===== 킹스양조장 상단 메뉴 (아임웹 붙여넣기용) =====
+     ① 아래 [스마트스토어주소]만 실제 주소로 바꾸세요.
+     ② 메뉴 주소(/choose 등)는 아임웹 각 페이지의 URL과 같게 맞추세요.
+     모든 이름이 ks- 로 시작해서 아임웹 기존 디자인과 섞이지 않습니다. -->
+<style>
+  .ks-space { height: 72px; }
+  .ks-head { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #281820; color: #F4EFE5; font-family: Pretendard, "Noto Sans KR", sans-serif; border-bottom: 1px solid rgba(184,148,82,.25); }
+  .ks-head * { box-sizing: border-box; }
+  .ks-in { max-width: 1200px; height: 72px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+  .ks-logo { display: inline-flex; flex-direction: column; gap: 6px; color: #F4EFE5 !important; text-decoration: none !important; font: 600 20px/1 "Noto Serif KR", serif; }
+  .ks-logo small { font: 600 9px/1 Pretendard, sans-serif; letter-spacing: .36em; color: #B89452; }
+  .ks-nav { display: flex; align-items: center; gap: 28px; }
+  .ks-nav a { color: #F4EFE5 !important; text-decoration: none !important; font-size: 15px; }
+  .ks-nav a:hover { color: #B89452 !important; }
+  .ks-nav .ks-store { font-weight: 600; border-bottom: 1px solid #F4EFE5; padding-bottom: 2px; }
+  .ks-t, .ks-burger { display: none; }
+  @media (max-width: 768px) {
+    .ks-space { height: 60px; }
+    .ks-in { height: 60px; padding: 0 20px; }
+    .ks-logo { font-size: 18px; }
+    .ks-burger { display: block; width: 30px; cursor: pointer; }
+    .ks-burger span { display: block; height: 1.5px; background: #F4EFE5; margin: 7px 0; transition: .2s; }
+    .ks-nav { position: fixed; top: 60px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #281820; max-height: 0; overflow: hidden; transition: max-height .3s; }
+    .ks-nav a { padding: 16px 20px; border-top: 1px solid #3d2b34; font-size: 16px; }
+    .ks-nav .ks-store { border-bottom: 0; color: #B89452 !important; }
+    .ks-t:checked ~ .ks-nav { max-height: 480px; }
+    .ks-t:checked + .ks-burger span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .ks-t:checked + .ks-burger span:nth-child(2) { opacity: 0; }
+    .ks-t:checked + .ks-burger span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+  }
+</style>
+
+<div class="ks-space"></div>
+<header class="ks-head">
+  <div class="ks-in">
+    <a href="/" class="ks-logo">킹스양조장<small>KINGS DISTILLERY</small></a>
+    <input type="checkbox" id="ks-t" class="ks-t">
+    <label for="ks-t" class="ks-burger" aria-label="메뉴 열기"><span></span><span></span><span></span></label>
+    <nav class="ks-nav">
+      <a href="/choose">술 고르기</a>
+      <a href="/story">금배주 이야기</a>
+      <a href="/sogeum">소+금 프로젝트</a>
+      <a href="/review">시음 리뷰</a>
+      <a href="/visit">방문·납품</a>
+      <a href="[스마트스토어주소]" class="ks-store" target="_blank" rel="noopener">스마트스토어 →</a>
+    </nav>
+  </div>
+</header>
