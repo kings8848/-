@@ -3,122 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>금배주 17도 | 처음 만나는 금배주 | 킹스양조장</title>
-  <meta name="description" content="금배주 17도 — 구룡령 산돌배의 산뜻한 향과 부드러운 목넘김. 리큐르 17% 375ml. 구매는 네이버 스마트스토어에서.">
+  <title>금배주 17도 · 처음 만나는 금배주 | 킹스양조장</title>
+  <meta name="description" content="옥수수로 증류한 술에 구룡령 산돌배의 향을 더한 금배주 17도. 리큐르 · 17% · 375mL. 구매는 네이버 스마트스토어에서.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- 상세페이지 공통 틀: 25도·40도도 같은 순서로 만든다 -->
-  <p class="verify-note">시안 안내: <span class="verify">점선 밑줄</span> 문구는 대표님 확인 후 확정</p>
-
+  <p class="verify-note">시안 · <span class="verify">점선 밑줄</span>은 대표님 확인 후 확정</p>
   <header class="header is-light is-fixed" id="header">
     <div class="wrap header__in">
       <a href="index.html" class="logo">킹스양조장<small>KINGS DISTILLERY</small></a>
-      <a href="#" class="btn btn--buy btn--sm" data-link="store">스마트스토어</a>
+      <a href="index.html#choose" class="nav__store">술 고르기</a>
     </div>
   </header>
 
   <main class="wrap">
-    <p class="crumb"><a href="index.html#choose">술 고르기</a> › 금배주 17도</p>
-
-    <!-- ① 첫 화면: 무엇인가 + 구매 (스크롤 없이 보이게) -->
-    <section class="pdp-hero">
-      <!-- TODO: 실제 병 사진 + 잔에 따른 사진 2~3장 (잔·손이 오른쪽을 향하게) -->
-      <div class="pdp-hero__img"><span class="bottle b17" style="transform:scale(1.7)"><i>金</i><em>금배주</em><b>17</b></span></div>
-      <div>
-        <p class="kicker">17° FIRST CHOICE</p>
-        <h1>처음 만나는 금배주</h1>
-        <p class="sub">구룡령 산돌배의 산뜻한 향과 부드러운 목넘김.<br>식사와 함께 편안하게 즐기는 첫 금배주입니다.</p>
-        <div class="chips"><span>리큐르</span><span>17%</span><span>375ml</span><span>양양 구룡령</span></div>
-        <a href="#" class="btn btn--buy btn--block" data-link="gb17">스마트스토어에서 구매하기</a>
-        <p class="trust"><span>네이버 성인인증</span><span>네이버페이 결제</span><span>배송·교환은 스마트스토어</span></p>
+    <p class="crumb"><a href="index.html#choose">술 고르기</a> · 금배주 17도</p>
+    <div class="pdp">
+      <!-- 왼쪽: 제품 이미지 (PC에서 스크롤 초반 고정) -->
+      <div class="pdp__media">
+        <!-- TODO: 병 단독 → 잔에 따르는 장면(손·잔은 오른쪽 방향) → 한우 식탁 순서로 2~3장 -->
+        <div class="pdp__img"><span class="bottle b17"><i>金</i><em>금배주</em><b>17</b></span></div>
       </div>
-    </section>
 
-    <!-- ② 누구에게 맞나 -->
-    <section class="pdp-block">
-      <h2 class="h2">이런 분께 권합니다</h2>
-      <ul class="fit">
-        <li>금배주를 처음 마셔보는 분</li>
-        <li>식사 자리의 첫 잔을 찾는 분</li>
-        <li>한우 · 한식과 가볍게 곁들이고 싶은 분</li>
-      </ul>
-    </section>
+      <div class="pdp__body">
+        <section class="pdp__first">
+          <p class="kicker">17° FIRST CHOICE</p>
+          <h1>처음 만나는 금배주</h1>
+          <p class="lead">옥수수로 증류한 술에 구룡령 산돌배의 향을 더했습니다. 산돌배 향을 편안하게 즐기는 첫 금배주입니다.</p>
+          <p class="specline">리큐르 · 17% · 375mL · 양양 구룡령</p>
+          <a href="#" class="btn btn--naver btn--block" data-link="gb17">네이버 스마트스토어에서 구매하기</a>
+          <p class="trustline">네이버 성인인증 · 네이버페이 결제 · 배송과 교환은 스마트스토어 기준</p>
+        </section>
 
-    <!-- ③ 맛의 지도 (감각 단어 + 시각화) -->
-    <section class="pdp-block">
-      <h2 class="h2">맛의 지도</h2>
-      <p class="sub narrow" style="margin-bottom:28px">코끝에 먼저 닿는 산돌배 향, 입안에서는 둥글고 가볍게, 목을 넘긴 뒤에는 산뜻하게 끝납니다.</p>
-      <div class="taste verify-block">
-        <div class="taste__row"><span>산돌배 향</span><span class="taste__bar"><i style="width:70%"></i></span><small class="verify">중간 이상</small></div>
-        <div class="taste__row"><span>단맛</span><span class="taste__bar"><i style="width:50%"></i></span><small class="verify">부드러움</small></div>
-        <div class="taste__row"><span>알코올감</span><span class="taste__bar"><i style="width:30%"></i></span><small class="verify">낮음</small></div>
-        <div class="taste__row"><span>여운</span><span class="taste__bar"><i style="width:55%"></i></span><small class="verify">산뜻함</small></div>
+        <section class="blk">
+          <p class="kicker">FOR YOU</p>
+          <h2>이런 분께 권합니다</h2>
+          <ul class="fit3">
+            <li><small>01</small>금배주가 처음인 분</li>
+            <li><small>02</small>식사와 함께 마실 분</li>
+            <li><small>03</small>한우 · 한식에 어울리는 술을 찾는 분</li>
+          </ul>
+        </section>
+
+        <section class="blk">
+          <p class="kicker">TASTE</p>
+          <h2>맛의 지도</h2>
+          <p class="sense">코끝에는 산돌배 향이 먼저 닿고,<br>입안에서는 둥글고 가볍게,<br>목을 넘긴 뒤에는 산뜻하게 끝납니다.</p>
+          <div class="dots">
+            <div><span>산돌배 향</span><i class="verify">●●●○○</i><small>은은하게</small></div>
+            <div><span>단맛</span><i class="verify">●●○○○</i><small>부드럽게</small></div>
+            <div><span>알코올감</span><i class="verify">●●○○○</i><small>낮게</small></div>
+            <div><span>여운</span><i class="verify">●●●○○</i><small>산뜻하게</small></div>
+          </div>
+        </section>
+
+        <section class="blk">
+          <p class="kicker">HOW TO</p>
+          <h2>이렇게 즐기세요</h2>
+          <div class="scene">
+            <p><span class="verify">8~12℃로 차갑게.</span><br>작은 잔에 한 모금씩.<br>한우와 한식 곁에 놓아보세요.</p>
+            <div class="scene__img">잔을 드는 손<br>실사진 자리</div>
+          </div>
+        </section>
+
+        <section class="blk">
+          <p class="kicker">FROM FIELD TO BOTTLE</p>
+          <h2>밭에서 병까지</h2>
+          <ol class="timeline">
+            <li><b class="verify">2006 · 산돌배나무를 심다</b><span>구룡령 고추밭, 200그루</span></li>
+            <li><b class="verify">7년 · 첫 열매를 기다리다</b><span>나무가 술이 될 만큼 자라는 시간</span></li>
+            <li><b class="verify">증류 · 1차 감압, 2차 상압</b><span>옥수수로 빚은 술을 두 번 증류</span></li>
+            <li><b>향 · 구룡령 산돌배로 완성하다</b><span>산돌배를 침출해 100일 이상 숙성 후 병입</span></li>
+          </ol>
+        </section>
+
+        <section class="blk">
+          <p class="kicker">TASTING NOTES</p>
+          <h2>맛본 분들의 한 줄</h2>
+          <div class="quotes quotes-v">
+            <figure class="quote quote--empty">금배주 17° 실제 리뷰 ①</figure>
+            <figure class="quote quote--empty">금배주 17° 실제 리뷰 ②</figure>
+            <figure class="quote quote--empty">금배주 17° 실제 리뷰 ③</figure>
+          </div>
+          <div class="tlinks"><a href="review.html" class="tlink tlink--arrow">시음 리뷰 남기기</a></div>
+        </section>
+
+        <section class="blk faq">
+          <p class="kicker">FAQ</p>
+          <h2>자주 묻는 질문</h2>
+          <details open><summary>어디서 살 수 있나요?</summary><p>네이버 스마트스토어에서만 판매합니다. 구매 버튼을 누르면 금배주 17도 상품으로 바로 이동합니다.</p></details>
+          <details><summary>성인인증은 어떻게 하나요?</summary><p>주류는 만 19세 이상만 구매할 수 있으며, 스마트스토어에서 네이버 성인인증 후 결제합니다.</p></details>
+          <details><summary>배송 · 교환 · 반품은요?</summary><p>스마트스토어의 배송·교환·반품 안내를 따릅니다. 033-672-2888로 문의하셔도 됩니다.</p></details>
+          <details><summary>어떻게 보관하나요?</summary><p>직사광선을 피해 서늘한 곳에 보관해 주세요.</p></details>
+        </section>
+
+        <section class="blk">
+          <p class="kicker">OTHER DEPTHS</p>
+          <h2>더 깊은 금배주</h2>
+          <div class="others">
+            <a href="index.html#gb25"><b>25°</b><span>향과 깊이의 균형<small>소주는 익숙하고, 향을 더 원한다면</small></span></a>
+            <a href="index.html#gb40"><b>40°</b><span>천천히 즐기는 깊이<small>위스키 · 고량주를 즐긴다면</small></span></a>
+          </div>
+        </section>
       </div>
-    </section>
-
-    <!-- ④ 즐기는 법 -->
-    <section class="pdp-block">
-      <h2 class="h2">이렇게 즐기세요</h2>
-      <ol class="how">
-        <li><b class="verify">8~12℃로 차갑게</b><span>냉장고에서 꺼내 바로, 그대로 따릅니다.</span></li>
-        <li><b>작은 잔에 한 모금</b><span>향이 먼저 올라오도록 잔을 가득 채우지 않습니다.</span></li>
-        <li><b>한우 · 한식과 함께</b><span>구운 고기 한 점 뒤에 한 모금, 입안이 산뜻하게 정리됩니다.</span></li>
-      </ol>
-    </section>
-
-    <!-- ⑤ 원료와 만드는 법 (산지 진정성) -->
-    <section class="pdp-block">
-      <h2 class="h2">밭에서 병까지</h2>
-      <ul class="facts" style="max-width:640px">
-        <li><b>원료</b>자색옥수수 증류원액, 구룡령 산돌배 추출액</li>
-        <li><b>산돌배</b><span class="verify">2006년 구룡령에 직접 심은 산돌배나무</span></li>
-        <li><b>만드는 법</b>증류 원액에 산돌배를 침출해 정제</li>
-        <li><b>숙성</b>100일 이상 자연 숙성 후 병입</li>
-      </ul>
-      <p style="margin-top:16px"><a href="index.html#origin" class="link">킹스양조장 이야기 보기</a></p>
-    </section>
-
-    <!-- ⑥ 실제 리뷰 -->
-    <section class="pdp-block">
-      <h2 class="h2">맛본 분들의 한 줄</h2>
-      <div class="reviews">
-        <div class="rcard rcard--empty">금배주 17도 실제 리뷰 ①</div>
-        <div class="rcard rcard--empty">금배주 17도 실제 리뷰 ②</div>
-        <div class="rcard rcard--empty">금배주 17도 실제 리뷰 ③</div>
-      </div>
-      <p style="margin-top:18px"><a href="review.html" class="link">시음 리뷰 남기기</a></p>
-    </section>
-
-    <!-- ⑦ 자주 묻는 질문 (구매 직전 불안 해소) -->
-    <section class="pdp-block faq">
-      <h2 class="h2">자주 묻는 질문</h2>
-      <details open><summary>어디서 살 수 있나요?</summary><p>네이버 스마트스토어에서만 판매합니다. 위의 구매 버튼을 누르면 금배주 17도 상품 페이지로 바로 이동합니다.</p></details>
-      <details><summary>성인인증은 어떻게 하나요?</summary><p>주류는 만 19세 이상만 구매할 수 있으며, 스마트스토어에서 네이버 성인인증 후 결제합니다.</p></details>
-      <details><summary>배송 · 교환 · 반품은요?</summary><p>스마트스토어의 배송·교환·반품 안내를 따릅니다. 문의는 033-672-2888로 주셔도 됩니다.</p></details>
-      <details><summary>어떻게 보관하나요?</summary><p>직사광선을 피해 서늘한 곳에 보관해 주세요. <span class="verify">마시기 전에는 냉장 보관을 권합니다.</span></p></details>
-    </section>
-
-    <!-- ⑧ 다른 도수 비교 -->
-    <section class="pdp-block">
-      <h2 class="h2">더 깊은 맛을 원한다면</h2>
-      <div class="compare">
-        <a href="index.html#gb25"><b>25°</b><span><strong>향과 깊이의 균형</strong></span><small>소주는 익숙하고, 향을 더 원한다면</small></a>
-        <a href="index.html#gb40"><b>40°</b><span><strong>천천히 즐기는 깊이</strong></span><small>위스키 · 고량주를 즐긴다면</small></a>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <!-- ⑨ 마지막 구매 -->
   <section class="final">
     <div class="wrap">
-      <h2 class="h2">처음 만나는 금배주, 17도</h2>
-      <p>구룡령 산돌배의 향을 오늘 저녁 식탁에.</p>
-      <a href="#" class="btn btn--buy" data-link="gb17">스마트스토어에서 구매하기</a>
+      <h2 class="h2">처음 만나는 금배주,<br>17도부터.</h2>
+      <p>옥수수로 증류하고 구룡령 산돌배로 향을 만든 술.</p>
+      <a href="#" class="btn btn--naver" data-link="gb17">금배주 17도 구매하기</a>
     </div>
   </section>
 
@@ -129,11 +128,7 @@
     </div>
   </footer>
 
-  <div class="dock">
-    <a href="index.html#choose" class="btn btn--line">다른 도수</a>
-    <a href="#" class="btn btn--buy" data-link="gb17">17도 구매하기</a>
-  </div>
-
+  <div class="dock"><a href="#" class="btn btn--naver" data-link="gb17">금배주 17도 구매하기</a></div>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
