@@ -1,50 +1,54 @@
-<!-- ===== 킹스양조장 "신뢰 · 정직 · 전통" 섹션 (아임웹 붙여넣기용) · 모든 이름 kt- 로 시작 ===== -->
+<!-- ===== 킹스양조장 "신뢰 · 정직 · 전통" 섹션 + 산돌배 그림 배경 (아임웹 붙여넣기용) =====
+     바꿀 곳 1곳: [산돌배그림주소] → 아임웹에 올린 산돌배 가지 그림 주소
+     바탕색 #FCF6E7 은 그림 바탕색에 맞춘 값 · 모든 이름 kt- 로 시작 -->
 <style>
-  .kt { --plum:#281820; --ivory:#F4EFE5; --gold:#B89452; --ink:#1C1818; --muted:#6A625D; --line:#D8CFC2; background: var(--ivory); color: var(--ink); padding: 120px 24px; font-family: Pretendard, "Noto Sans KR", sans-serif; text-align: center; }
+  .kt { --plum:#281820; --gold:#B89452; --ink:#1C1818; --muted:#6A625D; --line:#E2D6C2; --paper:#FCF6E7; background: var(--paper); color: var(--ink); font-family: Pretendard, "Noto Sans KR", sans-serif; display: grid; grid-template-columns: 46fr 54fr; min-height: 92vh; }
   .kt * { box-sizing: border-box; }
-  .kt-in { max-width: 1100px; margin: 0 auto; }
-  .kt-title { font: 600 clamp(32px, 4.4vw, 52px)/1.3 "Noto Serif KR", serif; letter-spacing: .08em; color: var(--plum); margin: 0; }
-  .kt-rule { width: 2px; height: 48px; background: var(--gold); margin: 28px auto; }
-  .kt-quote { font: 500 clamp(20px, 2.4vw, 26px)/1.6 "Noto Serif KR", serif; color: var(--ink); margin: 0; }
-  .kt-cols { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .kt-col { padding: 44px 28px; }
-  .kt-col + .kt-col { border-left: 1px solid var(--line); }
-  .kt-word { font: 600 13px/1 Pretendard, sans-serif; letter-spacing: .3em; color: var(--gold); margin: 0; }
-  .kt-head { font: 600 22px/1.45 "Noto Serif KR", serif; color: var(--plum); margin: 16px 0 12px; }
-  .kt-text { font-size: 16px; line-height: 1.8; color: var(--muted); margin: 0; }
-  .kt-sign { font: 500 18px/1.7 "Noto Serif KR", serif; color: var(--plum); margin: 64px 0 0; }
+  .kt-art { background: var(--paper) top center / cover no-repeat; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent); mask-image: linear-gradient(90deg, #000 78%, transparent); }
+  .kt-body { padding: 120px 64px 120px 24px; display: flex; flex-direction: column; justify-content: center; max-width: 640px; }
+  .kt-kicker { font: 600 12px/1 Pretendard, sans-serif; letter-spacing: .3em; color: var(--gold); border-left: 2px solid var(--gold); padding: 2px 0 2px 12px; margin: 0; }
+  .kt-title { font: 600 clamp(32px, 3.8vw, 48px)/1.3 "Noto Serif KR", serif; letter-spacing: .06em; color: var(--plum); margin: 22px 0 18px; }
+  .kt-quote { font: 500 clamp(19px, 2vw, 23px)/1.65 "Noto Serif KR", serif; color: var(--ink); margin: 0 0 48px; }
+  .kt-item { border-top: 1px solid var(--line); padding: 26px 0 26px 22px; position: relative; }
+  .kt-item:last-of-type { border-bottom: 1px solid var(--line); }
+  .kt-item::before { content: ""; position: absolute; left: 0; top: 30px; width: 2px; height: 22px; background: var(--gold); }
+  .kt-word { font: 600 12px/1 Pretendard, sans-serif; letter-spacing: .28em; color: var(--gold); margin: 0; }
+  .kt-head { font: 600 21px/1.45 "Noto Serif KR", serif; color: var(--plum); margin: 10px 0 6px; }
+  .kt-text { font-size: 16px; line-height: 1.75; color: var(--muted); margin: 0; }
+  .kt-sign { font: 500 17px/1.7 "Noto Serif KR", serif; color: var(--plum); margin: 44px 0 0; }
   .kt-sign b { font-weight: 600; }
-  @media (max-width: 768px) {
-    .kt { padding: 88px 22px; }
-    .kt-cols { grid-template-columns: 1fr; margin-top: 52px; }
-    .kt-col { padding: 34px 6px; }
-    .kt-col + .kt-col { border-left: 0; border-top: 1px solid var(--line); }
-    .kt-sign { font-size: 16.5px; margin-top: 48px; }
+  @media (max-width: 900px) {
+    .kt { grid-template-columns: 1fr; min-height: 0; }
+    .kt-art { aspect-ratio: 1 / 1; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
+    .kt-body { padding: 8px 22px 88px; max-width: none; }
+    .kt-title { margin-top: 18px; }
+    .kt-quote { margin-bottom: 36px; }
+    .kt-sign { font-size: 16px; }
+    .kt-text br { display: none; }
   }
 </style>
 
 <section class="kt">
-  <div class="kt-in">
+  <div class="kt-art" role="img" aria-label="꽃과 열매가 달린 산돌배 가지 그림" style="background-image:url('[산돌배그림주소]')"></div>
+  <div class="kt-body">
+    <p class="kt-kicker">OUR PROMISE</p>
     <h2 class="kt-title">신뢰 · 정직 · 전통</h2>
-    <div class="kt-rule" aria-hidden="true"></div>
     <p class="kt-quote">정직한 원료로, 신뢰로 빚고,<br>전통으로 완성합니다.</p>
 
-    <div class="kt-cols">
-      <div class="kt-col">
-        <p class="kt-word">정직 · HONEST</p>
-        <h3 class="kt-head">원료를 직접 기릅니다</h3>
-        <p class="kt-text">2006년, 구룡령에 산돌배나무<br>100그루를 심고 7년을 기다려<br>첫 열매를 얻었습니다.</p>
-      </div>
-      <div class="kt-col">
-        <p class="kt-word">신뢰 · TRUST</p>
-        <h3 class="kt-head">부부가 직접 빚습니다</h3>
-        <p class="kt-text">발효부터 증류, 숙성, 병입까지<br>모든 과정을 저희 손으로 하고<br>배치마다 기록합니다.</p>
-      </div>
-      <div class="kt-col">
-        <p class="kt-word">전통 · TRADITION</p>
-        <h3 class="kt-head">양양의 술을 잇습니다</h3>
-        <p class="kt-text">양양 땅에서 난 원료로 빚는<br>지역특산주입니다.<br>100년을 이어갈 술을 꿈꿉니다.</p>
-      </div>
+    <div class="kt-item">
+      <p class="kt-word">정직 · HONEST</p>
+      <h3 class="kt-head">원료를 직접 기릅니다</h3>
+      <p class="kt-text">2006년, 구룡령에 산돌배나무 100그루를 심고<br>7년을 기다려 첫 열매를 얻었습니다.</p>
+    </div>
+    <div class="kt-item">
+      <p class="kt-word">신뢰 · TRUST</p>
+      <h3 class="kt-head">부부가 직접 빚습니다</h3>
+      <p class="kt-text">발효부터 증류, 숙성, 병입까지<br>모든 과정을 저희 손으로 하고 배치마다 기록합니다.</p>
+    </div>
+    <div class="kt-item">
+      <p class="kt-word">전통 · TRADITION</p>
+      <h3 class="kt-head">양양의 술을 잇습니다</h3>
+      <p class="kt-text">양양 땅에서 난 원료로 빚는 지역특산주.<br>100년을 이어갈 술을 꿈꿉니다.</p>
     </div>
 
     <p class="kt-sign">자연과 사람이 함께 빚은 술.<br><b>킹스양조장은 전통을 지키며,<br>정직한 맛을 전합니다.</b></p>
