@@ -1,0 +1,71 @@
+<!-- ===== 킹스양조장 두 번째 섹션: "한 병의 금배주가 되기까지" 애니메이션 (아임웹 붙여넣기용) =====
+     사진 4장이 5초씩 천천히 확대되며 차례로 바뀝니다 (20초 반복). 스크립트 없음.
+     바꿀 곳 4곳 (지금 사이트에 있는 사진 그대로 쓰면 됩니다):
+     [옥수수사진주소] [증류기사진주소] [산돌배사진주소] [금배주사진주소]
+     모든 이름 kf- 로 시작 -->
+<style>
+  .kf { --plum:#281820; --ivory:#F4EFE5; --gold:#B89452; position: relative; height: 82vh; min-height: 520px; overflow: hidden; background: var(--plum); color: var(--ivory); font-family: Pretendard, "Noto Sans KR", sans-serif; }
+  .kf * { box-sizing: border-box; }
+  .kf-slide { position: absolute; inset: 0; opacity: 0; animation: kf-fade 20s infinite; }
+  .kf-slide:nth-child(2) { animation-delay: 5s; }
+  .kf-slide:nth-child(3) { animation-delay: 10s; }
+  .kf-slide:nth-child(4) { animation-delay: 15s; }
+  .kf-img { position: absolute; inset: 0; background-size: cover; background-position: center; animation: kf-zoom 20s infinite linear; animation-delay: inherit; }
+  .kf-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40,24,32,.15) 30%, rgba(30,16,22,.88)); }
+  .kf-cap { position: absolute; left: 0; right: 0; bottom: 96px; z-index: 2; text-align: center; padding: 0 24px; }
+  .kf-step { display: inline-block; font: 600 12px/1 Pretendard, sans-serif; letter-spacing: .3em; color: var(--gold); border-left: 2px solid var(--gold); padding: 2px 0 2px 12px; margin: 0; }
+  .kf-word { font: 600 clamp(28px, 4vw, 48px)/1.35 "Noto Serif KR", serif; margin: 18px 0 10px; color: var(--ivory); }
+  .kf-sub { margin: 0; font-size: 17px; color: #e2d6dc; }
+  .kf-head { position: absolute; top: 40px; left: 0; right: 0; z-index: 3; text-align: center; font: 600 13px/1 Pretendard, sans-serif; letter-spacing: .28em; color: var(--ivory); opacity: .85; margin: 0; }
+  .kf-bar { position: absolute; left: 50%; bottom: 44px; z-index: 3; transform: translateX(-50%); display: flex; gap: 8px; }
+  .kf-bar i { display: block; width: 56px; height: 2px; background: rgba(244,239,229,.25); position: relative; overflow: hidden; }
+  .kf-bar i::after { content: ""; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; animation: kf-fill 20s infinite linear; }
+  .kf-bar i:nth-child(2)::after { animation-delay: 5s; }
+  .kf-bar i:nth-child(3)::after { animation-delay: 10s; }
+  .kf-bar i:nth-child(4)::after { animation-delay: 15s; }
+  @keyframes kf-fade { 0% { opacity: 0; } 4% { opacity: 1; } 25% { opacity: 1; } 29% { opacity: 0; } 100% { opacity: 0; } }
+  @keyframes kf-zoom { 0% { transform: scale(1); } 29% { transform: scale(1.08); } 100% { transform: scale(1.08); } }
+  @keyframes kf-fill { 0% { transform: scaleX(0); } 25% { transform: scaleX(1); } 26%, 100% { transform: scaleX(0); } }
+  /* 사진이 없을 때 보이는 바탕색 */
+  .kf-s1 .kf-img { background-color: #3b2448; }
+  .kf-s2 .kf-img { background-color: #4a4f55; }
+  .kf-s3 .kf-img { background-color: #6b6a3a; }
+  .kf-s4 .kf-img { background-color: #5a3a22; }
+  @media (max-width: 768px) {
+    .kf { height: 72vh; min-height: 480px; }
+    .kf-cap { bottom: 84px; }
+    .kf-slide::after { background: linear-gradient(180deg, rgba(40,24,32,.2) 15%, rgba(30,16,22,.55) 45%, rgba(30,16,22,.93) 75%); }
+    .kf-sub { font-size: 15.5px; }
+    .kf-bar i { width: 40px; }
+    .kf-head { top: 28px; font-size: 11.5px; }
+  }
+  /* 움직임을 끈 사용자: 4장을 나란히 고정 */
+  @media (prefers-reduced-motion: reduce) {
+    .kf { height: auto; display: grid; grid-template-columns: repeat(2, 1fr); }
+    .kf-slide { position: relative; opacity: 1; animation: none; min-height: 320px; }
+    .kf-img, .kf-bar i::after { animation: none; }
+    .kf-bar, .kf-head { display: none; }
+    .kf-cap { bottom: 24px; }
+  }
+</style>
+
+<section class="kf" aria-label="한 병의 금배주가 되기까지">
+  <div class="kf-slide kf-s1">
+    <div class="kf-img" style="background-image:url('[옥수수사진주소]')"></div>
+    <div class="kf-cap"><p class="kf-step">01 · 원료</p><p class="kf-word">옥수수로 술을 빚고</p><p class="kf-sub">강원도 자색옥수수를 발효합니다</p></div>
+  </div>
+  <div class="kf-slide kf-s2">
+    <div class="kf-img" style="background-image:url('[증류기사진주소]')"></div>
+    <div class="kf-cap"><p class="kf-step">02 · 증류</p><p class="kf-word">낮은 온도에서 증류하고</p><p class="kf-sub">감압증류로 맑은 원액을 얻습니다</p></div>
+  </div>
+  <div class="kf-slide kf-s3">
+    <div class="kf-img" style="background-image:url('[산돌배사진주소]')"></div>
+    <div class="kf-cap"><p class="kf-step">03 · 향</p><p class="kf-word">구룡령 산돌배로 향을 입혀</p><p class="kf-sub">2006년부터 기른 나무의 열매를 침출합니다</p></div>
+  </div>
+  <div class="kf-slide kf-s4">
+    <div class="kf-img" style="background-image:url('[금배주사진주소]')"></div>
+    <div class="kf-cap"><p class="kf-step">04 · 숙성</p><p class="kf-word">금배주가 됩니다</p><p class="kf-sub">100일 이상 자연 숙성 후 병에 담습니다</p></div>
+  </div>
+  <p class="kf-head">한 병의 금배주가 되기까지</p>
+  <div class="kf-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+</section>
