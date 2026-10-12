@@ -1,0 +1,83 @@
+<!-- ===== 킹스양조장 첫 화면 비주얼 (아임웹 붙여넣기용) =====
+     바꿀 곳 2곳:
+     ① [금배주17사진주소]  → 아임웹에 올린 금배주 17도 사진 주소 (세로 사진 권장)
+     ② [금배주17상품주소]  → 스마트스토어 금배주 17도 상품 주소
+     스크립트 없이 동작 · 모든 이름 kv- 로 시작 -->
+<style>
+  .kv { --plum:#281820; --ivory:#F4EFE5; --gold:#B89452; font-family: Pretendard, "Noto Sans KR", sans-serif; color: var(--ivory); background: var(--plum); }
+  .kv * { box-sizing: border-box; }
+
+  /* ① 인트로: 금빛 한 줄 */
+  .kv-intro { position: relative; min-height: 86vh; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 11vh; overflow: hidden; }
+  .kv-pour { position: absolute; top: 0; left: 50%; width: 3px; height: 0; transform: translateX(-50%); border-radius: 0 0 3px 3px; background: linear-gradient(180deg, rgba(232,190,110,.15), #e3a854 60%, #f4d79a); animation: kv-pour 2.2s cubic-bezier(.55,.05,.3,1) .4s forwards; }
+  .kv-pour::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 9px; height: 11px; transform: translateX(-50%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #f0c97a; opacity: 0; animation: kv-show .8s ease 2.5s forwards; }
+  .kv-text { position: relative; text-align: center; opacity: 0; animation: kv-up 1.2s ease 1.7s forwards; }
+  .kv-kicker { font: 600 12px/1 Pretendard, sans-serif; letter-spacing: .3em; color: var(--gold); margin: 0; }
+  .kv-title { font: 600 clamp(30px, 4.4vw, 54px)/1.35 "Noto Serif KR", serif; letter-spacing: -.01em; margin: 22px 0 26px; color: var(--ivory); }
+  .kv-down { display: inline-block; color: var(--gold) !important; text-decoration: none !important; font-size: 22px; animation: kv-bob 2s ease-in-out infinite; }
+  @keyframes kv-pour { to { height: 42vh; } }
+  @keyframes kv-show { to { opacity: 1; } }
+  @keyframes kv-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes kv-bob { 50% { transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .kv-pour { height: 42vh; animation: none; } .kv-pour::after, .kv-text { opacity: 1; animation: none; } .kv-down { animation: none; } }
+
+  /* ② 제품 무대 */
+  .kv-stage { position: relative; padding: 72px 24px 88px; background: radial-gradient(ellipse 42% 50% at 50% 42%, rgba(227,168,84,.30), transparent 70%), linear-gradient(180deg, #1d1016, var(--plum) 40%, #1a0e14); overflow: hidden; }
+  .kv-row { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .kv-side { font: 600 13px/1 Pretendard, sans-serif; letter-spacing: .32em; color: var(--gold); margin: 0; }
+  .kv-side--r { text-align: right; }
+  .kv-photo { width: min(380px, 70vw); aspect-ratio: 4/5; margin: 0 48px; border-radius: 4px; background: #3a2230 center / cover no-repeat; box-shadow: 0 30px 60px rgba(0,0,0,.45); }
+  .kv-info { text-align: center; margin-top: 44px; }
+  .kv-name { font: 600 32px/1.3 "Noto Serif KR", serif; margin: 0 0 10px; color: var(--ivory); }
+  .kv-desc { margin: 0; color: #d8ccd1; font-size: 17px; line-height: 1.8; }
+  .kv-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+  .kv-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 28px; border-radius: 6px; font: 600 16px/1 Pretendard, sans-serif; text-decoration: none !important; }
+  .kv-btn--naver { background: #03C75A; color: #fff !important; }
+  .kv-btn--naver::before { content: "N"; font: 800 12px/1 Pretendard, sans-serif; background: #fff; color: #03C75A; width: 18px; height: 18px; border-radius: 3px; display: inline-grid; place-items: center; }
+  .kv-btn--line { border: 1px solid rgba(244,239,229,.5); color: var(--ivory) !important; }
+  .kv-trust { margin: 14px 0 0; font-size: 13.5px; color: #b3a3ab; }
+  .kv-award { position: absolute; top: 40px; right: 48px; width: 132px; height: 132px; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-content: center; text-align: center; gap: 4px; padding: 14px; }
+  .kv-award b { font: 600 22px/1 "Noto Serif KR", serif; color: var(--gold); }
+  .kv-award span { font-size: 11.5px; line-height: 1.4; color: #e6dad0; }
+
+  @media (max-width: 768px) {
+    .kv-intro { min-height: 76vh; padding-bottom: 9vh; }
+    .kv-stage { padding: 52px 20px 72px; }
+    .kv-row { grid-template-columns: 1fr; justify-items: center; }
+    .kv-side { display: none; }
+    .kv-photo { margin: 0; width: 78vw; }
+    .kv-name { font-size: 28px; }
+    .kv-desc { font-size: 16px; }
+    .kv-btn { width: 100%; }
+    .kv-award { position: static; margin: 36px auto 0; width: 118px; height: 118px; }
+  }
+</style>
+
+<section class="kv">
+  <div class="kv-intro">
+    <span class="kv-pour" aria-hidden="true"></span>
+    <div class="kv-text">
+      <p class="kv-kicker">KINGS DISTILLERY · YANGYANG</p>
+      <h1 class="kv-title">구룡령 산돌배를,<br>금빛으로 빚다.</h1>
+      <a href="#kv-stage" class="kv-down" aria-label="아래로">↓</a>
+    </div>
+  </div>
+
+  <div class="kv-stage" id="kv-stage">
+    <div class="kv-row">
+      <p class="kv-side">THE KOREAN</p>
+      <div class="kv-photo" role="img" aria-label="금배주 17도" style="background-image:url('[금배주17사진주소]')"></div>
+      <p class="kv-side kv-side--r">WILD PEAR LIQUEUR</p>
+    </div>
+    <div class="kv-info">
+      <h2 class="kv-name">금배주 17°</h2>
+      <p class="kv-desc">처음 만나는 금배주.<br>옥수수로 증류하고,<br>구룡령 산돌배로 향을 만들었습니다.</p>
+      <div class="kv-actions">
+        <a href="[금배주17상품주소]" class="kv-btn kv-btn--naver" target="_blank" rel="noopener">금배주 17도 구매하기</a>
+        <a href="/choose" class="kv-btn kv-btn--line">나에게 맞는 도수 찾기</a>
+      </div>
+      <p class="kv-trust">네이버 성인인증 · 네이버페이 결제</p>
+    </div>
+    <div class="kv-award"><b>12,003%</b><span>와디즈 전통주<br>펀딩 신기록</span></div>
+  </div>
+</section>
