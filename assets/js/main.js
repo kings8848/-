@@ -1,15 +1,14 @@
 // ===== 링크 설정 — 주소만 넣으면 사이트 전체 버튼에 반영됩니다 =====
-// 판매는 네이버 스마트스토어로 통일합니다.
-// 상품별 주소(gb17·gb25·gb40)가 비어 있으면 스마트스토어 메인(store)으로 연결됩니다.
+// 판매는 네이버 스마트스토어로 통일. 상품 주소가 비면 스마트스토어 메인으로 연결.
 const LINKS = {
-  store: "", // 스마트스토어 메인    예: https://smartstore.naver.com/kingsbrewery
-  gb17: "",  // 금배주 17도 상품 주소 예: https://smartstore.naver.com/kingsbrewery/products/0000000000
+  store: "", // 스마트스토어 메인       예: https://smartstore.naver.com/kingsbrewery
+  gb17: "",  // 금배주 17도 상품 주소
   gb25: "",  // 금배주 25도 상품 주소
   gb40: "",  // 금배주 40도 상품 주소
-  kakao: "", // 카카오톡 채널        예: https://pf.kakao.com/_xxxxx
-  blog: "",  // 네이버 블로그        예: https://blog.naver.com/xxxxx
+  kakao: "", // 카카오톡 채널
+  blog: "",  // 네이버 블로그
+  wadiz: "", // 봉신설주 와디즈 페이지
 };
-
 const FALLBACK = { gb17: "store", gb25: "store", gb40: "store" };
 
 document.querySelectorAll("[data-link]").forEach((a) => {
@@ -27,7 +26,7 @@ document.querySelectorAll("[data-link]").forEach((a) => {
   }
 });
 
-// ===== 성인 확인 (메인 페이지) =====
+// ===== 성인 확인 (메인) =====
 const gate = document.getElementById("ageGate");
 if (gate) {
   let verified = false;
@@ -43,18 +42,26 @@ if (gate) {
   });
 }
 
+// ===== 헤더: 첫 화면에서는 플럼, 스크롤하면 아이보리 =====
+const header = document.getElementById("header");
+if (header && !header.classList.contains("is-fixed")) {
+  const onScroll = () => header.classList.toggle("is-light", window.scrollY > window.innerHeight * 0.6);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
+
 // ===== 모바일 메뉴 =====
-const toggle = document.getElementById("navToggle");
+const burger = document.getElementById("burger");
 const nav = document.getElementById("nav");
-if (toggle && nav) {
-  toggle.addEventListener("click", () => {
+if (burger && nav) {
+  burger.addEventListener("click", () => {
     const open = nav.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-expanded", open);
   });
   nav.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
       nav.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
+      burger.setAttribute("aria-expanded", "false");
     })
   );
 }

@@ -7,21 +7,22 @@
   <meta name="description" content="킹스양조장 금배주 시음 리뷰. 맛보신 술의 한 줄 리뷰를 남겨주세요.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="review-page">
   <!-- 시안: 실제로는 아임웹 '시음 리뷰' 페이지(/review)에 입력폼 위젯으로 구현합니다 -->
-  <header class="header">
-    <div class="wrap header__inner">
-      <a href="index.html" class="logo">킹스양조장<span>KINGS DISTILLERY</span></a>
-      <a href="index.html" class="header__back">홈으로</a>
+  <header class="header is-light is-fixed" id="header">
+    <div class="wrap header__in">
+      <a href="index.html" class="logo">킹스양조장<small>KINGS DISTILLERY</small></a>
+      <a href="index.html" class="link">홈으로</a>
     </div>
   </header>
 
   <main class="review">
     <section class="review__intro">
-      <p class="eyebrow">양양 구룡령 킹스양조장</p>
+      <p class="kicker">양양 구룡령 킹스양조장</p>
       <h1>오늘 맛보신 술,<br>어떠셨나요?</h1>
       <p>한 줄 리뷰가 다음 배치를 더 좋게 만듭니다.<br>1분이면 충분합니다.</p>
     </section>
@@ -31,7 +32,7 @@
 
       <fieldset>
         <legend>어디서 맛보셨나요? <em>필수</em></legend>
-        <div class="chips">
+        <div class="opts">
           <label><input type="radio" name="where" required><span>행사장</span></label>
           <label><input type="radio" name="where"><span>양조장 방문</span></label>
           <label><input type="radio" name="where"><span>선물 받음</span></label>
@@ -42,7 +43,7 @@
 
       <fieldset>
         <legend>가장 마음에 든 술 <em>필수</em></legend>
-        <div class="chips">
+        <div class="opts">
           <label><input type="radio" name="best" required><span>금배주 17도</span></label>
           <label><input type="radio" name="best"><span>금배주 25도</span></label>
           <label><input type="radio" name="best"><span>금배주 40도</span></label>
@@ -64,7 +65,7 @@
 
       <fieldset>
         <legend>맛 느낌 (여러 개 선택)</legend>
-        <div class="chips">
+        <div class="opts">
           <label><input type="checkbox"><span>향긋함</span></label>
           <label><input type="checkbox"><span>부드러움</span></label>
           <label><input type="checkbox"><span>달콤함</span></label>
@@ -76,7 +77,7 @@
 
       <fieldset>
         <legend>구매 의향</legend>
-        <div class="chips">
+        <div class="opts">
           <label><input type="radio" name="buy"><span>본인용</span></label>
           <label><input type="radio" name="buy"><span>선물용</span></label>
           <label><input type="radio" name="buy"><span>아직 모르겠음</span></label>
@@ -90,7 +91,7 @@
 
       <fieldset>
         <legend>리뷰를 홈페이지에 소개해도 될까요? (이름 비공개) <em>필수</em></legend>
-        <div class="chips">
+        <div class="opts">
           <label><input type="radio" name="share" required><span>예</span></label>
           <label><input type="radio" name="share"><span>아니오</span></label>
         </div>
@@ -101,18 +102,18 @@
         <input type="text" placeholder="이름">
         <input type="tel" placeholder="휴대폰 번호">
         <label class="check"><input type="checkbox"> <span>개인정보 수집·이용에 동의합니다 (추첨 참여 시)</span></label>
-        <p class="rform__small">수집 항목: 이름, 휴대폰 번호 · 목적: 이벤트 추첨 및 경품 발송 · 보유 기간: 추첨·발송 완료 후 즉시 파기. 동의하지 않으셔도 리뷰 작성은 가능합니다.</p>
+        <p class="small">수집 항목: 이름, 휴대폰 번호 · 목적: 이벤트 추첨 및 경품 발송 · 보유 기간: 추첨·발송 완료 후 즉시 파기. 동의하지 않으셔도 리뷰 작성은 가능합니다.</p>
       </fieldset>
 
       <button type="submit" class="btn btn--gold btn--block">리뷰 보내기</button>
-      <p class="rform__done" id="done" role="status"></p>
+      <p class="done" id="done" role="status"></p>
     </form>
 
     <section class="review__next">
       <h2>감사합니다. 이렇게 이어가 보세요</h2>
-      <a href="#" class="btn btn--line-dark btn--block" data-link="kakao">카카오톡 채널 추가하고 소식 받기</a>
-      <a href="#" class="btn btn--store btn--block" data-link="store">네이버 스마트스토어에서 구매하기</a>
-      <p class="rform__small">구매는 네이버 스마트스토어에서 성인인증 후 가능합니다.<br>지나친 음주는 건강을 해칩니다.</p>
+      <a href="#" class="btn btn--line btn--block" data-link="kakao">카카오톡 채널 추가하고 소식 받기</a>
+      <a href="#" class="btn btn--buy btn--block" data-link="store">네이버 스마트스토어에서 구매하기</a>
+      <p class="small">구매는 네이버 스마트스토어에서 성인인증 후 가능합니다.<br>지나친 음주는 건강을 해칩니다.</p>
     </section>
   </main>
 

@@ -2,286 +2,253 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>킹스양조장 | 양양 구룡령 산돌배 리큐르 금배주</title>
-  <meta name="description" content="강원 양양 구룡령 킹스양조장. 산돌배와 자색옥수수 증류원액으로 빚은 지역특산 리큐르 금배주 17도·25도·40도. 구매는 네이버 스마트스토어에서.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>킹스양조장 | 구룡령 산돌배 리큐르 금배주</title>
+  <meta name="description" content="2006년 구룡령에 산돌배나무를 심은 양조장. 산돌배의 향을 담은 지역특산 리큐르 금배주 17도·25도·40도. 구매는 네이버 스마트스토어에서.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="킹스양조장">
-  <meta property="og:title" content="킹스양조장 | 양양 구룡령 산돌배 리큐르 금배주">
-  <meta property="og:description" content="구룡령 산돌배의 향을 담았습니다. 17° DISCOVERY · 25° DEEPER · 40° MASTER">
+  <meta property="og:title" content="구룡령 산돌배의 향, 금배주 | 킹스양조장">
+  <meta property="og:description" content="처음이라면 17도부터. 술을 만들려고 밭에 돌배부터 심은 양조장.">
   <meta property="og:url" content="https://soolkings.co.kr/">
   <meta property="og:image" content="https://soolkings.co.kr/assets/img/og-image.jpg">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233a1d36'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23c8a96a' font-family='serif' font-weight='700'%3E%E9%87%91%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23281820'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23c6a66a' font-family='serif' font-weight='700'%3E%E9%87%91%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <p class="verify-note">시안 안내: <span class="verify">점선 밑줄</span> 문구는 대표님 확인 후 확정 · 병 그림과 색 배경은 실사진으로 교체</p>
 
   <div class="gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
     <div class="gate__box">
-      <p class="eyebrow">KINGS DISTILLERY</p>
+      <p class="kicker">KINGS DISTILLERY</p>
       <h2 id="gateTitle">만 19세 이상이신가요?</h2>
       <p>이 사이트는 주류 정보를 담고 있어<br>청소년의 접근을 제한합니다.</p>
       <button class="btn btn--gold" id="ageYes">네, 19세 이상입니다</button>
-      <a class="btn btn--quiet" href="https://www.naver.com" rel="noopener">아니요</a>
+      <a class="btn btn--line" href="https://www.naver.com" rel="noopener">아니요</a>
     </div>
   </div>
 
-  <!-- QR로 들어온 손님을 위한 맨 위 띠 -->
-  <a href="review.html" class="topbar">🍶 행사장에서 맛보셨나요? <strong>1분 시음 리뷰 남기기 →</strong></a>
+  <!-- 이미 인쇄된 명함 QR(메인 연결)용 -->
+  <a href="review.html" class="topbar">🍶 행사장에서 맛보셨나요? <b>1분 시음 리뷰 남기기</b></a>
 
-  <header class="header">
-    <div class="wrap header__inner">
-      <a href="#top" class="logo">킹스양조장<span>KINGS DISTILLERY</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="메뉴" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  <header class="header" id="header">
+    <div class="wrap header__in">
+      <a href="#top" class="logo">킹스양조장<small>KINGS DISTILLERY</small></a>
+      <button class="burger" id="burger" aria-label="메뉴" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
       <nav class="nav" id="nav">
         <a href="#choose">술 고르기</a>
-        <a href="#story">금배주 이야기</a>
-        <a href="#sogeum">소+금 프로젝트</a>
+        <a href="#origin">금배주 이야기</a>
+        <a href="#sogeum">소+금</a>
         <a href="review.html">시음 리뷰</a>
-        <a href="#visit">방문·납품</a>
-        <a href="#" class="nav__store" data-link="store">스마트스토어</a>
+        <a href="#info">방문·납품</a>
+        <a href="#" class="btn btn--buy" data-link="store">스마트스토어</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
 
-    <!-- ① 첫 화면: 17도 대표 -->
+    <!-- 1. 첫 화면 — 메시지: "구룡령 산돌배의 술" / 행동: 17도 구매 -->
     <section class="hero">
-      <!-- TODO: 구룡령·산돌배나무 사진을 넣으려면 style.css .hero 배경에 url(../img/hero.jpg) 추가 -->
-      <div class="wrap hero__inner">
+      <svg class="hero__ridge" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 220 L180 150 L320 190 L520 90 L700 170 L860 110 L1040 180 L1220 120 L1440 170 L1440 300 L0 300Z" fill="#120a0e"/><path d="M0 260 L240 200 L460 240 L700 180 L960 230 L1200 190 L1440 230 L1440 300 L0 300Z" fill="#0c0709"/></svg>
+      <div class="wrap hero__in">
         <div class="hero__text">
-          <p class="eyebrow">KING'S DISTILLERY · YANGYANG</p>
-          <h1>구룡령 산돌배의 향을<br>담았습니다</h1>
-          <p class="hero__lead">양양 구룡령 산돌배로 빚은 지역특산 리큐르, <strong>금배주</strong></p>
-          <div class="hero__actions">
-            <a href="#" class="btn btn--gold" data-link="gb17">금배주 17도 만나보기</a>
-            <a href="#choose" class="btn btn--line">내게 맞는 술 고르기</a>
+          <p class="kicker">KINGS DISTILLERY · YANGYANG</p>
+          <h1 class="h1">구룡령 산돌배의<br>향을 담은 <span class="gold">금배주</span></h1>
+          <p class="sub">처음 만나는 금배주라면 17도부터.<br><span class="verify">차갑게 한 잔</span>이면 충분합니다.</p>
+          <div class="hero__cta">
+            <a href="#" class="btn btn--buy" data-link="gb17">금배주 17도 구매하기</a>
+            <a href="#choose" class="btn btn--ghost">나에게 맞는 도수 찾기</a>
           </div>
-          <p class="hero__note">구매는 네이버 스마트스토어에서 성인인증 후 가능합니다.</p>
+          <p class="trust"><span>네이버 스마트스토어</span><span>네이버 성인인증</span><span>네이버페이 결제</span></p>
         </div>
-        <!-- TODO: 금배주 17도 실제 제품 사진으로 교체 (<img src="assets/img/gb17.jpg" alt="금배주 17도">) -->
-        <div class="hero__bottle" aria-hidden="true"><span class="bottle bottle--lg" style="--liquid:#e3a64a"><i>金</i><em>금배주</em><b>17</b></span></div>
-      </div>
-      <div class="proof">
-        <div class="wrap proof__inner">
-          <p><b>12,003%</b><span>2026 와디즈 펀딩 달성</span></p>
-          <p><b>구룡령</b><span>강원 양양 산돌배</span></p>
-          <p><b>100일+</b><span>자연 숙성 후 병입</span></p>
-        </div>
+        <!-- TODO: 금배주 17도 실제 병 사진 (배경 제거 PNG/WebP, 라벨 선명) -->
+        <div class="hero__stage" aria-hidden="true"><span class="bottle bottle--xl b17"><i>金</i><em>금배주</em><b>17</b></span></div>
       </div>
     </section>
 
-    <!-- ② 술 고르기 -->
+    <!-- 2. 도수 고르기 — 메시지: "평소 마시는 술로 고르면 된다" / 행동: 도수별 구매 -->
     <section class="section" id="choose">
       <div class="wrap">
-        <p class="eyebrow">CHOOSE</p>
-        <h2 class="title">오늘의 한 잔,<br class="br-mo"> 어떤 금배주가 맞을까요?</h2>
-
-        <div class="quick">
-          <a href="#gb17" class="quick__item"><span>처음 마신다면</span><b>17°</b></a>
-          <a href="#gb25" class="quick__item"><span>향과 여운을 원한다면</span><b>25°</b></a>
-          <a href="#gb40" class="quick__item"><span>진한 술을 천천히 즐긴다면</span><b>40°</b></a>
+        <div class="sec-head">
+          <p class="kicker">CHOOSE</p>
+          <h2 class="h2">평소 즐기는 술로<br>고르면 쉽습니다</h2>
         </div>
 
-        <div class="cards">
-          <article class="card card--main" id="gb17">
-            <p class="card__flag">대표 · 첫 구매 추천</p>
-            <div class="visual"><span class="bottle" style="--liquid:#e3a64a"><i>金</i><em>금배주</em><b>17</b></span></div>
-            <div class="card__body">
-              <p class="card__tag">17° DISCOVERY</p>
-              <h3>산뜻하고 편안한 첫 잔</h3>
-              <p class="card__desc">은은한 산돌배 향과 부드러운 목넘김. 한우와 구이 요리에 가볍게 곁들이기 좋습니다.</p>
-              <dl class="spec">
-                <div><dt>주종</dt><dd>리큐르 · 17% · 375ml</dd></div>
-                <div><dt>원료</dt><dd>자색옥수수 증류원액, 구룡령 산돌배 추출액</dd></div>
-                <div><dt>즐기는 법</dt><dd class="todo">[대표 확인 후 입력]</dd></div>
-              </dl>
-              <a href="#" class="btn btn--gold btn--block" data-link="gb17">17도 구매하기</a>
+        <nav class="picker" aria-label="빠른 선택">
+          <a href="#gb17"><small>맥주 · 와인 · 하이볼을 즐긴다면</small><span>처음 만나는 금배주</span><b>17°</b></a>
+          <a href="#gb25"><small>소주는 익숙하고, 향을 더 원한다면</small><span>향과 깊이의 균형</span><b>25°</b></a>
+          <a href="#gb40"><small>위스키 · 고량주를 즐긴다면</small><span>천천히 즐기는 깊이</span><b>40°</b></a>
+        </nav>
+
+        <div class="lineup">
+          <article class="pcard pcard--main" id="gb17">
+            <div class="pcard__img"><span class="bottle b17" style="transform:scale(1.25)"><i>金</i><em>금배주</em><b>17</b></span></div>
+            <div class="pcard__body">
+              <p class="pcard__flag">처음이라면 이것부터</p>
+              <p class="pcard__tag">17° FIRST CHOICE</p>
+              <h3>처음 만나는 금배주</h3>
+              <p>산돌배의 산뜻한 향과 부드러운 목넘김. 식사와 함께 편안하게 즐기는 첫 금배주입니다.</p>
+              <ul class="facts">
+                <li><b>향</b>은은한 산돌배</li>
+                <li><b>질감</b>부드럽고 가벼움</li>
+                <li><b>즐기는 법</b><span class="verify">8~12℃ · 차갑게 그대로</span></li>
+              </ul>
+              <div class="pcard__cta">
+                <a href="#" class="btn btn--buy" data-link="gb17">17도 구매하기</a>
+                <a href="gb17.html" class="link">자세히 보기</a>
+              </div>
             </div>
           </article>
 
-          <article class="card" id="gb25">
-            <div class="visual"><span class="bottle" style="--liquid:#c97d2c"><i>金</i><em>금배주</em><b>25</b></span></div>
-            <div class="card__body">
-              <p class="card__tag">25° DEEPER</p>
-              <h3>더 깊은 산돌배 향과 여운</h3>
-              <p class="card__desc">맑고 은은한 배 향, 부드러운 목넘김과 가벼운 단맛, 깔끔한 피니시.</p>
-              <dl class="spec">
-                <div><dt>주종</dt><dd>리큐르 · 25% · 375ml</dd></div>
-                <div><dt>숙성</dt><dd>100일 이상 ~ 1년 이하 자연 숙성</dd></div>
-                <div><dt>즐기는 법</dt><dd class="todo">[대표 확인 후 입력]</dd></div>
-              </dl>
-              <a href="#" class="btn btn--line-dark btn--block" data-link="gb25">25도 구매하기</a>
-            </div>
-          </article>
-
-          <article class="card" id="gb40">
-            <div class="visual"><span class="bottle" style="--liquid:#a85f1e"><i>金</i><em>금배주</em><b>40</b></span></div>
-            <div class="card__body">
-              <p class="card__tag">40° MASTER</p>
-              <h3>천천히 즐기는 깊이</h3>
-              <p class="card__desc">깊고 진한 돌배 향, 숙성으로 다듬은 부드러운 질감과 긴 피니시.</p>
-              <dl class="spec">
-                <div><dt>주종</dt><dd>리큐르 · 40% · 375ml</dd></div>
-                <div><dt>숙성</dt><dd>100일 이상 ~ 1년 이하 자연 숙성</dd></div>
-                <div><dt>즐기는 법</dt><dd class="todo">[대표 확인 후 입력]</dd></div>
-              </dl>
-              <a href="#" class="btn btn--line-dark btn--block" data-link="gb40">40도 구매하기</a>
-            </div>
-          </article>
+          <div class="lineup__side">
+            <article class="pcard pcard--row" id="gb25">
+              <div class="pcard__img b25bg"><span class="bottle b25"><i>金</i><em>금배주</em><b>25</b></span></div>
+              <div class="pcard__body">
+                <p class="pcard__tag">25° DEEPER BALANCE</p>
+                <h3>향과 깊이의 균형</h3>
+                <p>17도보다 선명한 산돌배 향, 깔끔하게 남는 여운. <span class="verify">그대로 또는 큰 얼음 하나.</span></p>
+                <div class="pcard__cta"><a href="#" class="btn btn--buy btn--sm" data-link="gb25">25도 구매하기</a></div>
+              </div>
+            </article>
+            <article class="pcard pcard--row" id="gb40">
+              <div class="pcard__img b40bg"><span class="bottle b40"><i>金</i><em>금배주</em><b>40</b></span></div>
+              <div class="pcard__body">
+                <p class="pcard__tag">40° SLOW RESERVE</p>
+                <h3>천천히 즐기는 깊이</h3>
+                <p>진한 돌배 향과 긴 여운. <span class="verify">작은 잔에 조금씩.</span></p>
+                <div class="pcard__cta"><a href="#" class="btn btn--buy btn--sm" data-link="gb40">40도 구매하기</a></div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ③ 금배주 이야기 -->
-    <section class="section section--dark" id="story">
-      <div class="wrap">
-        <div class="split">
-          <div>
-            <p class="eyebrow">STORY</p>
-            <h2 class="title">구룡령 아래,<br>한 사람이 빚는 술</h2>
-            <p class="story__lead">킹스양조장은 강원 양양 서면 구룡령 아래 1인 농업회사법인 양조장입니다. 원료 선별부터 발효·증류·숙성·병입까지 대표가 직접 맡습니다.</p>
-          </div>
-          <div class="why">
-            <div><h3>왜 산돌배인가</h3><p>구룡령에서 자라는 산돌배의 맑고 새콤한 향이 금배주의 중심입니다. 증류 원액에 산돌배 껍질과 과육을 침출해 향을 담습니다.</p></div>
-            <div><h3>왜 자색옥수수인가</h3><p>강원도 자색옥수수로 빚은 증류원액이 고소한 곡물 향과 부드러운 바탕을 만듭니다.</p></div>
-            <div><h3>왜 리큐르인가</h3><p>증류주에 과실을 침출해 숙성하는 방식이라, 산돌배의 향을 가장 온전히 살릴 수 있습니다.</p></div>
-          </div>
-        </div>
-        <ol class="process">
-          <li><span>01</span><h3>원료</h3><p>강원도산 쌀, 자색옥수수, 양양 구룡령 산돌배</p></li>
-          <li><span>02</span><h3>발효 · 증류</h3><p>전통 누룩으로 빚고 증류해 원액을 얻습니다</p></li>
-          <li><span>03</span><h3>침출</h3><p>증류 원액에 산돌배 껍질과 과육을 침출합니다</p></li>
-          <li><span>04</span><h3>숙성 · 병입</h3><p>100일 이상 자연 숙성 후 병입합니다</p></li>
-        </ol>
-
-        <div class="duo">
-          <article class="feature feature--limited">
-            <p class="badge">와디즈 펀딩 한정</p>
-            <h3>봉신설주</h3>
-            <p>와디즈 펀딩으로만 선보이는 킹스양조장의 한정판입니다. 다음 펀딩 일정은 소식란과 카카오톡 채널로 가장 먼저 알려드립니다.</p>
-            <a href="#" class="btn btn--line" data-link="kakao">펀딩 소식 받기</a>
-          </article>
-          <article class="feature feature--soon">
-            <p class="badge badge--light">출시 예정</p>
-            <h3>설락 <small>SEORAK SOJU · 17도 · 25도</small></h3>
-            <p>강원도산 쌀과 자색옥수수를 전통 누룩으로 두 번 빚어(이양주) 증류한 소주입니다.</p>
-            <a href="#" class="btn btn--line" data-link="kakao">출시 알림 받기</a>
-          </article>
+    <!-- 3. 밭에서 병까지 — 메시지: "진짜 산지에서 시작된 술" / 행동: (신뢰 형성, 버튼 없음) -->
+    <section class="section section--tint" id="origin">
+      <div class="wrap origin">
+        <!-- TODO: 실제 산돌배나무 · 밭 · 대표 손 사진 -->
+        <figure class="origin__img"><figcaption>구룡령 산돌배나무 (실사진 교체)</figcaption></figure>
+        <div>
+          <p class="kicker">ORIGIN</p>
+          <h2 class="h2">술을 만들려고,<br>밭에 돌배부터 심었습니다</h2>
+          <p class="sub narrow">킹스양조장은 구룡령 아래 1인 농업회사법인 양조장입니다. 원료를 기르는 일부터 병에 담는 일까지 직접 합니다.</p>
+          <ol class="timeline">
+            <li><b class="verify">2006년 · 산돌배나무 200그루</b><span>구룡령 고추밭에 산돌배나무를 심었습니다.</span></li>
+            <li><b class="verify">7년의 기다림</b><span>나무가 자라 첫 열매를 맺기까지 기다렸습니다.</span></li>
+            <li><b>지금 · 금배주 17° 25° 40°</b><span>자색옥수수 증류원액에 산돌배를 침출해 100일 이상 숙성합니다.</span></li>
+          </ol>
         </div>
       </div>
     </section>
 
-    <!-- ④ 시음 리뷰 -->
+    <!-- 4. 시음 리뷰 — 메시지: "다른 사람은 이렇게 느꼈다" / 행동: 리뷰 쓰기 -->
     <section class="section" id="reviews">
       <div class="wrap">
-        <div class="review-cta">
-          <div>
-            <p class="eyebrow">TASTING REVIEW</p>
-            <h2 class="title">맛보신 분들의 한 줄</h2>
-            <p class="lead">행사장과 양조장에서 시음하신 분들이 남겨주신 리뷰입니다. 한 줄 리뷰가 다음 배치를 더 좋게 만듭니다.</p>
-          </div>
+        <div class="sec-head center">
+          <p class="kicker">TASTING NOTES</p>
+          <h2 class="h2">맛본 분들의 한 줄</h2>
+          <p class="sub">행사장과 양조장에서 시음하신 분들이 남긴 실제 리뷰입니다.</p>
+        </div>
+        <!-- 공개 동의한 실제 리뷰 3개만. 5점만 고르지 말 것 (완벽한 평점은 신뢰를 떨어뜨림) -->
+        <div class="reviews">
+          <div class="rcard rcard--empty">승인된 실제 리뷰 ①<br>(리뷰 폼 응답 중 공개 동의분)</div>
+          <div class="rcard rcard--empty">승인된 실제 리뷰 ②</div>
+          <div class="rcard rcard--empty">승인된 실제 리뷰 ③</div>
+          <!-- 예: <figure class="rcard"><q>리뷰 문장</q><footer>금배주 17도 · ★★★★☆ · 2026.10 양양 행사장</footer></figure> -->
+        </div>
+        <div class="reviews__cta">
           <a href="review.html" class="btn btn--gold">1분 시음 리뷰 남기기</a>
+          <a href="#" class="btn btn--line" data-link="kakao">카카오톡 채널 추가</a>
         </div>
-        <!-- 공개 동의한 리뷰만 골라서 아래 형식으로 추가 (지어낸 리뷰는 절대 넣지 않기)
-        <div class="quotes">
-          <blockquote><p>"리뷰 내용"</p><cite>금배주 25도 · ★★★★★ · 양양 행사장</cite></blockquote>
-        </div>
-        <p class="quotes__note">※ 시음 후 자발적으로 남겨주신 리뷰이며, 경품 추첨 이벤트 기간에 작성된 리뷰가 포함되어 있습니다.</p>
-        -->
+        <p class="reviews__note">경품 추첨 이벤트 기간에 작성된 리뷰가 포함될 수 있습니다.</p>
       </div>
     </section>
 
-    <!-- ⑤ 소+금 프로젝트 -->
-    <section class="section section--plum" id="sogeum">
-      <div class="wrap split">
-        <div>
-          <p class="eyebrow">소+금 PROJECT</p>
-          <h2 class="title">삼겹살엔 소주,<br>한우엔 <em>금배주</em></h2>
-          <p class="lead lead--light">한우의 고소한 지방감을 산돌배의 산뜻한 향이 정리해 줍니다. 한우 구이 한 점, 금배주 한 잔.</p>
-        </div>
-        <div>
-          <dl class="pair">
-            <div><dt>17°</dt><dd>한우 구이 전반 · <span class="todo">[추천 부위 입력]</span></dd></div>
-            <div><dt>25°</dt><dd>한우 구이 전반 · <span class="todo">[추천 부위 입력]</span></dd></div>
-            <div><dt>40°</dt><dd>한우 구이 전반 · <span class="todo">[추천 부위 입력]</span></dd></div>
-          </dl>
-          <div class="actions">
-            <a href="#visit" class="btn btn--gold">한우전문점 입점 문의</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ⑥ 소식 -->
-    <section class="section" id="news">
+    <!-- 5. 소+금 — 메시지: "언제 마시나 → 한우와 함께" / 행동: 17도 구매 -->
+    <section class="sogeum on-dark" id="sogeum">
       <div class="wrap">
-        <div class="section__head">
-          <div>
-            <p class="eyebrow">NEWS</p>
-            <h2 class="title">킹스양조장 소식</h2>
-          </div>
-          <a href="#" class="btn btn--line-dark btn--sm" data-link="blog">블로그에서 더 보기</a>
-        </div>
-        <div class="news">
-          <article class="news__item">
-            <time datetime="2026-09-16">2026.09.16</time>
-            <p class="news__cat">이벤트</p>
-            <h3>17도 금배주 시음 리뷰 이벤트</h3>
-            <p>더 부드럽게 다듬고 구룡령 산돌배 열매를 더한 17도 금배주를 출시했습니다. 시음 후기를 남겨주신 분 중 15명(봉신설주 5명 · 금배주 40도 10명)을 추첨합니다.</p>
-            <p class="news__note">만 19세 이상 참여 가능 · 지나친 음주는 건강을 해칩니다.</p>
-          </article>
-          <article class="news__item">
-            <time datetime="2026">2026</time>
-            <p class="news__cat">펀딩</p>
-            <h3>와디즈 펀딩 12,003% 달성</h3>
-            <p>응원해주신 모든 분께 감사드립니다. 봉신설주는 와디즈 펀딩 한정으로만 선보입니다.</p>
-          </article>
-          <article class="news__item">
-            <time>준비 중</time>
-            <p class="news__cat">신제품</p>
-            <h3>설락 17도 · 25도 출시 준비</h3>
-            <p>강원도산 쌀과 자색옥수수로 빚은 증류소주 설락을 준비하고 있습니다.</p>
-          </article>
-        </div>
-        <div class="subscribe">
-          <p><strong>새 소식 · 펀딩 · 신제품 알림</strong>을 카카오톡으로 받아보세요.</p>
-          <a href="#" class="btn btn--gold btn--sm" data-link="kakao">카카오톡 채널 추가</a>
+        <p class="kicker">소+금 PROJECT</p>
+        <h2 class="h2">삼겹살엔 소주.<br>한우엔 금배주.</h2>
+        <p class="sogeum__lead">한우의 다음 한 점을 위한 술</p>
+        <p>숯불에 구운 한우의 진한 고소함을, 산돌배의 산뜻한 향과 여운이 정돈합니다.</p>
+        <div class="hero__cta">
+          <a href="#" class="btn btn--buy" data-link="gb17">한우와 함께, 17도 구매하기</a>
+          <a href="#info" class="btn btn--ghost">식당 입점 문의</a>
         </div>
       </div>
     </section>
 
-    <!-- ⑦ 방문 · 납품 -->
-    <section class="section section--tint" id="visit">
+    <!-- 6. 제품 세계 — 메시지: "판매 중 / 출시 준비 / 한정판 / 연구 중"을 한눈에 -->
+    <section class="section" id="world">
       <div class="wrap">
-        <div class="two">
-          <div class="box">
-            <p class="eyebrow">VISIT</p>
-            <h2 class="title title--sm">방문 · 현장 견학</h2>
-            <dl class="info">
-              <div><dt>프로그램</dt><dd>현장 견학 (약 30분), 사전 예약제</dd></div>
-              <div><dt>시음</dt><dd>만 19세 이상, 운전하실 분은 시음 제한</dd></div>
-              <div><dt>주소</dt><dd>강원특별자치도 양양군 서면 구룡령로 1103-22 (갈천리)</dd></div>
-            </dl>
-            <div class="actions">
-              <a href="tel:033-672-2888" class="btn btn--gold btn--sm">전화 예약</a>
-              <a href="#" class="btn btn--line-dark btn--sm" data-link="kakao">카카오톡 예약</a>
-              <a href="https://map.naver.com/p/search/%EA%B0%95%EC%9B%90%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%96%91%EC%96%91%EA%B5%B0%20%EC%84%9C%EB%A9%B4%20%EA%B5%AC%EB%A3%A1%EB%A0%B9%EB%A1%9C%201103-22" class="btn btn--line-dark btn--sm" target="_blank" rel="noopener">네이버 지도</a>
+        <div class="sec-head">
+          <p class="kicker">OUR SPIRITS</p>
+          <h2 class="h2">킹스양조장이 만드는 술</h2>
+        </div>
+        <div class="world">
+          <article class="wcard wcard--gb">
+            <div>
+              <p class="state">판매 중</p>
+              <h3>금배주 <small>GEUMBAEJU · 17° 25° 40°</small></h3>
+              <p>산돌배의 향을 세 가지 깊이로 만나는 리큐르</p>
             </div>
+            <div class="wcard__cta"><a href="#choose" class="btn btn--gold btn--sm">도수 비교하기</a><a href="#" class="btn btn--buy btn--sm" data-link="store">스마트스토어</a></div>
+          </article>
+          <article class="wcard wcard--seorak">
+            <p class="state">출시 준비 중</p>
+            <h3>설락 <small>SEORAK SOJU · 17° 25°</small></h3>
+            <p>강원도산 쌀과 자색옥수수로 빚은 증류식 소주. 곡물의 은은한 향을 담았습니다.</p>
+            <div class="wcard__cta"><a href="#" class="btn btn--line btn--sm" data-link="kakao">출시 소식 받기</a></div>
+          </article>
+          <article class="wcard wcard--bongsin">
+            <p class="state">와디즈 한정판</p>
+            <h3>봉신설주 <small>BONGSIN SEOLJU</small></h3>
+            <p><span class="verify">첫눈이 오는 날, 귀한 사람과 여는 술.</span><br>지난 와디즈 펀딩 <b>12,003%</b> 달성</p>
+            <div class="wcard__cta"><a href="#" class="btn btn--line btn--sm" data-link="wadiz">와디즈에서 보기</a></div>
+          </article>
+          <div class="lab">
+            <p class="lab__title">연구 노트<small>하나의 원료, 두 가지 증류</small></p>
+            <p class="lab__a"><b>대감소주</b><span>상압증류 · 깊고 구수한 방향</span></p>
+            <p class="lab__b"><b>마님소주</b><span>감압증류 · 깨끗하고 부드러운 방향</span></p>
+            <p class="lab__note">현재 연구·개발 중이며 판매하지 않습니다.</p>
           </div>
-          <div class="box">
-            <p class="eyebrow">B2B</p>
-            <h2 class="title title--sm">납품 · 입점 문의</h2>
-            <p class="box__text">지역 식당, 한우전문점, 보틀숍, 기념품점 납품과 기업·단체 선물을 상담합니다. 공급 조건은 문의 주시면 개별 안내해 드립니다.</p>
-            <p class="box__text" lang="en"><strong>Export</strong> — Importers and distributors are welcome to contact us by email.</p>
-            <div class="actions">
-              <a href="tel:033-672-2888" class="btn btn--gold btn--sm">033-672-2888</a>
-              <a href="mailto:korea8113@gmail.com?subject=%5B%ED%82%B9%EC%8A%A4%EC%96%91%EC%A1%B0%EC%9E%A5%20%EB%82%A9%ED%92%88%20%EB%AC%B8%EC%9D%98%5D" class="btn btn--line-dark btn--sm">이메일 문의</a>
-            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 소식 · 방문 · 납품 -->
+    <section class="section section--tint" id="info">
+      <div class="wrap trio">
+        <div class="tbox">
+          <p class="kicker">NEWS</p>
+          <h3>소식</h3>
+          <ul>
+            <li><time>2026.09.16</time>17도 금배주 시음 리뷰 이벤트 (봉신설주 5명 · 금배주 40도 10명 추첨)</li>
+            <li><time>준비 중</time>설락 17° · 25° 출시 준비</li>
+          </ul>
+          <div class="tbox__cta"><a href="#" class="btn btn--line btn--sm" data-link="blog">블로그</a><a href="#" class="btn btn--line btn--sm" data-link="kakao">카카오톡 소식</a></div>
+        </div>
+        <div class="tbox">
+          <p class="kicker">VISIT</p>
+          <h3>방문 · 현장 견학</h3>
+          <p>사전 예약제 · 약 30분<br>시음은 만 19세 이상, 운전자는 시음 제한<br>양양군 서면 구룡령로 1103-22</p>
+          <div class="tbox__cta">
+            <a href="tel:033-672-2888" class="btn btn--gold btn--sm">전화 예약</a>
+            <a href="https://map.naver.com/p/search/%EA%B0%95%EC%9B%90%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%96%91%EC%96%91%EA%B5%B0%20%EC%84%9C%EB%A9%B4%20%EA%B5%AC%EB%A3%A1%EB%A0%B9%EB%A1%9C%201103-22" class="btn btn--line btn--sm" target="_blank" rel="noopener">네이버 지도</a>
+          </div>
+        </div>
+        <div class="tbox">
+          <p class="kicker">B2B</p>
+          <h3>납품 · 입점 문의</h3>
+          <p>식당 · 한우전문점 · 호텔 · 리조트 · 기업 선물<br>공급 조건은 문의 주시면 개별 안내합니다.</p>
+          <div class="tbox__cta">
+            <a href="tel:033-672-2888" class="btn btn--gold btn--sm">033-672-2888</a>
+            <a href="mailto:korea8113@gmail.com?subject=%5B%ED%82%B9%EC%8A%A4%EC%96%91%EC%A1%B0%EC%9E%A5%20%EB%82%A9%ED%92%88%20%EB%AC%B8%EC%9D%98%5D" class="btn btn--line btn--sm">이메일</a>
           </div>
         </div>
       </div>
@@ -293,10 +260,10 @@
       <p class="footer__warn">지나친 음주는 뇌졸중, 기억력 손상이나 치매를 유발합니다. 임신 중 음주는 기형아 출생 위험을 높입니다.<br>19세 미만 청소년에게는 주류를 판매하지 않습니다.</p>
       <div class="footer__grid">
         <div>
-          <p class="footer__brand">킹스양조장 <span>KINGS DISTILLERY</span></p>
+          <p class="footer__brand">킹스양조장 · Kings Distillery</p>
           <p>상품 구매 · 배송 · 교환 · 반품은 <a href="#" data-link="store">네이버 스마트스토어</a>에서 처리됩니다.</p>
         </div>
-        <p class="footer__biz">
+        <p>
           상호 농업회사법인킹스(주) · 대표 김종환<br>
           사업자등록번호 142-81-86766 · 통신판매업 신고 2025-강원양양-0046호<br>
           주류제조면허 [번호 입력]<br>
@@ -304,9 +271,15 @@
           대표전화 033-672-2888 · korea8113@gmail.com
         </p>
       </div>
-      <p class="footer__copy">© <span id="year">2026</span> 킹스양조장 Kings Distillery. All rights reserved.</p>
+      <p style="margin-top:24px">© <span id="year">2026</span> 킹스양조장 Kings Distillery. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- 모바일 하단 고정 구매 -->
+  <div class="dock">
+    <a href="#choose" class="btn btn--line">도수 고르기</a>
+    <a href="#" class="btn btn--buy" data-link="gb17">금배주 17도 구매하기</a>
+  </div>
 
   <script src="assets/js/main.js"></script>
 </body>
