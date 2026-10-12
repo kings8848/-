@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{width:var(--w);height:var(--h);overflow:hidden;font-family:"Noto Sans KR",Pretendard,sans-serif;color:#F4F2EC;
+    background:radial-gradient(ellipse 80% 70% at 75% 0%,#2E3D5C,#151D2E 68%);position:relative;word-break:keep-all}
+  .snow{position:absolute;inset:0;background-image:
+    radial-gradient(3px 3px at 8% 14%,#fff,transparent),radial-gradient(2px 2px at 22% 70%,#fff,transparent),radial-gradient(4px 4px at 35% 28%,rgba(255,255,255,.9),transparent),
+    radial-gradient(2px 2px at 48% 86%,#fff,transparent),radial-gradient(3px 3px at 62% 12%,#fff,transparent),radial-gradient(2px 2px at 71% 52%,#fff,transparent),
+    radial-gradient(5px 5px at 83% 30%,rgba(255,255,255,.85),transparent),radial-gradient(2.5px 2.5px at 92% 78%,#fff,transparent),radial-gradient(2px 2px at 15% 45%,#fff,transparent),
+    radial-gradient(3px 3px at 55% 50%,rgba(255,255,255,.7),transparent),radial-gradient(2px 2px at 40% 8%,#fff,transparent),radial-gradient(3.5px 3.5px at 5% 90%,rgba(255,255,255,.8),transparent);
+    background-size:var(--s) var(--s);opacity:.9;transform:scale(1.6);transform-origin:0 0}
+  .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)}
+  .sig{font-size:calc(var(--u)*1.05);letter-spacing:.38em;color:#C9CFD8;border-left:3px solid #C9CFD8;padding-left:.8em;font-weight:600}
+  h1{font-family:"Noto Serif KR",serif;font-weight:700;font-size:calc(var(--u)*5.2);line-height:1.15;letter-spacing:-.02em;margin-top:.5em;color:#fff}
+  .hook{font-family:"Noto Serif KR",serif;font-weight:600;font-size:calc(var(--u)*3.1);color:#C9CFD8;margin-top:.25em}
+  .meta{display:flex;align-items:center;gap:calc(var(--u)*1);margin-top:calc(var(--u)*2.6);font-size:calc(var(--u)*1.45);font-weight:700}
+  .w{white-space:nowrap;background:#00C4C4;color:#fff;padding:.45em .8em;border-radius:6px}
+  .lim{color:#C9CFD8;font-weight:500;white-space:nowrap}
+  body.sq h1{font-size:calc(var(--u)*4.4)} body.sq .brand{bottom:calc(var(--u)*1.5)}
+  body.sq .meta{flex-direction:column;align-items:flex-start;gap:calc(var(--u)*.8)}
+  .brand{position:absolute;right:var(--pad);bottom:calc(var(--u)*2.2);font-family:"Noto Serif KR",serif;font-size:calc(var(--u)*1.25);color:#C9CFD8;letter-spacing:.06em}
+  .seal{position:absolute;right:var(--pad);top:calc(var(--u)*2.4);width:calc(var(--u)*6);height:calc(var(--u)*6);border:1.5px solid #C9CFD8;border-radius:50%;display:grid;place-content:center;text-align:center;
+    font-family:"Noto Serif KR",serif;font-weight:700;font-size:calc(var(--u)*2.4);color:#fff;line-height:1}
+  .seal small{display:block;font-size:calc(var(--u)*.8);font-weight:500;color:#C9CFD8;margin-top:.3em;letter-spacing:.1em}
+</style></head><body>
+<div class="snow"></div>
+<div class="seal">封<small>1,500병</small></div>
+<div class="wrap">
+  <p class="sig">WINTER SIGNAL</p>
+  <h1>첫눈이 온다고요?</h1>
+  <p class="hook">봉신설주를 여세요.</p>
+  <div class="meta"><span class="w">11.1 와디즈 OPEN</span><span class="lim">2026 한정판 · 봉신설주 17°</span></div>
+</div>
+<p class="brand">킹스양조장 · 양양 구룡령</p>
+</body></html>
