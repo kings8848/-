@@ -39,7 +39,7 @@
       <nav class="nav" id="nav">
         <a href="#choose">술 고르기</a>
         <a href="#origin">금배주 이야기</a>
-        <a href="#sogeum">소+금</a>
+        <a href="#origin">소+금</a>
         <a href="review.html">시음 리뷰</a>
         <a href="#info">방문·납품</a>
         <a href="#" class="nav__store" data-link="store">스마트스토어 →</a>
@@ -49,25 +49,33 @@
 
   <main id="top">
 
-    <!-- 1. 첫 화면 · 딥 플럼 -->
-    <section class="hero">
-      <svg class="hero__ridge" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 L200 40 L360 60 L560 18 L760 55 L940 30 L1140 62 L1300 38 L1440 52 L1440 100 L0 100Z" fill="#1e1117"/></svg>
-      <div class="wrap hero__in">
-        <div>
-          <p class="kicker">KINGS DISTILLERY · YANGYANG</p>
-          <h1 class="h1">구룡령 산돌배의<br>향을 담은 <span>금배주</span></h1>
-          <p class="lead">옥수수로 증류하고,<br>구룡령 산돌배로 향을 만들었습니다.</p>
-          <div class="actions">
-            <a href="#choose" class="btn btn--light">나에게 맞는 도수 찾기</a>
-            <a href="#" class="btn btn--naver" data-link="gb17">금배주 17도 구매하기</a>
-          </div>
-          <p class="trustline">네이버 성인인증 · 네이버페이 결제</p>
+    <!-- 1-a. 인트로 · 금빛 한 줄이 떨어진다 (분자의 '붓는 선' → 킹스의 '천년의 선') -->
+    <section class="intro">
+      <span class="pour" aria-hidden="true"></span>
+      <div class="intro__text">
+        <p class="kicker kicker--center">KINGS DISTILLERY · YANGYANG</p>
+        <h1 class="intro__title">구룡령 산돌배를,<br>금빛으로 빚다.</h1>
+        <a href="#stage" class="intro__down" aria-label="아래로">↓</a>
+      </div>
+    </section>
+
+    <!-- 1-b. 제품 무대 · 병 하나, 조명 하나, 버튼 하나 -->
+    <section class="stage" id="stage">
+      <p class="stage__side stage__side--l">THE KOREAN</p>
+      <!-- TODO: 금배주 17도 단독 실사진 (어두운 배경 + 아래에서 비추는 금빛 조명) -->
+      <div class="stage__bottle" aria-hidden="true"><span class="bottle b17"><i>金</i><em>금배주</em><b>17</b></span></div>
+      <p class="stage__side stage__side--r">WILD PEAR LIQUEUR</p>
+      <div class="stage__info">
+        <h2 class="stage__name">금배주 17°</h2>
+        <p>처음 만나는 금배주. 옥수수로 증류하고, 구룡령 산돌배로 향을 만들었습니다.</p>
+        <div class="actions actions--center">
+          <a href="#" class="btn btn--naver" data-link="gb17">금배주 17도 구매하기</a>
+          <a href="#choose" class="btn btn--outline-light">나에게 맞는 도수 찾기</a>
         </div>
-        <!-- TODO: 금배주 17도 + 잔 실사진 1장 -->
-        <div class="hero__stage" aria-hidden="true">
-          <span class="bottle b17"><i>金</i><em>금배주</em><b>17</b></span>
-          <span class="glass"></span>
-        </div>
+        <p class="trustline">네이버 성인인증 · 네이버페이 결제</p>
+      </div>
+      <div class="award">
+        <b>12,003%</b><span>와디즈 전통주 펀딩 신기록</span>
       </div>
     </section>
 
@@ -125,22 +133,36 @@
       </div>
     </section>
 
-    <!-- 3. 밭에서 병까지 · 샌드 아이보리 -->
-    <section class="section bg-sand" id="origin">
-      <div class="wrap origin">
-        <!-- TODO: 실제 산돌배나무 · 밭 · 대표 손 사진 -->
-        <figure class="origin__img"><figcaption>구룡령 산돌배나무 · 실사진 자리</figcaption></figure>
-        <div>
-          <p class="kicker">ORIGIN</p>
-          <h2 class="h2">술을 만들려고,<br>밭에 돌배부터 심었습니다</h2>
-          <p class="lead measure">2006년, 구룡령의 고추밭에 산돌배나무 100그루를 심으며 시작했습니다. 7년을 기다려 첫 열매가 달렸습니다. 지금은 부부가 함께 술을 빚습니다.</p>
-          <ol class="timeline">
-            <li><b>2006 · 산돌배나무를 심다</b><span>구룡령 고추밭, 100그루로 시작</span></li>
-            <li><b>7년 · 첫 열매가 달리다</b><span>나무가 술이 될 만큼 자라는 시간</span></li>
-            <li><b>증류 · 감압증류 한 번</b><span>옥수수로 빚은 술을 낮은 온도에서 한 번 증류합니다</span></li>
-            <li><b>향 · 구룡령 산돌배로 완성하다</b><span>증류 원액에 산돌배를 침출해 100일 이상 숙성합니다</span></li>
-          </ol>
-        </div>
+    <!-- 3. 사진으로 말하는 이야기 · 큰 사진 + "~보다는, ~로" 제목 + 2~3줄 -->
+    <section class="story" id="origin">
+      <figure class="shot shot--pear"><figcaption>사진 ① 구룡령 산돌배 열매 접사</figcaption></figure>
+      <div class="claim">
+        <h2>사 온 원료보다는,<br>직접 기른 산돌배로</h2>
+        <p>2006년, 구룡령 고추밭에 산돌배나무 100그루를 심었습니다.<br>7년을 기다려 첫 열매가 달렸습니다.<br>금배주의 향은 그 나무에서 시작됩니다.</p>
+      </div>
+
+      <figure class="shot shot--hand"><figcaption>사진 ② 대표 손으로 산돌배를 따는 장면</figcaption></figure>
+      <div class="claim">
+        <h2>센 술맛보다는,<br>향이 남는 술로</h2>
+        <p>옥수수로 빚은 술을 낮은 온도에서 감압증류하고,<br>구룡령 산돌배를 침출해 100일 이상 자연 숙성합니다.</p>
+      </div>
+
+      <figure class="shot shot--hanwoo"><figcaption>사진 ③ 숯불 한우 + 금배주 잔 (한식 식탁)</figcaption></figure>
+      <div class="claim">
+        <h2>뻔한 반주보다는,<br>한우에 맞는 술로</h2>
+        <p>삼겹살엔 소주, 한우엔 금배주.<br>한우의 진한 고소함을 산돌배의 산뜻한 향이 정돈합니다.</p>
+        <a href="#" class="btn btn--naver" data-link="gb17">한우와 함께, 17도 구매하기</a>
+      </div>
+
+      <figure class="shot shot--label"><figcaption>사진 ④ 라벨의 金 글씨 · 병 디테일 접사</figcaption></figure>
+      <div class="claim">
+        <h2>단순한 술보다는,<br>이야기가 있는 술로</h2>
+        <p class="verify">금배주라는 이름에는 세 가지가 담겨 있습니다.</p>
+        <ol class="meaning verify-block">
+          <li><small>하나,</small><b>金</b><span>잔에 따르면 금빛으로 빛나는 술</span></li>
+          <li><small>둘,</small><b>배</b><span>2006년부터 기른 구룡령 산돌배</span></li>
+          <li><small>셋,</small><b>주</b><span>옥수수를 감압증류한 맑은 술</span></li>
+        </ol>
       </div>
     </section>
 
@@ -163,19 +185,6 @@
           <a href="#" class="tlink tlink--arrow" data-link="kakao">카카오톡 채널 추가</a>
         </div>
         <p class="small" style="margin-top:14px">경품 추첨 이벤트 기간에 작성된 리뷰가 포함될 수 있습니다.</p>
-      </div>
-    </section>
-
-    <!-- 5. 소+금 · 딥 브라운 -->
-    <section class="sogeum" id="sogeum">
-      <div class="wrap">
-        <p class="kicker">소+금 PROJECT</p>
-        <h2 class="h2">삼겹살엔 소주.<br>한우엔 금배주.</h2>
-        <p class="sogeum__sub">한우의 다음 한 점을 위한 술.</p>
-        <p class="measure" style="color:#e2d6cf;margin-top:14px">숯불에 구운 한우의 진한 지방감을, 산돌배의 산뜻한 향과 여운으로 정돈합니다.</p>
-        <div class="actions">
-          <a href="#info" class="btn btn--outline-light">식당 입점 문의</a>
-        </div>
       </div>
     </section>
 
