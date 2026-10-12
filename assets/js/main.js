@@ -8,6 +8,8 @@ const LINKS = {
   kakao: "", // 카카오톡 채널
   blog: "",  // 네이버 블로그
   wadiz: "", // 봉신설주 와디즈 페이지
+  terms: "",   // 이용약관 페이지 (아임웹 기본 약관 주소)
+  privacy: "", // 개인정보처리방침 페이지
 };
 const FALLBACK = { gb17: "store", gb25: "store", gb40: "store" };
 

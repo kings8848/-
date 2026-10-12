@@ -386,3 +386,7 @@ a { color: inherit; text-decoration: none; }
 
 /* 25도 · 40도 상세 이미지 톤 */
 .t-40 .pdp__img { background: linear-gradient(180deg, #3a2430, #1f1318); }
+
+.footer__links { margin-top: 12px; }
+.footer__links b { font-weight: 700; }
+.footer .logo { border-bottom: 0; }
