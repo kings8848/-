@@ -119,3 +119,78 @@ EDM, trap, rap, hip hop, heavy drums, autotune, distorted guitar, English lyrics
 ## 7. 권리 기록
 생성 날짜 / Suno 플랜 / 선택한 버전 번호를 기록한다. 파일명 `WS_OST_T01_첫눈이오면_v1.mp3`
 가사는 킹스양조장 원작 기반 창작 가사 (작사: 대표 / Claude 협업 초안).
+
+---
+
+# v2 — 대표 확정 스타일 (캐릭터 목소리 포함, 3분 이내)
+
+## Style (대표 원안에서 금지어만 Exclude 칸으로 옮김)
+```
+Epic Korean fantasy animation soundtrack, emotional cinematic orchestral ballad, 76 BPM, mystical ancient atmosphere, premium animated feature film quality, intimate breathy whispered ad-libs, delicate piano and Korean daegeum introduction, gentle harp, warm haegeum, deep cello, sweeping symphonic strings, majestic French horns, powerful timpani, subtle cinematic percussion, expressive ethereal Korean female lead vocal, distinct deep male character dialogue, warm female storyteller and bright female crane character voice, quiet mysterious verses, memorable soaring chorus with wordless mixed choir, intimate emotional bridge, explosive hopeful final chorus, delicate piano and celestial bells outro, strong storytelling
+```
+
+## Exclude Styles
+```
+rap, EDM, trap, hip hop, autotune, long instrumental solo, English lyrics
+```
+
+## Lyrics v2
+```
+[Intro]
+[Delicate piano and daegeum]
+[Narrator, warm female spoken]
+(1416년, 구룡령. 눈을 관리하는 저승사자와, 하늘을 가장 오래 바라보는 학이 있었습니다.)
+
+[Verse 1]
+[Lead vocal, quiet and mysterious]
+깃털 한 개만 달라던 너
+싫다며 웃던 겨울 소나무
+늦잠 든 봄날 쏟아진 눈에
+꽃봉오리는 얼어 갔지
+
+[Dialogue]
+[Reaper, deep male spoken]
+(깃털 한 개만.)
+[Crane, bright female spoken]
+(싫어.)
+
+[Pre-Chorus]
+기다리는 사람이 있으면
+시간은 아깝지 않대
+
+[Chorus]
+[Soaring, wordless mixed choir]
+꽃은 지지만 기다림은 남아
+눈은 녹지만 마음은 남아
+첫눈이 오면 문을 두드려
+톡, 톡 나 여기 있어
+
+[Verse 2]
+[Lead vocal, soft]
+육백 년을 건너온 향기
+없어졌는데 남아 있네
+누군가 또 나무를 심고
+다시 봄을 기다리네
+
+[Bridge]
+[Intimate, piano and cello]
+[Reaper, deep male spoken]
+(하지 마. 다시는 못 나올 수도 있어.)
+[Crane, bright female spoken]
+(맨날 네가 달라고 했잖아.)
+[Lead vocal, breathy whisper]
+이번에는 내가 줄게
+
+[Final Chorus]
+[Explosive, French horns and timpani, full choir]
+꽃은 지지만 기다림은 남아
+눈은 녹지만 마음은 남아
+첫눈이 오면 문을 두드려
+톡, 톡 나 여기 있어
+
+[Outro]
+[Delicate piano and celestial bells]
+[Narrator, warm female spoken]
+(꽃은 지지만, 기다림은 남는다.)
+[End]
+```
