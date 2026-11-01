@@ -194,3 +194,95 @@ rap, EDM, trap, hip hop, autotune, long instrumental solo, English lyrics
 (꽃은 지지만, 기다림은 남는다.)
 [End]
 ```
+
+---
+
+# v3 — 12장 전체 서사 압축판 (3분 이내, 역동형)
+
+## Style 추가 문구 (대표 원안 맨 끝에 붙임)
+```
+, dynamic progression from whisper to epic, each section builds higher, story told in chronological order
+```
+
+## Lyrics v3
+```
+[Intro]
+[Delicate piano and daegeum, celestial bells]
+[Narrator, warm female spoken]
+(톡, 톡. 상자 속 학이 고개를 들었습니다. 첫눈은, 아직 오지 않았습니다.)
+
+[Verse 1]
+[Lead vocal, quiet and mysterious, slowly building]
+깃털 한 개만, 싫다 웃던 너
+늦잠 든 봄날 멈추지 못한 눈
+꽃봉오리를 덮어 버린 밤
+흩어져 가는 검은 소매 끝
+
+[Pre-Chorus]
+[Harp and haegeum rising]
+눈 속에 남은 단 한 송이
+기다린 손이 꽃을 피웠네
+
+[Chorus]
+[Soaring, wordless mixed choir, strings swell]
+꽃 한 송이, 돌배 하나, 깃털 하나
+세 항아리에 담은 기다림
+꽃은 지지만 기다림은 남아
+눈은 녹지만 마음은 남아
+
+[Verse 2]
+[Driving strings and cinematic percussion, more intense]
+녹아 버린 첫눈 한 그릇
+없어졌는데 남아 있었지
+누군가 심은 어린 돌배나무
+육백 년째 봄, 꽃잎이 빛나
+
+[Pre-Chorus]
+[French horns enter]
+바람에 실려 온 그 봄의 향기
+검은 상자 위 은빛 날개
+
+[Bridge]
+[Intimate, deep cello, heartbeat timpani]
+[Reaper, deep male spoken]
+(말하면 네가 떠날까 봐.)
+[Crane, bright female spoken]
+(나는 네 친구잖아.)
+[Lead vocal, trembling]
+첫눈 없는 하늘 아래
+사라지는 너를 두고 갈 수 없어
+[Reaper, deep male spoken]
+(하지 마.)
+[Crane, bright female spoken, breathy]
+(맨날 네가 달라고 했잖아.)
+[Lead vocal, whisper rising to full voice]
+이번에는 내가 줄게
+
+[Final Chorus]
+[Explosive, key change, majestic French horns, powerful timpani, full choir]
+그림 속에서 기다릴게
+첫눈이 오면 문을 두드려
+꽃은 지지만 기다림은 남아
+눈은 녹지만 마음은 남아
+
+[Outro]
+[Delicate piano and celestial bells]
+[Crane, soft sung]
+톡, 톡 나 여기 있어
+[Narrator, warm female spoken]
+(누군가 나무를 심는 한, 이야기는 끝나지 않는다.)
+[End]
+```
+
+## 원작 대응표
+| 구간 | 원작 | 가사 |
+|---|---|---|
+| Intro | 프롤로그 | 상자 속 학, 오지 않은 첫눈 |
+| Verse 1 | 1·2·3장 | 깃털 한 개만 / 늦잠과 봄눈 / 꽃봉오리 냉해 / 흩어지는 소매 끝 |
+| Pre 1 | 4장 | 살아남은 한 송이, 여인의 손 |
+| Chorus 1 | 5장 + 주제 | 꽃·돌배·깃털 세 항아리 |
+| Verse 2 | 6·7·8장 | 1418 녹은 첫눈 그릇 / 2006 돌배나무 / 2016 빛나는 꽃잎 |
+| Pre 2 | 9장 | 양조장의 향, 상자 위 은빛 학 |
+| Bridge | 10·11·12장 | 숨긴 비밀 / 사라지는 저승사자 / "이번에는 내가 줄게" |
+| Final Chorus | 12장 | 문양 속 학, 첫눈 |
+| Outro | 에필로그 | 톡, 톡 / 이야기는 끝나지 않는다 |
