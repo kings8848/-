@@ -59,10 +59,12 @@ ul{margin:0;padding-left:18px;font-size:14px}
 .out{font-size:12px;border-top:1px dashed var(--line);padding-top:6px}
 .out b{color:var(--warn);font-weight:600}
 
-.depts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;width:100%;border-top:2px solid var(--line);padding-top:22px}
+.depts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;border-top:2px solid var(--line);padding-top:22px}
 .dept{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;align-content:start;min-width:0}
 .dept h3{margin:0;font:800 18px var(--display);color:var(--plum)}
 .dept.prod h3{color:var(--pear)}
+.dept.qc{border-color:var(--code)}
+.dept.qc h3{color:var(--code)}
 .lead{font-size:13px;font-weight:600}
 .staff{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:13px}
 .staff li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline;border-top:1px dashed var(--line);padding-top:6px}
@@ -96,10 +98,10 @@ footer{font-size:12px;color:var(--muted)}
   <div class="eyebrow">농업회사법인 킹스 주식회사 · 킹스양조장</div>
   <h1>킹스양조장 조직도</h1>
   <p class="lede">일반 회사와 같은 부서·직급 체계입니다. 사람은 대표이사 1명이고, 사장(손사장)과 부장·대리는 AI와 코드가 맡습니다. AI 조직에서 직급은 <b>권한</b>입니다. 대리는 실행만, 부장은 부서 검수, 사장은 부서 간 조정, 대표이사는 최종 승인을 합니다.</p>
-  <div class="sum"><span>대표이사 <b>1</b></span><span>사장 <b>1</b></span><span>부장 <b>5</b> (대표 겸임 1)</span><span>대리 <b>8</b></span><span>부서 <b>5</b></span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
+  <div class="sum"><span>대표이사 <b>1</b></span><span>사장 <b>1</b></span><span>부장 <b>6</b> (대표 겸임 1)</span><span>대리 <b>9</b></span><span>부서 <b>6</b></span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
 </header>
 
-<div class="chart" role="img" aria-label="대표이사 아래 사장, 사장 아래 총무부·생산부·자재부·시설부·마케팅부, 사장 옆 감사 자문">
+<div class="chart" role="img" aria-label="대표이사 아래 사장, 사장 아래 총무부·생산부·품질관리부·자재부·시설부·마케팅부, 사장 옆 감사 자문">
   <div class="node ceo">
     <h2>대표이사</h2>
     <div class="role">김종환 · 사람</div>
@@ -138,7 +140,15 @@ footer{font-size:12px;color:var(--muted)}
       <ul class="staff">
         <li><b>대리</b> 제조기록 <i class="c">코드</i><span>진행 2</span></li>
       </ul>
-      <p>담금·발효·증류·숙성·병입, 배치 기록·알코올 수지·품질</p>
+      <p>담금·발효·증류·숙성·병입, 배치 기록·알코올 수지</p>
+    </article>
+    <article class="dept qc">
+      <h3>품질관리부</h3>
+      <div class="lead">부장 · 품질관리부장 <i>AI</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 품질검사 <i class="c">코드</i><span>신설</span></li>
+      </ul>
+      <p>생산과 분리. 규격·도수·라벨 대조, 배치 이력·리콜 추적, <b>출하 보류 권한</b>. 관능 판정·최종 출하는 대표이사</p>
     </article>
     <article class="dept">
       <h3>자재부</h3>
@@ -175,7 +185,7 @@ footer{font-size:12px;color:var(--muted)}
     <tbody>
       <tr><td>대표이사</td><td>김종환 (사람)</td><td>외부 발송·제출·투자 최종 승인, 양조 판단</td><td>—</td></tr>
       <tr><td>사장</td><td>손사장 (AI)</td><td>지시 해석, 부서 배정, 부서 간 조정, 전사 검수</td><td>대표 승인 없는 외부 발송</td></tr>
-      <tr><td>부장</td><td>부서별 AI (필요할 때만 호출)</td><td>부서 업무 검수·반려, 부서 계획</td><td>다른 부서 지시, 외부 발송</td></tr>
+      <tr><td>부장</td><td>부서별 AI (필요할 때만 호출)</td><td>부서 업무 검수·반려, 부서 계획 · 품질관리부장은 <b>출하 보류</b></td><td>다른 부서 지시, 외부 발송</td></tr>
       <tr><td>대리</td><td>코드 또는 AI</td><td>계산·경보·초안 작성</td><td>승인·검수·판단</td></tr>
       <tr><td>자문</td><td>독립검토</td><td>위험 업무 권고</td><td>승인·지시</td></tr>
     </tbody>
@@ -212,7 +222,7 @@ footer{font-size:12px;color:var(--muted)}
   <div class="tbl"><table class="future">
     <thead><tr><th>단계</th><th>추가 담당</th><th>외부 위탁</th></tr></thead>
     <tbody>
-      <tr><td>~1억</td><td>현재 5개 부서 유지</td><td>—</td></tr>
+      <tr><td>~1억</td><td>현재 6개 부서 유지</td><td>—</td></tr>
       <tr><td>~10억</td><td>마케팅부 B2B 영업 대리 (견적·거래명세)</td><td>물류(3PL) · 세무 기장</td></tr>
       <tr><td>~100억</td><td>해외사업부 신설 (수출 서류·인증)</td><td>생산 위탁 검토 (면허 조건 확인 후)</td></tr>
     </tbody>
