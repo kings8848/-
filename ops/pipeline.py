@@ -35,6 +35,11 @@ def error_workflow(step: str, code: int, detail: str, trigger: str) -> Path:
     (OPS / "state").mkdir(exist_ok=True)
     with (OPS / "state" / "pipeline_errors.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps({"at": datetime.now(KST).isoformat(timespec="seconds"), "step": step, "code": code, "report": p.name}, ensure_ascii=False) + "\n")
+    try:
+        sys.path.insert(0, str(OPS / "connectors")); from kakao_notify import notify
+        notify(f"파이프라인 '{step}' 단계 실패(코드 {code}). 보고서 {p.name}", level="오류")
+    except Exception:
+        pass
     return p
 
 
@@ -85,6 +90,12 @@ def main(argv=None):
          f"- 전체 업무 {lv.get('tasks',0)}건 · 완료 {lv.get('done',0)}건 · 경보 해소로 자동 완료 {lv.get('auto_closed',0)}건",
          f"- 대표 손이 필요한 것: 승인·상신 {lv.get('ceo_pending',0)-lv.get('ceo_questions',0)}건 + 답변 대기 질문 {lv.get('ceo_questions',0)}건"]
     (rep / f"아침보고_{day}.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    if ok and lv.get("ceo_pending"):
+        try:
+            sys.path.insert(0, str(OPS / "connectors")); from kakao_notify import notify
+            notify(f"아침 보고: 대표 확인 필요 {lv['ceo_pending']}건. 아침보고_{day}.md", level="승인요청")
+        except Exception:
+            pass
     print(L[0])
     return 0 if ok else 1
 

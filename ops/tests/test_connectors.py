@@ -62,3 +62,39 @@ class ConnTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class KakaoTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        os.environ["KINGS_NOTIFY_QUEUE"] = str(self.tmp / "q.jsonl")
+        sys.path.insert(0, str(HERE / "connectors"))
+        import kakao_notify
+        self.k = importlib.reload(kakao_notify)
+
+    def test_queued_without_credentials(self):
+        os.environ.pop("KAKAO_REST_API_KEY", None); os.environ.pop("KAKAO_REFRESH_TOKEN", None)
+        self.k.load_env = lambda: {}
+        self.assertEqual(self.k.notify("시험"), "queued")
+        self.assertIn("queued", (self.tmp / "q.jsonl").read_text(encoding="utf-8"))
+
+    def test_sends_with_refresh_then_memo(self):
+        self.k.load_env = lambda: {"KAKAO_REST_API_KEY": "K", "KAKAO_REFRESH_TOKEN": "R"}
+        calls = []
+        class Resp:
+            def __init__(s, j): s.j = j
+            def raise_for_status(s): pass
+            def json(s): return s.j
+        class Sess:
+            def post(s, url, **kw):
+                calls.append((url, kw)); return Resp({"access_token": "A"} if "oauth" in url else {"result_code": 0})
+        self.assertEqual(self.k.notify("파이프라인 실패", "오류", session=Sess()), "sent")
+        self.assertEqual(calls[0][1]["data"]["grant_type"], "refresh_token")
+        self.assertEqual(calls[1][1]["headers"]["Authorization"], "Bearer A")
+        self.assertIn("[킹스 오류]", calls[1][1]["data"]["template_object"])
+
+    def test_failure_does_not_raise(self):
+        self.k.load_env = lambda: {"KAKAO_REST_API_KEY": "K", "KAKAO_REFRESH_TOKEN": "R"}
+        class Sess:
+            def post(s, *a, **k): raise ConnectionError("x")
+        self.assertEqual(self.k.notify("x", session=Sess()), "failed")

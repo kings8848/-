@@ -8,7 +8,7 @@ import getpass, sys
 from pathlib import Path
 
 ENV = Path(__file__).resolve().parents[1] / ".env"
-ALLOWED = {"NAVER_COMMERCE_CLIENT_ID", "NAVER_COMMERCE_CLIENT_SECRET", "THREADS_APP_ID", "THREADS_APP_SECRET"}
+ALLOWED = {"NAVER_COMMERCE_CLIENT_ID", "NAVER_COMMERCE_CLIENT_SECRET", "THREADS_APP_ID", "THREADS_APP_SECRET", "KAKAO_REST_API_KEY", "KAKAO_REFRESH_TOKEN"}
 
 
 def set_secret(name: str, value: str, env: Path = ENV) -> None:

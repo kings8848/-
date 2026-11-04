@@ -56,6 +56,13 @@
       "last_checked": "2026-11-04",
       "expires": null,
       "used_by": "브랜드콘텐츠 — 권한 4개(basic·content_publish·read_replies·manage_insights)"
+    },
+    {
+      "name": "카카오톡 나에게 보내기(알림)",
+      "status": "앱 등록 필요(대표 결정 D-0011)",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "pipeline 오류·승인 요청 — 연결기 ops/connectors/kakao_notify.py, 실서버 미검증"
     }
   ]
 }

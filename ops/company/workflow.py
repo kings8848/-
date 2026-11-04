@@ -165,6 +165,12 @@ def review(db, passes=(), rejects=None, impossible=()):
             continue
         t = db["tasks"][tid]
         t["status"] = "대표승인대기" if t["external"] else "완료"
+        if t["external"] and not os.environ.get("KINGS_NO_NOTIFY"):
+            try:
+                sys.path.insert(0, str(HERE.parent / "connectors")); from kakao_notify import notify
+                notify(f"승인 요청 {tid}: {t['accept'][0][:80]} (workflow.py approve {tid})", level="승인요청")
+            except Exception:
+                pass
         t["log"].append(f"{now()} 검수 통과")
         out[tid] = t["status"]
     for tid, note in rejects.items():
