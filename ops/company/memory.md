@@ -46,5 +46,9 @@
 | 법정 의무 대장 | ops/company/compliance_register.json |
 | 주류제조 부서 조사 | ops/company/주류제조_부서_조사.md |
 | 말하면 바로 연결 | `workflow.py say "문장"` |
+| 1인기업 4층 대조 | ops/company/1인기업_4층구조_대조.md |
+| 파이프라인(한 줄 전체 실행) | `python3 ops/pipeline.py` → 아침보고 |
+| 자동/승인/금지 경계 | ops/company/자동화_정책.json |
+| SOP 목록 | ops/sop/README.md |
 | 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |

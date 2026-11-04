@@ -72,3 +72,10 @@ python3 -m unittest ops/tests/test_ops.py   # 회귀 시험 8개
 python3 ops/enterprise/value_chain.py     # 입고→생산→재고→판매→세금→영업이익→시설투자 + 100억 시나리오
 ```
 `master.json`의 null은 계산하지 않고 '입력 필요'로, verified=false 세율은 '미확정'으로 보고합니다. 비밀값은 `python ops/scripts/set_secret.py 이름` (화면에 안 보임).
+
+## 한 줄 전체 실행 (3층 파이프라인)
+
+```bash
+python3 ops/pipeline.py
+```
+수집·대사 → 전사 가치사슬 → 경보→담당 업무 → `reports/아침보고_YYYYMMDD.md`(대표 확인 필요 건수·지능 레버리지). PC 작업 스케줄러에 이 한 줄을 매일 걸면 24시간 자동화가 됩니다.

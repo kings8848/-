@@ -1,0 +1,25 @@
+{
+  "_doc": "Human-in-the-loop 95/5 경계. auto=사람 개입 없이 실행, approve=대표 승인 후 실행, forbidden=시스템이 하지 않음. 새 동작은 기본 approve.",
+  "actions": {
+    "정산 대사·누락 탐지": "auto",
+    "출고 지연·재고 경보": "auto",
+    "매출·원가 KPI 계산": "auto",
+    "법정 의무 주기·증빙 경보": "auto",
+    "경보→담당 업무 배정·해소": "auto",
+    "아침 보고 작성": "auto",
+    "CS 문의 답변 초안": "auto",
+    "B2B 제안서 초안": "auto",
+    "SNS 게시 초안": "auto",
+    "고객 답변 발송": "approve",
+    "B2B 제안 메일 발송": "approve",
+    "SNS 게시": "approve",
+    "환불·교환 처리": "approve",
+    "지원사업·관공서 제출": "approve",
+    "가격(공장도가격·판매가) 변경": "approve",
+    "시설투자·발주·결제": "approve",
+    "출하 보류 해제": "approve",
+    "광고성 메일·문자 무동의 발송": "forbidden",
+    "미성년자 대상 판매·광고": "forbidden",
+    "AI에게 계정 비밀번호 전달": "forbidden"
+  }
+}
