@@ -18,7 +18,7 @@ from pathlib import Path
 OPS = Path(__file__).resolve().parent
 KST = timezone(timedelta(hours=9))
 STEPS_OVERRIDE = None  # 시험용
-STEPS = [("수집·대사·경보", ["kings_ops.py", "run"]), ("전사 가치사슬", ["enterprise/value_chain.py"]), ("B2B 영업", ["sales/b2b.py"]), ("6차 산업 계기판", ["marketing/six_industry.py"]), ("경보→담당 업무", ["company/bridge.py"])]
+STEPS = [("수집·대사·경보", ["kings_ops.py", "run"]), ("전사 가치사슬", ["enterprise/value_chain.py"]), ("B2B 영업", ["sales/b2b.py"]), ("6차 산업 계기판", ["marketing/six_industry.py"]), ("경보→담당 업무", ["company/bridge.py"]), ("통합 대시보드", ["cockpit.py"])]
 
 
 STEP_TIMEOUT = int(os.environ.get("KINGS_STEP_TIMEOUT", "300"))

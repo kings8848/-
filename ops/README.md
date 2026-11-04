@@ -79,3 +79,6 @@ python3 ops/enterprise/value_chain.py     # 입고→생산→재고→판매→
 python3 ops/pipeline.py
 ```
 수집·대사 → 전사 가치사슬 → 경보→담당 업무 → `reports/아침보고_YYYYMMDD.md`(대표 확인 필요 건수·지능 레버리지). PC 작업 스케줄러에 이 한 줄을 매일 걸면 24시간 자동화가 됩니다.
+
+## 통합 대시보드(콕핏)
+`ops/reports/cockpit.html` — 파이프라인 마지막 단계가 매일 다시 그립니다. 1·2·3차 증거, 원장 매출, 경보, B2B 리드, 법정 의무, **대표님 판단이 필요한 것**을 한 화면에. 전체 지도는 `ops/킹스_1인AI법인_시스템_총정리.md`.

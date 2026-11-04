@@ -54,5 +54,7 @@
 | 오케스트레이션 설계 | ops/company/오케스트레이션_설계.md · tools.json · context.py |
 | B2B 파이프라인 | ops/sales/b2b.py · leads.csv · sop/B2B_페어링.md |
 | 브랜드 포지셔닝(6차 산업) | ops/marketing/브랜드_포지셔닝_6차산업.md · six_industry.py |
+| 시스템 총정리 | ops/킹스_1인AI법인_시스템_총정리.md |
+| 통합 대시보드 | ops/reports/cockpit.html (`python3 ops/cockpit.py`) |
 | 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |
