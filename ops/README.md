@@ -56,3 +56,12 @@ python3 -m unittest ops/tests/test_ops.py   # 회귀 시험 8개
 | 외부 발송·게시·제출은 대표 승인 | `workflow.py approve T-..` |
 | 회사의 기억 + 지난 지적 탑재 | `workflow.py brief T-..` |
 | 현황 | `workflow.py status` |
+
+## 대표 결정 반영 (2026-11-04, D-0003)
+
+| 결정 | 구현 |
+|---|---|
+| 월 예산 10만원 | 회사의 기억 '반드시 아는 것' |
+| 스마트스토어 커머스API 연동 | `ops/connectors/smartstore_api.py` (bcrypt 서명·토큰·변경주문 조회·중복 없는 적재) → 엔진이 결제 후 24시간 미발송을 긴급 경보. **실서버 미검증** — 대표님 .env 입력 후 첫 실행에서 검증 |
+| 배치 기록 엑셀 | `ops/templates/배치기록_양식.xlsx`(공정·제품 목록 선택) → `ops/data/batches.xlsx`로 저장하면 엔진이 csv보다 우선해 읽음 |
+| 누락 정산 대표 직접 | `ops/reports/누락정산_처리목록_대표용.md` (11구간 + 메일 7통 Gmail 링크) |

@@ -233,14 +233,50 @@ def smartstore(F: Findings) -> dict:
         F.add("긴급", "출고·지연", f"스마트스토어 발송대기 {open_alert[-1]['awaiting_shipment']}건이 {open_alert[0]['status_date']}부터 {len(open_alert)}일째 미발송 (최신 {open_alert[-1]['status_date']} 17시 기준)",
               "오늘 오전 발송 처리 또는 구매자에게 발송 예정일 안내 (지연 시 판매자 점수·페널티 위험)", open_alert[-1]["gmail_message_id"])
     latest = status[-1] if status else None
-    return {"deposits": deps, "monthly": dict(sorted(monthly.items())), "total": sum(int(r["amount"]) for r in deps),
+    api = read_csv(DATA / "smartstore_orders_api.csv")
+    api_waiting = []
+    if api:
+        cur = {}
+        for r in api:
+            if r["product_order_id"] not in cur or r["last_changed"] > cur[r["product_order_id"]]["last_changed"]:
+                cur[r["product_order_id"]] = r
+        now = datetime.now(KST)
+        for r in cur.values():
+            if r["status"] == "PAYED":
+                try:
+                    age_h = (now - datetime.fromisoformat(r["last_changed"].replace("Z", "+00:00"))).total_seconds() / 3600
+                except ValueError:
+                    age_h = None
+                api_waiting.append((r["product_order_id"], age_h))
+        late = [x for x in api_waiting if x[1] is not None and x[1] >= 24]
+        if late:
+            F.add("긴급", "출고·지연(API)", f"결제 후 24시간 넘게 발송 전 {len(late)}건: " + ", ".join(f"{i}({h:.0f}h)" for i, h in late),
+                  "오늘 발송 또는 구매자 안내", late[0][0])
+    return {"api_orders": len(api), "api_waiting": len(api_waiting),"deposits": deps, "monthly": dict(sorted(monthly.items())), "total": sum(int(r["amount"]) for r in deps),
             "status_days": len(status), "status_range": (status[0]["status_date"], status[-1]["status_date"]) if status else None,
             "alerts_closed": len(alerts), "open_alert": bool(open_alert), "latest": latest}
 
 
 # ───────────────────────── 5~6. 배치·재고 ─────────────────────────
+def read_batch_rows() -> list[dict]:
+    """대표 결정 D-0003-3: 엑셀 양식(data/batches.xlsx '배치기록' 시트) 우선, 없으면 csv."""
+    x = DATA / "batches.xlsx"
+    if x.exists():
+        import openpyxl  # PC: pip install openpyxl
+        ws = openpyxl.load_workbook(x, data_only=True)["배치기록"]
+        it = ws.iter_rows(values_only=True)
+        head = [str(c).strip() if c is not None else "" for c in next(it)]
+        out = []
+        for row in it:
+            vals = ["" if c is None else (c.strftime("%Y-%m-%d") if hasattr(c, "strftime") else str(c)) for c in row]
+            if any(v.strip() for v in vals):
+                out.append(dict(zip(head, vals)))
+        return out
+    return read_csv(DATA / "batches.csv")
+
+
 def batches(F: Findings, lf: dict) -> dict:
-    rows = read_csv(DATA / "batches.csv")
+    rows = read_batch_rows()
     real = [r for r in rows if (r.get("is_sample") or "").strip().upper() not in ("Y", "1", "TRUE")]
     out = {"batches": [], "real_complete": 0, "inventory": []}
     by = defaultdict(list)

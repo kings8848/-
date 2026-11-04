@@ -1,12 +1,54 @@
 {
   "_rule": "영상 '소셜 연결' 화면 적용: 연결마다 마지막 확인일·만료일을 적고, 7일 넘게 확인 안 했거나 만료 7일 전이면 보고서에 경고",
   "connections": [
-    {"name": "Gmail(주문현황·정산 메일)", "status": "연결", "last_checked": "2026-11-04", "expires": null, "used_by": "출고재고·정산원가"},
-    {"name": "Google Drive(정산서 원본)", "status": "연결", "last_checked": "2026-11-04", "expires": null, "used_by": "정산원가"},
-    {"name": "GitHub kings8848/-(엔진·원장)", "status": "연결", "last_checked": "2026-11-04", "expires": null, "used_by": "전체"},
-    {"name": "아침 예약 실행(09:00 KST)", "status": "1회 실행 후 종료", "last_checked": "2026-11-04", "expires": "2026-11-04", "used_by": "손사장"},
-    {"name": "대표님 PC 폴더(Remote Control)", "status": "미연결", "last_checked": "2026-11-04", "expires": null, "used_by": "제조기록·C:\\ 역량평가 기록"},
-    {"name": "스마트스토어 커머스API", "status": "미연결", "last_checked": "2026-11-04", "expires": null, "used_by": "출고재고(메일 대신 실시간 주문)"},
-    {"name": "YouTube", "status": "차단(세션 네트워크)", "last_checked": "2026-11-04", "expires": null, "used_by": "영상 분석"}
+    {
+      "name": "Gmail(주문현황·정산 메일)",
+      "status": "연결",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "출고재고·정산원가"
+    },
+    {
+      "name": "Google Drive(정산서 원본)",
+      "status": "연결",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "정산원가"
+    },
+    {
+      "name": "GitHub kings8848/-(엔진·원장)",
+      "status": "연결",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "전체"
+    },
+    {
+      "name": "아침 예약 실행(09:00 KST)",
+      "status": "1회 실행 후 종료",
+      "last_checked": "2026-11-04",
+      "expires": "2026-11-04",
+      "used_by": "손사장"
+    },
+    {
+      "name": "대표님 PC 폴더(Remote Control)",
+      "status": "미연결",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "제조기록·C:\\ 역량평가 기록"
+    },
+    {
+      "name": "스마트스토어 커머스API",
+      "status": "신청 필요(대표 결정: 연동)",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "출고재고 — 연결기 ops/connectors/smartstore_api.py 준비 완료, 실서버 미검증"
+    },
+    {
+      "name": "YouTube",
+      "status": "차단(세션 네트워크)",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "영상 분석"
+    }
   ]
 }
