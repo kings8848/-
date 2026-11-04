@@ -25,10 +25,11 @@ class VCTest(unittest.TestCase):
         p["factory_price"] = 8000
         p["unit_cost"] = {"원료": 1500, "병·마개": 900, "라벨·포장": 400, "에너지·인건": 600}
         u = self.v.unit_economics(m, "금배주 25", "로컬푸드", 50)  # 50kl → 경감 50%
-        self.assertEqual(u["liquor_tax"], round(8000 * 0.72 * 0.5))
-        self.assertEqual(u["education_tax"], round(8000 * 0.72 * 0.5 * 0.3))
+        base = 8000 * (1 - 0.209)  # 리큐르 기준판매비율
+        self.assertEqual(u["liquor_tax"], round(base * 0.72 * 0.5))
+        self.assertEqual(u["education_tax"], round(base * 0.72 * 0.5 * 0.3))
         self.assertFalse(u["tax_verified"])
-        exp = round(15000 / 1.1 - 1950 - 3400 - 8000 * 0.72 * 0.5 * 1.3)
+        exp = round(round(15000 / 1.1) - 1950 - 3400 - base * 0.72 * 0.5 * 1.3)
         self.assertEqual(u["operating_profit"], exp)
         m["investments"] = [{"name": "발효조 2기", "amount": 30000000, "added_bottles_year": 10000}]
         inv = self.v.investments(m, u["operating_profit"])

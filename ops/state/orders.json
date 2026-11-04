@@ -188,6 +188,17 @@
     "2026-11-04T17:02:13+09:00 지시 등록(원문 봉인)",
     "2026-11-04T17:02:14+09:00 해석 작성"
    ]
+  },
+  "D-0008": {
+   "original": "품목제조 보고서? 공장도가격 책정? 식약청 위생검사도 있는데 내가 이야기를 하면 바로 연결되는 시스템이 아직 안되는구나? 주류제조에 필요한 부서가 적합한지? 추가 부서가 무엇이 필요한지 조사를 해봐",
+   "sha256": "f3e21d90c6458c9effbca61b69e1d19d99368807cdd43db141bd087ec7afcfdc",
+   "depth": "생략",
+   "created": "2026-11-04T17:16:19+09:00",
+   "interpretation": null,
+   "questions": [],
+   "log": [
+    "2026-11-04T17:16:19+09:00 지시 등록(원문 봉인)"
+   ]
   }
  },
  "tasks": {
@@ -649,6 +660,90 @@
     "2026-11-04T17:02:14+09:00 제출",
     "2026-11-04T17:02:14+09:00 검수 통과"
    ]
+  },
+  "T-0020": {
+   "order": "D-0004",
+   "owner": "식품안전",
+   "output": "ops/reports/역량평가_20261104.json",
+   "accept": [
+    "[경고] 법정 의무 4건 주기 미확인: 주세 신고·납부(출고분), 자가품질검사(자체 또는 위탁기관), 영업자 위생교육, 종사자 건강진단",
+    "조치: 세무사·관할 지자체 식품위생과에 주기 확인 → compliance_register.json cycle 기입",
+    "다음 실행에서 이 경보가 사라질 것"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "channel": null,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T17:15:20+09:00 배정 → 식품안전"
+   ],
+   "finding": {
+    "level": "경고",
+    "area": "인허가·주기미확인",
+    "msg": "법정 의무 4건 주기 미확인: 주세 신고·납부(출고분), 자가품질검사(자체 또는 위탁기관), 영업자 위생교육, 종사자 건강진단",
+    "action": "세무사·관할 지자체 식품위생과에 주기 확인 → compliance_register.json cycle 기입",
+    "ref": ""
+   }
+  },
+  "T-0021": {
+   "order": "D-0004",
+   "owner": "식품안전",
+   "output": "ops/reports/역량평가_20261104.json",
+   "accept": [
+    "[확인] 증빙 미등록 9건: NTS-LICENSE, NTS-TAX-RETURN, NTS-BASE-PRICE, NTS-LABEL, NTS-BOOKS, MFDS-SELF-QC, MFDS-HYGIENE-EDU, MFDS-HEALT",
+    "조치: 해당 서류(신고서·성적서·이수증) 위치를 evidence에 기록",
+    "다음 실행에서 이 경보가 사라질 것"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "channel": null,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T17:15:20+09:00 배정 → 식품안전"
+   ],
+   "finding": {
+    "level": "확인",
+    "area": "인허가·증빙없음",
+    "msg": "증빙 미등록 9건: NTS-LICENSE, NTS-TAX-RETURN, NTS-BASE-PRICE, NTS-LABEL, NTS-BOOKS, MFDS-SELF-QC, MFDS-HYGIENE-EDU, MFDS-HEALTH-CHECK, SALES-ONLINE",
+    "action": "해당 서류(신고서·성적서·이수증) 위치를 evidence에 기록",
+    "ref": ""
+   }
+  },
+  "T-0022": {
+   "order": "D-0004",
+   "owner": "식품안전",
+   "output": "ops/reports/역량평가_20261104.json",
+   "accept": [
+    "[경고] 상표 사용·변경 신고(사용 개시 2일 전까지, 관할 세무서) · 용도 표시(가정용 등): 봉신설주 17(750ml) 신규 라벨 신고 여부 확인",
+    "조치: 봉신설주 17 보고·신고 서류 확인",
+    "다음 실행에서 이 경보가 사라질 것"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "channel": null,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T17:15:20+09:00 배정 → 식품안전"
+   ],
+   "finding": {
+    "level": "경고",
+    "area": "인허가·신제품",
+    "msg": "상표 사용·변경 신고(사용 개시 2일 전까지, 관할 세무서) · 용도 표시(가정용 등): 봉신설주 17(750ml) 신규 라벨 신고 여부 확인",
+    "action": "봉신설주 17 보고·신고 서류 확인",
+    "ref": "NTS-LABEL"
+   }
   }
  }
 }

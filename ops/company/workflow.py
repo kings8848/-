@@ -278,8 +278,8 @@ def brief(db, tid):
     return "\n".join(lines)
 
 
-DEPT_ORDER = ["총무부", "생산부", "품질관리부", "자재부", "시설부", "마케팅부"]
-RANK_POWER = {"대표이사": "외부 발송·제출·투자 최종 승인", "사장": "부서 간 조정·전사 검수", "부장": "부서 내 검수·반려", "대리": "실행·계산·초안(승인권 없음)", "자문": "권고만"}
+DEPT_ORDER = ["경영기획실", "총무부", "연구개발부", "생산부", "품질관리부", "자재부", "시설부", "마케팅부"]
+RANK_POWER = {"실장": "사장 직속 · 가격·원가·투자 기획(승인권 없음)", "대표이사": "외부 발송·제출·투자 최종 승인", "사장": "부서 간 조정·전사 검수", "부장": "부서 내 검수·반려", "대리": "실행·계산·초안(승인권 없음)", "자문": "권고만"}
 
 
 def org_chart(db):
@@ -299,8 +299,26 @@ def org_chart(db):
             v = ro[k]
             L.append(f"     {'   ' if br == '└─' else '│  '}  · {v['rank']} {v['title']} [{v.get('model','')}] 진행 {cnt[k][0]} · 완료 {cnt[k][1]}")
     n = lambda rk: sum(1 for v in ro.values() if v.get("rank") == rk)
-    L.append(f"합계: 대표이사 1 · 사장 1 · 부장 {n('부장')}(대표 겸임 1) · 대리 {n('대리')} · 자문 1 · 부서 {len(DEPT_ORDER)}")
+    hum = sum(1 for v in ro.values() if v.get("rank") == "부장" and v.get("human"))
+    L.append(f"합계: 대표이사 1 · 사장 1 · 실장 {n('실장')} · 부장 {n('부장')}(대표 겸임 {hum}) · 대리 {n('대리')} · 자문 1 · 부서 {len(DEPT_ORDER)}")
     return "\n".join(L)
+
+
+def route_text(text: str) -> list[tuple[str, int]]:
+    """대표가 말한 문장 → 담당 후보(키워드 일치 수 순). 일치 없으면 손사장."""
+    ro = roster()
+    hits = [(k, sum(1 for kw in v.get("keywords", []) if kw.lower() in text.lower())) for k, v in ro.items()]
+    hits = sorted([h for h in hits if h[1] > 0], key=lambda h: -h[1])
+    return hits or [("손사장", 0)]
+
+
+def say(db, text: str) -> dict:
+    """'내가 이야기하면 바로 연결': 원문 봉인 → 담당 자동 배정. 담당이 여럿이면 각자 1건씩."""
+    oid = new_order(db, text)
+    owners = [k for k, _ in route_text(text)][:3]
+    interpret(db, oid, f"자동 접수: 키워드로 {', '.join(roster()[o]['title'] for o in owners)}에게 배정. 손사장이 검토해 범위를 고친다.")
+    tids = [add_task(db, oid, o, "ops/reports", [f"대표 말씀 처리: {text[:60]}", "처리 결과 또는 대표 확인 질문을 산출물로 남길 것"]) for o in owners]
+    return {"order": oid, "owners": owners, "tasks": tids}
 
 
 def status_table(db):
@@ -330,6 +348,7 @@ def main(argv=None):
     p = sp.add_parser("ask"); p.add_argument("oid"); p.add_argument("q"); p.add_argument("--options", nargs="*", default=[])
     p = sp.add_parser("answer"); p.add_argument("oid"); p.add_argument("n", type=int); p.add_argument("text")
     sp.add_parser("verify"); sp.add_parser("status"); sp.add_parser("org")
+    p = sp.add_parser("say"); p.add_argument("text")
     a = ap.parse_args(argv)
     db = load()
     try:
@@ -366,6 +385,9 @@ def main(argv=None):
             bad = verify(db)
             print("원문 무결" if not bad else f"원문 변경 감지: {bad}")
             return 1 if bad else 0
+        elif a.cmd == "say":
+            r = say(db, a.text)
+            print(f"{r['order']} 접수 → " + ", ".join(f"{roster()[o]['title']}({t})" for o, t in zip(r['owners'], r['tasks'])))
         elif a.cmd == "org":
             print(org_chart(db)); return 0
         elif a.cmd == "status":

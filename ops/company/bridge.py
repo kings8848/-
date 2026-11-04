@@ -24,7 +24,7 @@ REPORTS = Path(os.environ.get("KINGS_OPS_REPORTS", HERE.parent / "reports"))
 MAP = Path(os.environ.get("KINGS_BRIDGE_STATE", HERE.parent / "state" / "bridge.json"))
 STANDING = "[상시] 자동화 계층 경보 수신 — 긴급·경고·확인 경보를 담당 업무로 받는다"
 # 경보 영역 → 담당·외부채널(외부로 나가는 조치만)
-ROUTE = [("출고", "출고재고", "고객안내"), ("정산·세무", "컴플라이언스", "메일"), ("정산", "정산원가", None),
+ROUTE = [("인허가·신제품", "식품안전", None), ("인허가", "식품안전", None), ("출고", "출고재고", "고객안내"), ("정산·세무", "컴플라이언스", "메일"), ("정산", "정산원가", None),
          ("배치", "제조기록", None), ("재고", "출고재고", None), ("매출", "정산원가", None),
          ("연결", "손사장", None), ("성과", "손사장", None)]
 

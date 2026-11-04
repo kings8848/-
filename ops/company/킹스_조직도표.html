@@ -59,11 +59,12 @@ ul{margin:0;padding-left:18px;font-size:14px}
 .out{font-size:12px;border-top:1px dashed var(--line);padding-top:6px}
 .out b{color:var(--warn);font-weight:600}
 
-.depts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;border-top:2px solid var(--line);padding-top:22px}
+.depts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;border-top:2px solid var(--line);padding-top:22px}
 .dept{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;align-content:start;min-width:0}
 .dept h3{margin:0;font:800 18px var(--display);color:var(--plum)}
 .dept.prod h3{color:var(--pear)}
 .dept.qc{border-color:var(--code)}
+.plan{border:1px solid var(--plum);width:min(100%,420px)}
 .dept.qc h3{color:var(--code)}
 .lead{font-size:13px;font-weight:600}
 .staff{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:13px}
@@ -98,10 +99,10 @@ footer{font-size:12px;color:var(--muted)}
   <div class="eyebrow">농업회사법인 킹스 주식회사 · 킹스양조장</div>
   <h1>킹스양조장 조직도</h1>
   <p class="lede">일반 회사와 같은 부서·직급 체계입니다. 사람은 대표이사 1명이고, 사장(손사장)과 부장·대리는 AI와 코드가 맡습니다. AI 조직에서 직급은 <b>권한</b>입니다. 대리는 실행만, 부장은 부서 검수, 사장은 부서 간 조정, 대표이사는 최종 승인을 합니다.</p>
-  <div class="sum"><span>대표이사 <b>1</b></span><span>사장 <b>1</b></span><span>부장 <b>6</b> (대표 겸임 1)</span><span>대리 <b>9</b></span><span>부서 <b>6</b></span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
+  <div class="sum"><span>대표이사 <b>1</b></span><span>사장 <b>1</b></span><span>실장 <b>1</b></span><span>부장 <b>7</b> (대표 겸임 2)</span><span>대리 <b>11</b></span><span>부서 <b>8</b></span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
 </header>
 
-<div class="chart" role="img" aria-label="대표이사 아래 사장, 사장 아래 총무부·생산부·품질관리부·자재부·시설부·마케팅부, 사장 옆 감사 자문">
+<div class="chart" role="img" aria-label="대표이사 아래 사장, 사장 아래 경영기획실, 그 아래 총무부·연구개발부·생산부·품질관리부·자재부·시설부·마케팅부, 사장 옆 감사 자문">
   <div class="node ceo">
     <h2>대표이사</h2>
     <div class="role">김종환 · 사람</div>
@@ -123,57 +124,54 @@ footer{font-size:12px;color:var(--muted)}
   </div>
   <div class="vline"></div>
 
+    <div class="node plan">
+    <h3>경영기획실 (사장 직속)</h3>
+    <div class="role">실장 · AI</div>
+    <div class="who">공장도가격(반출가격) 책정 · 원가·마진 · 시설투자 · 100억 계획</div>
+  </div>
+  <div class="vline"></div>
   <div class="depts">
-    <article class="dept">
+    <article class="dept ">
       <h3>총무부</h3>
       <div class="lead">부장 · 총무부장 <i>AI</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 정산·회계 <i class="c">코드</i><span>진행 3 · 완료 2</span></li>
-        <li><b>대리</b> 세무·인허가 <i>AI</i><span>진행 2</span></li>
-        <li><b>대리</b> 지원사업 <i>AI</i><span>0</span></li>
-      </ul>
-      <p>정산 대사·세금·주세·인허가·지원사업 서류</p>
+      <ul class="staff"><li><b>대리</b> 정산·회계 <i class="c">코드</i><span>진행 3 · 완료 2</span></li><li><b>대리</b> 주세·국세청 <i>AI</i><span>진행 2</span></li><li><b>대리</b> 지원사업 <i>AI</i><span>0</span></li></ul>
+      <p>정산·회계, 주세 신고, 면허·상표 신고(사용 2일 전), 장부, 지원사업</p>
+    </article>
+    <article class="dept prod">
+      <h3>연구개발부</h3>
+      <div class="lead">부장 · 대표이사 겸임 <i class="h">사람</i></div>
+      <ul class="staff"><li><b>대리</b> 연구·특허 <i>AI</i><span>신설</span></li></ul>
+      <p>레시피·신제품, 산돌배 특허·인체적용시험 → 품목제조보고의 출발점</p>
     </article>
     <article class="dept prod">
       <h3>생산부</h3>
       <div class="lead">부장 · 대표이사 겸임 <i class="h">사람</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 제조기록 <i class="c">코드</i><span>진행 2</span></li>
-      </ul>
+      <ul class="staff"><li><b>대리</b> 제조기록 <i class="c">코드</i><span>진행 2</span></li></ul>
       <p>담금·발효·증류·숙성·병입, 배치 기록·알코올 수지</p>
     </article>
     <article class="dept qc">
       <h3>품질관리부</h3>
       <div class="lead">부장 · 품질관리부장 <i>AI</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 품질검사 <i class="c">코드</i><span>신설</span></li>
-      </ul>
-      <p>생산과 분리. 규격·도수·라벨 대조, 배치 이력·리콜 추적, <b>출하 보류 권한</b>. 관능 판정·최종 출하는 대표이사</p>
+      <ul class="staff"><li><b>대리</b> 품질검사 <i class="c">코드</i><span>신설</span></li><li><b>대리</b> 식품안전·인허가 <i>AI</i><span>진행 3</span></li></ul>
+      <p>규격·도수·라벨 대조, <b>출하 보류</b> · 품목제조보고·자가품질검사·위생교육·건강진단·식약처 점검 대응</p>
     </article>
-    <article class="dept">
+    <article class="dept ">
       <h3>자재부</h3>
       <div class="lead">부장 · 자재부장 <i>AI</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 입출고·재고 <i class="c">코드</i><span>진행 3</span></li>
-      </ul>
-      <p>원료 입고·병·라벨 자재, 재고 실사, 출고·발송 경보</p>
+      <ul class="staff"><li><b>대리</b> 입출고·재고 <i class="c">코드</i><span>진행 3</span></li></ul>
+      <p>원료·병·라벨 입고, 재고 실사, 출고·발송 경보</p>
     </article>
-    <article class="dept">
+    <article class="dept ">
       <h3>시설부</h3>
       <div class="lead">부장 · 시설부장 <i>AI</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 설비·가동 <i class="c">코드</i><span>0</span></li>
-      </ul>
-      <p>발효조·증류기 가동률, 생산능력, 시설투자 회수기간</p>
+      <ul class="staff"><li><b>대리</b> 설비·가동 <i class="c">코드</i><span>0</span></li></ul>
+      <p>발효조·증류기 가동률, 생산능력, 설비 점검</p>
     </article>
-    <article class="dept">
+    <article class="dept ">
       <h3>마케팅부</h3>
       <div class="lead">부장 · 마케팅부장 <i>AI</i></div>
-      <ul class="staff">
-        <li><b>대리</b> 판매채널 <i class="c">코드</i><span>0</span></li>
-        <li><b>대리</b> 콘텐츠 <i>AI</i><span>완료 1</span></li>
-      </ul>
-      <p>판매전략·채널(로컬푸드·스마트스토어·와디즈·B2B), 브랜드·SNS</p>
+      <ul class="staff"><li><b>대리</b> 판매채널 <i class="c">코드</i><span>0</span></li><li><b>대리</b> 콘텐츠 <i>AI</i><span>완료 1</span></li></ul>
+      <p>판매채널(로컬푸드·스마트스토어·와디즈·B2B)·통신판매 요건, 브랜드·SNS</p>
     </article>
   </div>
 </div>
@@ -184,6 +182,7 @@ footer{font-size:12px;color:var(--muted)}
     <thead><tr><th>직급</th><th>누가</th><th>할 수 있는 것</th><th>할 수 없는 것</th></tr></thead>
     <tbody>
       <tr><td>대표이사</td><td>김종환 (사람)</td><td>외부 발송·제출·투자 최종 승인, 양조 판단</td><td>—</td></tr>
+      <tr><td>실장</td><td>경영기획실장 (AI)</td><td>가격·원가·투자 기획안</td><td>승인</td></tr>
       <tr><td>사장</td><td>손사장 (AI)</td><td>지시 해석, 부서 배정, 부서 간 조정, 전사 검수</td><td>대표 승인 없는 외부 발송</td></tr>
       <tr><td>부장</td><td>부서별 AI (필요할 때만 호출)</td><td>부서 업무 검수·반려, 부서 계획 · 품질관리부장은 <b>출하 보류</b></td><td>다른 부서 지시, 외부 발송</td></tr>
       <tr><td>대리</td><td>코드 또는 AI</td><td>계산·경보·초안 작성</td><td>승인·검수·판단</td></tr>
@@ -197,7 +196,7 @@ footer{font-size:12px;color:var(--muted)}
   <div class="tbl"><table>
     <thead><tr><th>순서</th><th>누가</th><th>무엇을</th></tr></thead>
     <tbody>
-      <tr><td>지시</td><td>대표</td><td>원문 그대로 봉인 (나중에 해석과 대조)</td></tr>
+      <tr><td>지시</td><td>대표</td><td>말씀 한 줄 → 원문 봉인 → 키워드로 담당 부서 자동 배정 (예: "식약청 위생검사" → 식품안전·인허가 대리)</td></tr>
       <tr><td>해석·질문</td><td>손사장</td><td>불명확하면 임의로 정하지 않고 선택지로 질문</td></tr>
       <tr><td>배정</td><td>사장 → 부서(부장·대리)</td><td>업무 1개 = 담당 1명 = 산출물 1개, 검수 기준은 배정 때 확정</td></tr>
       <tr><td>수행</td><td>대리</td><td>코드 대리는 계산·경보, AI 대리는 초안</td></tr>
@@ -222,7 +221,7 @@ footer{font-size:12px;color:var(--muted)}
   <div class="tbl"><table class="future">
     <thead><tr><th>단계</th><th>추가 담당</th><th>외부 위탁</th></tr></thead>
     <tbody>
-      <tr><td>~1억</td><td>현재 6개 부서 유지</td><td>—</td></tr>
+      <tr><td>~1억</td><td>현재 8개 부서 유지</td><td>—</td></tr>
       <tr><td>~10억</td><td>마케팅부 B2B 영업 대리 (견적·거래명세)</td><td>물류(3PL) · 세무 기장</td></tr>
       <tr><td>~100억</td><td>해외사업부 신설 (수출 서류·인증)</td><td>생산 위탁 검토 (면허 조건 확인 후)</td></tr>
     </tbody>

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-04T17:02:14+09:00",
+ "generated_at": "2026-11-04T17:15:20+09:00",
  "score": {
   "rows": [
    {
@@ -21,14 +21,14 @@
     "item": "예외→조치 목록 자동 생성",
     "max": 10,
     "got": 10,
-    "evidence": "조치 항목 19개 생성"
+    "evidence": "조치 항목 23개 생성"
    },
    {
     "area": "운영체계",
     "item": "반복 실행 무중복(같은 자료 재처리 시 신규 0건)",
     "max": 10,
     "got": 10,
-    "evidence": "실행 9회 중 재처리 무중복 확인 8회"
+    "evidence": "실행 10회 중 재처리 무중복 확인 9회"
    },
    {
     "area": "운영체계",
@@ -226,6 +226,34 @@
    "msg": "미연결: 대표님 PC 폴더(Remote Control), 스마트스토어 커머스API, YouTube, Threads(Meta 개발자 앱)",
    "action": "우선순위: PC 폴더(Remote Control) → 스마트스토어 커머스API",
    "ref": ""
+  },
+  {
+   "level": "경고",
+   "area": "인허가·주기미확인",
+   "msg": "법정 의무 4건 주기 미확인: 주세 신고·납부(출고분), 자가품질검사(자체 또는 위탁기관), 영업자 위생교육, 종사자 건강진단",
+   "action": "세무사·관할 지자체 식품위생과에 주기 확인 → compliance_register.json cycle 기입",
+   "ref": ""
+  },
+  {
+   "level": "확인",
+   "area": "인허가·증빙없음",
+   "msg": "증빙 미등록 9건: NTS-LICENSE, NTS-TAX-RETURN, NTS-BASE-PRICE, NTS-LABEL, NTS-BOOKS, MFDS-SELF-QC, MFDS-HYGIENE-EDU, MFDS-HEALTH-CHECK, SALES-ONLINE",
+   "action": "해당 서류(신고서·성적서·이수증) 위치를 evidence에 기록",
+   "ref": ""
+  },
+  {
+   "level": "경고",
+   "area": "인허가·신제품",
+   "msg": "상표 사용·변경 신고(사용 개시 2일 전까지, 관할 세무서) · 용도 표시(가정용 등): 봉신설주 17(750ml) 신규 라벨 신고 여부 확인",
+   "action": "봉신설주 17 보고·신고 서류 확인",
+   "ref": "NTS-LABEL"
+  },
+  {
+   "level": "경고",
+   "area": "인허가·신제품",
+   "msg": "품목제조보고(판매·판매예정 전 제품): 봉신설주 17(17도·750ml)은 별도 보고 또는 변경보고 대상인지 확인 — Drive에서 보고서 못 찾음",
+   "action": "봉신설주 17 보고·신고 서류 확인",
+   "ref": "MFDS-ITEM-REPORT"
   },
   {
    "level": "확인",

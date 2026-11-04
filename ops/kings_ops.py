@@ -356,6 +356,26 @@ def kpi(F: Findings, lf: dict, ss: dict) -> dict:
             "achieved_pct": round(t12 / TARGET_ANNUAL * 100, 4), "channels_missing": channels_missing}
 
 
+# ───────────────────────── 법정 의무 대장 ─────────────────────────
+def compliance(F: Findings) -> list[dict]:
+    p = ROOT / "company" / "compliance_register.json"
+    if not p.exists():
+        return []
+    items = json.loads(p.read_text(encoding="utf-8"))["items"]
+    no_cycle = [i for i in items if i["cycle"] is None]
+    no_ev = [i for i in items if not i["evidence"] and i["cycle"] not in ("점검 시",)]
+    if no_cycle:
+        F.add("경고", "인허가·주기미확인", f"법정 의무 {len(no_cycle)}건 주기 미확인: " + ", ".join(i["what"] for i in no_cycle),
+              "세무사·관할 지자체 식품위생과에 주기 확인 → compliance_register.json cycle 기입")
+    if no_ev:
+        F.add("확인", "인허가·증빙없음", f"증빙 미등록 {len(no_ev)}건: " + ", ".join(i["id"] for i in no_ev),
+              "해당 서류(신고서·성적서·이수증) 위치를 evidence에 기록")
+    for i in items:
+        if "확인" in i["note"] and i["id"] in ("MFDS-ITEM-REPORT", "NTS-LABEL"):
+            F.add("경고", "인허가·신제품", f"{i['what']}: {i['note']}", "봉신설주 17 보고·신고 서류 확인", i["id"])
+    return items
+
+
 # ───────────────────────── 연결 대장 ─────────────────────────
 def connections(F: Findings, today: date | None = None) -> list[dict]:
     p = ROOT / "company" / "connections.json"
@@ -525,6 +545,7 @@ def main(argv=None):
     bt = batches(F, lf)
     tl = time_log(F)
     connections(F)
+    compliance(F)
     kp = kpi(F, lf, ss)
     if a.cmd == "score":
         sc = score(lf, ss, bt, tl, F, runs())

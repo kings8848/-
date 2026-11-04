@@ -30,6 +30,12 @@ class WFTest(unittest.TestCase):
         tid = self.w.add_task(self.db, self.oid, "정산원가", "x.md", ["k"])
         self.assertIn("3만원", self.w.brief(self.db, tid))
 
+    def test_say_routes_to_departments(self):
+        r = self.w.say(self.db, "식약청 위생검사 나온대, 품목제조보고서 준비해")
+        self.assertEqual(r["owners"][0], "식품안전")
+        self.assertEqual(self.w.say(self.db, "금배주 공장도가격 책정")["owners"][0], "기획실장")
+        self.assertEqual(self.w.say(self.db, "아무 키워드 없음")["owners"], ["손사장"])
+
     def test_original_sealed(self):
         self.assertEqual(self.w.verify(self.db), [])
         self.db["orders"][self.oid]["original"] += " (수정)"

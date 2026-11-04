@@ -43,5 +43,8 @@
 | 전사 가치사슬(입고~투자) | ops/enterprise/value_chain.py · master.json |
 | 시스템 진단(약점·불필요·추가) | ops/company/시스템_진단_약점_불필요_추가.md |
 | CEO 보고서 기준(스킬) | .claude/skills/kings-ceo-report |
+| 법정 의무 대장 | ops/company/compliance_register.json |
+| 주류제조 부서 조사 | ops/company/주류제조_부서_조사.md |
+| 말하면 바로 연결 | `workflow.py say "문장"` |
 | 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |

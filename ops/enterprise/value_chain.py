@@ -33,14 +33,16 @@ def reduction_rate(kl_last_year: float, tiers) -> float:
     return 0.0
 
 
-def liquor_tax(base: float, kl_last_year: float, m) -> dict:
+def liquor_tax(factory_price: float, kl_last_year: float, m, liquor_type: str = "리큐르") -> dict:
     t = m["tax"]
+    ded = t.get("base_price_deduction", {}).get("value", {}).get(liquor_type, 0.0)
+    base = factory_price * (1 - ded)  # 과세표준 = 반출가격 × (1 − 기준판매비율)
     rate = t["liquor_tax_rate"]["value"]
     red = reduction_rate(kl_last_year, t["traditional_reduction_tiers_kl"]["value"])
     lt = base * rate * (1 - red)
     edu = lt * t["education_tax_rate"]["value"]
-    verified = all(t[k]["verified"] for k in ("liquor_tax_rate", "education_tax_rate", "traditional_reduction_tiers_kl"))
-    return {"liquor_tax": lt, "education_tax": edu, "reduction": red, "verified": verified}
+    verified = all(t[k]["verified"] for k in ("liquor_tax_rate", "education_tax_rate", "traditional_reduction_tiers_kl")) and t.get("base_price_deduction", {}).get("verified", True)
+    return {"liquor_tax": lt, "education_tax": edu, "reduction": red, "taxable_base": base, "verified": verified}
 
 
 def unit_economics(m, product: str, channel: str, kl_last_year: float) -> dict:
@@ -59,7 +61,7 @@ def unit_economics(m, product: str, channel: str, kl_last_year: float) -> dict:
         net = price / (1 + m["tax"]["vat_rate"]["value"])
         out.update(price=price, net_of_vat=round(net), fee=round(price * fee_rate))
     if not missing:
-        tx = liquor_tax(p["factory_price"], kl_last_year, m)
+        tx = liquor_tax(p["factory_price"], kl_last_year, m, p.get("liquor_type", "리큐르"))
         cogs = sum(costs.values())
         op = out["net_of_vat"] - out["fee"] - cogs - tx["liquor_tax"] - tx["education_tax"]
         out.update(cogs=cogs, liquor_tax=round(tx["liquor_tax"]), education_tax=round(tx["education_tax"]),
