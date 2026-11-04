@@ -322,8 +322,9 @@ def ingest(lf: dict, ss: dict) -> dict:
     return {"ledger_size": len(ledger), "added": added, "offered": len(recs)}
 
 
-def log_run(trigger: str, ing: dict, findings: Findings, score: dict):
+def log_run(trigger: str, ing: dict, findings: Findings, score: dict, duration_sec: float | None = None):
     entry = {"at": datetime.now(KST).isoformat(timespec="seconds"), "trigger": trigger, **ing,
+             "duration_sec": duration_sec,
              "urgent": len(findings.by("긴급")), "warn": len(findings.by("경고")), "score": score["total"]}
     with (STATE / "runs.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -382,7 +383,10 @@ def won(n):
 def report(lf, ss, bt, tl, F, sc, ing, entry) -> str:
     today = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
     L = []
-    L.append(f"# 킹스양조장 운영 검증 보고서\n\n- 실행: {today} KST · 트리거 `{entry['trigger']}` · 원장 {ing['ledger_size']}건(이번 신규 {ing['added']}건)")
+    urgent = F.by("긴급")
+    top = urgent[0]["action"] if urgent else (F.by("경고")[0]["action"] if F.by("경고") else "없음")
+    L.append(f"이 문서에서 알 수 있는 것: 점수 {sc['total']}/{sc['max']} · 긴급 {len(urgent)}건 · 경고 {len(F.by('경고'))}건 · 1순위 조치: {top}\n")
+    L.append(f"# 킹스양조장 운영 검증 보고서\n\n- 실행: {today} KST · 트리거 `{entry['trigger']}` · 원장 {ing['ledger_size']}건(이번 신규 {ing['added']}건) · 소요 {entry.get('duration_sec')}초")
     L.append(f"- 역량 점수(증거 기반): **{sc['total']}/{sc['max']}점** — " +
              " · ".join(f"{k} {v['got']}/{v['max']}" for k, v in sc["areas"].items()))
     L.append("\n## 1. 오늘 할 일 (긴급 → 경고 순)\n")
@@ -435,6 +439,8 @@ def main(argv=None):
     ap.add_argument("cmd", choices=["run", "score"])
     ap.add_argument("--trigger", default="manual", choices=["manual", "scheduled", "test"])
     a = ap.parse_args(argv)
+    import time
+    t0 = time.perf_counter()
     F = Findings()
     lf = reconcile_localfood(F)
     ss = smartstore(F)
@@ -449,7 +455,7 @@ def main(argv=None):
     # 이번 실행까지 포함해 점수 계산
     provisional = {"at": "", "trigger": a.trigger, **ing}
     sc = score(lf, ss, bt, tl, F, hist + [provisional])
-    entry = log_run(a.trigger, ing, F, sc)
+    entry = log_run(a.trigger, ing, F, sc, round(time.perf_counter() - t0, 3))
     REPORTS.mkdir(exist_ok=True)
     stamp = datetime.now(KST).strftime("%Y%m%d")
     md = report(lf, ss, bt, tl, F, sc, ing, entry)

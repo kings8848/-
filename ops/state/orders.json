@@ -1,0 +1,188 @@
+{
+ "orders": {
+  "D-0001": {
+   "original": "내일 10시 아침까지 45점 평가를 90점까지 고민을하고 검색을 하고 내부자료를 찾아보고 유튜브도 찾아서 90점이상 되도록 만들다. 모든 사항은 내일아침까지 허가없이 진행을 해도된다.",
+   "sha256": "6d811337f7c4e72f9b12aa94ce873166255537c1e4ed852b7dfaa6e0df5cbb9b",
+   "depth": "생략",
+   "created": "2026-11-04T16:23:40+09:00",
+   "interpretation": "어제 감점 사유 4가지(실거래 1건·실배치 1건·반복 실행·전후 측정)를 실데이터 증거로 채우고, 증거 기반 점수로 재평가한다. 추정·예시 데이터로 점수를 채우지 않는다.",
+   "log": [
+    "2026-11-04T16:23:40+09:00 지시 등록(원문 봉인)",
+    "2026-11-04T16:23:40+09:00 해석 작성"
+   ]
+  },
+  "D-0002": {
+   "original": "이미지 내용을 분석후 보완사항을 추가하다. 우리는 킹스양조장 시스템 자동화가 목적이다.",
+   "sha256": "ceab2f163ba6f116941530d6df00d59eccd923dda9e7456f05dc097d44f9b7fa",
+   "depth": "생략",
+   "created": "2026-11-04T16:23:40+09:00",
+   "interpretation": "영상 AI회사 구조 중 킹스 자동화에 유효한 규칙만 엔진에 구현하고, 과한 부분(10인 조직·SNS 선구축)은 줄인다.",
+   "log": [
+    "2026-11-04T16:23:40+09:00 지시 등록(원문 봉인)",
+    "2026-11-04T16:23:40+09:00 해석 작성"
+   ]
+  }
+ },
+ "tasks": {
+  "T-0001": {
+   "order": "D-0001",
+   "owner": "정산원가",
+   "output": "ops/reports/운영검증_보고서_20261104.md",
+   "accept": [
+    "로컬푸드 정산 전 구간 머리합계 1원 일치",
+    "중복·누락 구간 자동 탐지",
+    "첫 줄 요약"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "status": "완료",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 정산원가",
+    "2026-11-04T16:23:40+09:00 제출",
+    "2026-11-04T16:23:41+09:00 검수 통과"
+   ]
+  },
+  "T-0002": {
+   "order": "D-0001",
+   "owner": "출고재고",
+   "output": "ops/data/smartstore_daily_status.csv",
+   "accept": [
+    "발송대기 1건(11/02~) 해소를 17시 주문현황으로 확인"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": true,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 출고재고"
+   ]
+  },
+  "T-0003": {
+   "order": "D-0001",
+   "owner": "제조기록",
+   "output": "ops/data/batches.csv",
+   "accept": [
+    "실배치 1건 6공정 기록",
+    "알코올 수지 통과",
+    "is_sample=N"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 제조기록"
+   ]
+  },
+  "T-0004": {
+   "order": "D-0001",
+   "owner": "출고재고",
+   "output": "ops/data/batches.csv",
+   "accept": [
+    "병입 줄 counted_on_hand 실사값"
+   ],
+   "accept_locked": true,
+   "after": [
+    "T-0003"
+   ],
+   "external": false,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 출고재고"
+   ]
+  },
+  "T-0005": {
+   "order": "D-0001",
+   "owner": "손사장",
+   "output": "ops/data/time_log.csv",
+   "accept": [
+    "같은 업무 수작업·자동 실측 각 1건",
+    "is_estimate=N"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 손사장"
+   ]
+  },
+  "T-0006": {
+   "order": "D-0001",
+   "owner": "컴플라이언스",
+   "output": "ops/reports/운영검증_보고서_20261104.md",
+   "accept": [
+    "2026-03 1차 세액 6,820원 산식 확인 회신"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": true,
+   "status": "배정",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 컴플라이언스"
+   ]
+  },
+  "T-0007": {
+   "order": "D-0002",
+   "owner": "손사장",
+   "output": "ops/company/운영도면.md",
+   "accept": [
+    "가져올 것·버릴 것 판단표",
+    "구현 위치표",
+    "첫 줄 요약"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "status": "완료",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 손사장",
+    "2026-11-04T16:23:40+09:00 제출",
+    "2026-11-04T16:23:41+09:00 검수 통과"
+   ]
+  },
+  "T-0008": {
+   "order": "D-0002",
+   "owner": "손사장",
+   "output": "ops/company/memory.md",
+   "accept": [
+    "확인 사실·함정·산출물 목차",
+    "출처 표기"
+   ],
+   "accept_locked": true,
+   "after": [],
+   "external": false,
+   "status": "완료",
+   "rejects": 0,
+   "history": [],
+   "advice": [],
+   "log": [
+    "2026-11-04T16:23:40+09:00 배정 → 손사장",
+    "2026-11-04T16:23:40+09:00 제출",
+    "2026-11-04T16:23:41+09:00 검수 통과"
+   ]
+  }
+ }
+}

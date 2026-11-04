@@ -41,3 +41,18 @@ python3 -m unittest ops/tests/test_ops.py   # 회귀 시험 8개
 | 업무자동화 | 실거래 정산 대사 10 · 채널 2곳 연결 5 · 누락 탐지 5 · 출고 경보 5 · 실배치 추적 10 · 재고 대사 5 · 전후 실측 10 | 50 |
 
 `is_sample=Y`인 예시 배치와 `is_estimate=Y`인 짐작 시간은 점수에서 뺍니다.
+
+## 지시 파이프라인 (2026-11-04 추가 · `ops/company/`)
+
+영상 'AI 회사' 구조를 1인 양조장용으로 줄여 적용했습니다. 판단 근거는 `ops/company/운영도면.md`에 있습니다.
+
+| 규칙 | 명령 |
+|---|---|
+| 원문 봉인 | `workflow.py new "지시 원문"` → `verify` |
+| 해석 없이는 분해 불가 | `workflow.py interpret D-0001 "해석"` |
+| 1담당·1산출물·검수기준 잠금 | `workflow.py task D-0001 --owner 제조기록 --output ... --accept "기준1;기준2"` |
+| 첫 줄 요약 없으면 자동 반려 · 반려 3회는 대표 상신 | `workflow.py review --pass T-..` |
+| 독립검토는 권고만 | `workflow.py advise T-.. "권고"` |
+| 외부 발송·게시·제출은 대표 승인 | `workflow.py approve T-..` |
+| 회사의 기억 + 지난 지적 탑재 | `workflow.py brief T-..` |
+| 현황 | `workflow.py status` |

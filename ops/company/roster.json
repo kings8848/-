@@ -1,0 +1,11 @@
+{
+  "손사장": {"title": "비서실장(총괄)", "can_approve_internal": true},
+  "정산원가": {"title": "정산·원가", "engine": "kings_ops.reconcile_localfood/smartstore"},
+  "출고재고": {"title": "출고·재고", "engine": "kings_ops.smartstore/batches"},
+  "제조기록": {"title": "제조기록(양조)", "engine": "kings_ops.batches"},
+  "컴플라이언스": {"title": "주세·식품표시"},
+  "지원사업": {"title": "정부지원사업"},
+  "브랜드콘텐츠": {"title": "브랜드·콘텐츠"},
+  "독립검토": {"title": "외부 모델 독립검토", "advice_only": true},
+  "대표": {"title": "CEO", "can_approve_external": true}
+}
