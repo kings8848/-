@@ -49,6 +49,13 @@
       "last_checked": "2026-11-04",
       "expires": null,
       "used_by": "영상 분석"
+    },
+    {
+      "name": "Threads(Meta 개발자 앱)",
+      "status": "미착수(D-0003-5 미결)",
+      "last_checked": "2026-11-04",
+      "expires": null,
+      "used_by": "브랜드콘텐츠 — 권한 4개(basic·content_publish·read_replies·manage_insights)"
     }
   ]
 }

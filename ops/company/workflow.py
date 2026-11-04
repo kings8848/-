@@ -278,6 +278,26 @@ def brief(db, tid):
     return "\n".join(lines)
 
 
+LAYER = {"대표": "의사결정", "손사장": "총괄", "독립검토": "자문"}
+
+
+def org_chart(db):
+    """역할표 + 업무 현황으로 조직도 출력(대표 질문: 담당자가 몇 명인가)."""
+    ro = roster()
+    cnt = {k: {"진행": 0, "완료": 0} for k in ro}
+    for t in db["tasks"].values():
+        if t["owner"] in cnt:
+            cnt[t["owner"]]["완료" if t["status"] == "완료" else "진행"] += 1
+    staff = [k for k in ro if k not in LAYER]
+    lines = [f"대표(CEO) — 승인·양조·관계", "└─ 손사장(총괄 에이전트) — 해석·배정·검수·보고"]
+    for i, k in enumerate(staff):
+        br = "└─" if i == len(staff) - 1 else "├─"
+        lines.append(f"     {br} {ro[k]['title']} [{ro[k]['model']}] 진행 {cnt[k]['진행']} · 완료 {cnt[k]['완료']}")
+    lines.append(f"   (옆) 독립검토 — 권고만, 승인권 없음 [{ro['독립검토']['model']}]")
+    lines.append(f"합계: 대표 1 · 총괄 1 · 실무 담당 {len(staff)} · 자문 1")
+    return "\n".join(lines)
+
+
 def status_table(db):
     rows = ["| 태스크 | 지시 | 담당 | 상태 | 반려 | 외부 | 산출물 |", "|---|---|---|---|---:|:-:|---|"]
     for tid, t in db["tasks"].items():
@@ -304,7 +324,7 @@ def main(argv=None):
     sp.add_parser("outbox"); sp.add_parser("memcheck")
     p = sp.add_parser("ask"); p.add_argument("oid"); p.add_argument("q"); p.add_argument("--options", nargs="*", default=[])
     p = sp.add_parser("answer"); p.add_argument("oid"); p.add_argument("n", type=int); p.add_argument("text")
-    sp.add_parser("verify"); sp.add_parser("status")
+    sp.add_parser("verify"); sp.add_parser("status"); sp.add_parser("org")
     a = ap.parse_args(argv)
     db = load()
     try:
@@ -341,6 +361,8 @@ def main(argv=None):
             bad = verify(db)
             print("원문 무결" if not bad else f"원문 변경 감지: {bad}")
             return 1 if bad else 0
+        elif a.cmd == "org":
+            print(org_chart(db)); return 0
         elif a.cmd == "status":
             print(status_table(db)); return 0
     except WFError as e:
