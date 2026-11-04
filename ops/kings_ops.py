@@ -334,6 +334,28 @@ def time_log(F: Findings) -> dict:
     return {"measured": {t: {"before": v["수작업"], "after": v["자동"], "saved": v["수작업"] - v["자동"]} for t, v in measured.items()}}
 
 
+# ───────────────────────── 매출 KPI (100억 목표 대비) ─────────────────────────
+TARGET_ANNUAL = 10_000_000_000  # 대표 목표: 1인 법인 연매출 100억
+
+
+def kpi(F: Findings, lf: dict, ss: dict) -> dict:
+    """원장에 들어온 매출만 센다(채널이 빠지면 매출도 빠진다 → 채널 누락 자체가 경고)."""
+    month = defaultdict(lambda: {"localfood_gross": 0, "smartstore_net": 0})
+    for r in lf["lines"]:
+        if r["source_file_id"] in lf["unique_file_ids"]:
+            month[r["sale_date"][:7]]["localfood_gross"] += int(r["sales"])
+    for r in ss["deposits"]:
+        month[r["deposit_date"][:7]]["smartstore_net"] += int(r["amount"])
+    months = sorted(month)
+    last12 = [m for m in months if m >= (datetime.now(KST).date().replace(day=1) - timedelta(days=365)).strftime("%Y-%m")]
+    t12 = sum(sum(month[m].values()) for m in last12)
+    channels_missing = ["와디즈(봉신설주 펀딩)", "B2B·선물세트 직거래(세금계산서)", "양조장 현장 판매"]
+    F.add("확인", "매출·채널누락", "원장에 없는 판매채널: " + ", ".join(channels_missing) + " — 매출 KPI가 실제보다 작게 나옴",
+          "각 채널 정산 원본 위치(와디즈 정산서·홈택스 세금계산서) 알려주기")
+    return {"by_month": {m: month[m] for m in months}, "trailing12": t12, "target": TARGET_ANNUAL,
+            "achieved_pct": round(t12 / TARGET_ANNUAL * 100, 4), "channels_missing": channels_missing}
+
+
 # ───────────────────────── 연결 대장 ─────────────────────────
 def connections(F: Findings, today: date | None = None) -> list[dict]:
     p = ROOT / "company" / "connections.json"
@@ -503,6 +525,7 @@ def main(argv=None):
     bt = batches(F, lf)
     tl = time_log(F)
     connections(F)
+    kp = kpi(F, lf, ss)
     if a.cmd == "score":
         sc = score(lf, ss, bt, tl, F, runs())
         print(json.dumps(sc, ensure_ascii=False, indent=1))
@@ -516,11 +539,15 @@ def main(argv=None):
     REPORTS.mkdir(exist_ok=True)
     stamp = datetime.now(KST).strftime("%Y%m%d")
     md = report(lf, ss, bt, tl, F, sc, ing, entry)
+    md += "\n## 7. 매출 KPI (원장 기준, 목표 연 100억)\n\n" + \
+          f"- 최근 12개월 원장 매출 {kp['trailing12']:,}원 · 목표 대비 {kp['achieved_pct']}% · 원장 미연결 채널: {', '.join(kp['channels_missing'])}\n\n" + \
+          "| 월 | 로컬푸드(판매) | 스마트스토어(입금) |\n|---|---:|---:|\n" + \
+          "".join(f"| {m} | {v['localfood_gross']:,} | {v['smartstore_net']:,} |\n" for m, v in kp["by_month"].items())
     (REPORTS / f"운영검증_보고서_{stamp}.md").write_text(md, encoding="utf-8")
     (REPORTS / f"역량평가_{stamp}.json").write_text(json.dumps(
         {"generated_at": entry["at"], "score": sc, "findings": F.items, "ingest": ing,
          "localfood": {k: v for k, v in lf.items() if k not in ("lines",)}, "smartstore": {k: v for k, v in ss.items() if k != "deposits"},
-         "batches": bt, "time_log": tl}, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
+         "batches": bt, "time_log": tl, "kpi": kp}, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
     print(f"[{entry['at']}] 원장 {ing['ledger_size']}건 (신규 {ing['added']}/{ing['offered']}) · 긴급 {entry['urgent']} · 경고 {entry['warn']} · 점수 {sc['total']}/{sc['max']}")
     return 0
 

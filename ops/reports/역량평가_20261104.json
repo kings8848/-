@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-04T16:40:54+09:00",
+ "generated_at": "2026-11-04T16:47:22+09:00",
  "score": {
   "rows": [
    {
@@ -21,14 +21,14 @@
     "item": "예외→조치 목록 자동 생성",
     "max": 10,
     "got": 10,
-    "evidence": "조치 항목 18개 생성"
+    "evidence": "조치 항목 19개 생성"
    },
    {
     "area": "운영체계",
     "item": "반복 실행 무중복(같은 자료 재처리 시 신규 0건)",
     "max": 10,
     "got": 10,
-    "evidence": "실행 6회 중 재처리 무중복 확인 5회"
+    "evidence": "실행 8회 중 재처리 무중복 확인 7회"
    },
    {
     "area": "운영체계",
@@ -225,6 +225,13 @@
    "area": "연결·미연결",
    "msg": "미연결: 대표님 PC 폴더(Remote Control), 스마트스토어 커머스API, YouTube",
    "action": "우선순위: PC 폴더(Remote Control) → 스마트스토어 커머스API",
+   "ref": ""
+  },
+  {
+   "level": "확인",
+   "area": "매출·채널누락",
+   "msg": "원장에 없는 판매채널: 와디즈(봉신설주 펀딩), B2B·선물세트 직거래(세금계산서), 양조장 현장 판매 — 매출 KPI가 실제보다 작게 나옴",
+   "action": "각 채널 정산 원본 위치(와디즈 정산서·홈택스 세금계산서) 알려주기",
    "ref": ""
   }
  ],
@@ -640,5 +647,65 @@
  },
  "time_log": {
   "measured": {}
+ },
+ "kpi": {
+  "by_month": {
+   "2025-06": {
+    "localfood_gross": 30000,
+    "smartstore_net": 0
+   },
+   "2025-07": {
+    "localfood_gross": 210000,
+    "smartstore_net": 0
+   },
+   "2025-08": {
+    "localfood_gross": 450000,
+    "smartstore_net": 504788
+   },
+   "2025-09": {
+    "localfood_gross": 230250,
+    "smartstore_net": 37058
+   },
+   "2025-10": {
+    "localfood_gross": 315000,
+    "smartstore_net": 82223
+   },
+   "2025-11": {
+    "localfood_gross": 615000,
+    "smartstore_net": 100758
+   },
+   "2025-12": {
+    "localfood_gross": 15000,
+    "smartstore_net": 37072
+   },
+   "2026-03": {
+    "localfood_gross": 75000,
+    "smartstore_net": 0
+   },
+   "2026-05": {
+    "localfood_gross": 75000,
+    "smartstore_net": 0
+   },
+   "2026-06": {
+    "localfood_gross": 0,
+    "smartstore_net": 46576
+   },
+   "2026-09": {
+    "localfood_gross": 0,
+    "smartstore_net": 28041
+   },
+   "2026-10": {
+    "localfood_gross": 0,
+    "smartstore_net": 126898
+   }
+  },
+  "trailing12": 1119345,
+  "target": 10000000000,
+  "achieved_pct": 0.0112,
+  "channels_missing": [
+   "와디즈(봉신설주 펀딩)",
+   "B2B·선물세트 직거래(세금계산서)",
+   "양조장 현장 판매"
+  ]
  }
 }

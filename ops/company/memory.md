@@ -36,4 +36,6 @@
 | 배치 기록 엑셀 양식 | ops/templates/배치기록_양식.xlsx |
 | 누락 정산 처리 목록 | ops/reports/누락정산_처리목록_대표용.md |
 | 커머스API 연결기 | ops/connectors/smartstore_api.py |
+| 두 계층 연결(경보→업무) | ops/company/bridge.py (상시 지시 D-0004) |
+| 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |
