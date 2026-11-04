@@ -58,3 +58,13 @@ class ContextErrorTest(unittest.TestCase):
         b = workflow.brief(db, tid)
         self.assertIn("쓸 수 있는 도구", b)
         self.assertIn("관련 지식", b)
+
+
+class SixIndustryTest(unittest.TestCase):
+    def test_product_is_zero_without_raw_and_batch_evidence(self):
+        sys.path.insert(0, str(HERE / "marketing")); import six_industry
+        m = six_industry.measure()
+        self.assertEqual(m["3차"]["score"], 1)
+        self.assertEqual(m["3차"]["consign_fee_rate"], 0.13)
+        if m["1차"]["records"] == 0 or m["2차"]["real_batches"] == 0:
+            self.assertEqual(m["product"], 0)

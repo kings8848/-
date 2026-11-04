@@ -18,7 +18,7 @@ from pathlib import Path
 OPS = Path(__file__).resolve().parent
 KST = timezone(timedelta(hours=9))
 STEPS_OVERRIDE = None  # 시험용
-STEPS = [("수집·대사·경보", ["kings_ops.py", "run"]), ("전사 가치사슬", ["enterprise/value_chain.py"]), ("B2B 영업", ["sales/b2b.py"]), ("경보→담당 업무", ["company/bridge.py"])]
+STEPS = [("수집·대사·경보", ["kings_ops.py", "run"]), ("전사 가치사슬", ["enterprise/value_chain.py"]), ("B2B 영업", ["sales/b2b.py"]), ("6차 산업 계기판", ["marketing/six_industry.py"]), ("경보→담당 업무", ["company/bridge.py"])]
 
 
 STEP_TIMEOUT = int(os.environ.get("KINGS_STEP_TIMEOUT", "300"))
@@ -86,6 +86,7 @@ def main(argv=None):
          "\n## 보고서 첫 줄",
          f"- 운영검증: {first_line(rep / f'운영검증_보고서_{day}.md')}",
          f"- 전사 가치사슬: {first_line(rep / f'전사_가치사슬_{day}.md')}",
+         f"- 6차 산업: {first_line(rep / '6차산업_계기판.md')}",
          "\n## 지능 레버리지 (사람 1명이 시스템으로 처리한 양)",
          f"- 전체 업무 {lv.get('tasks',0)}건 · 완료 {lv.get('done',0)}건 · 경보 해소로 자동 완료 {lv.get('auto_closed',0)}건",
          f"- 대표 손이 필요한 것: 승인·상신 {lv.get('ceo_pending',0)-lv.get('ceo_questions',0)}건 + 답변 대기 질문 {lv.get('ceo_questions',0)}건"]
