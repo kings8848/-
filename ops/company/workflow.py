@@ -272,6 +272,17 @@ def brief(db, tid):
              f"## 해석\n{o['interpretation']}\n",
              "## 대표 확인 답변\n" + ("\n".join(f"- {q['q']} → {q['answer']}" for q in o.get("questions", [])) or "- 없음") + "\n", f"## 태스크 {tid} · 담당 {t['owner']}\n- 산출물: {t['output']}",
              f"- 첫 줄 규칙: '{FIRST_LINE}: …'", "- 검수 기준:"] + [f"  - {c}" for c in t["accept"]]
+    tools = json.loads((HERE / "tools.json").read_text(encoding="utf-8"))["tools"] if (HERE / "tools.json").exists() else {}
+    mine_tools = [f"- {n} ({v['kind']}): {v['run']}" for n, v in tools.items() if t["owner"] in v["owners"] or "*" in v["owners"]]
+    if mine_tools:
+        lines += ["## 쓸 수 있는 도구 (code=계산, draft=초안, outbox=대표 승인 후 실행)"] + mine_tools
+    try:
+        import context
+        hits = context.search(o["original"] + " " + " ".join(t["accept"]), k=3)
+    except Exception:
+        hits = []
+    if hits:
+        lines += ["## 관련 지식(자동 검색)"] + [f"- ({h['source']}) {h['text'][:200]}" for h in hits]
     if t["history"]:
         lines.append("## 지난 회차 지적(같은 지적 반복 금지)")
         lines += [f"- {h['round']}회차: {h['note']}" for h in t["history"]]

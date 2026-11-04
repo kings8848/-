@@ -50,5 +50,6 @@
 | 파이프라인(한 줄 전체 실행) | `python3 ops/pipeline.py` → 아침보고 |
 | 자동/승인/금지 경계 | ops/company/자동화_정책.json |
 | SOP 목록 | ops/sop/README.md |
+| 오케스트레이션 설계 | ops/company/오케스트레이션_설계.md · tools.json · context.py |
 | 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |

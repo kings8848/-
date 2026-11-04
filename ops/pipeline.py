@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -16,7 +17,25 @@ from pathlib import Path
 
 OPS = Path(__file__).resolve().parent
 KST = timezone(timedelta(hours=9))
+STEPS_OVERRIDE = None  # 시험용
 STEPS = [("수집·대사·경보", ["kings_ops.py", "run"]), ("전사 가치사슬", ["enterprise/value_chain.py"]), ("경보→담당 업무", ["company/bridge.py"])]
+
+
+STEP_TIMEOUT = int(os.environ.get("KINGS_STEP_TIMEOUT", "300"))
+
+
+def error_workflow(step: str, code: int, detail: str, trigger: str) -> Path:
+    """에러 워크플로우: 실패 단계·원인을 긴급 보고서로 남기고 실행 기록에 실패를 적는다.
+    대표 휴대폰 알림 채널은 대표 결정 대기(D-0011) — 정해지면 여기에 연결."""
+    rep = OPS / "reports"; rep.mkdir(exist_ok=True)
+    p = rep / f"오류_{datetime.now(KST):%Y%m%d_%H%M%S}.md"
+    p.write_text(f"이 문서에서 알 수 있는 것: 파이프라인 '{step}' 단계 실패(코드 {code}) — 이후 단계 중단, 대표 확인 필요\n\n"
+                 f"# 파이프라인 오류\n\n- 시각: {datetime.now(KST):%Y-%m-%d %H:%M} · 트리거 {trigger}\n- 단계: {step}\n- 코드: {code}\n\n```\n{(detail or '')[-2000:]}\n```\n"
+                 "\n## 손사장 조치\n- 원인 확인 → 수정 → 재실행. 데이터는 멱등 적재라 재실행해도 중복 없음\n", encoding="utf-8")
+    (OPS / "state").mkdir(exist_ok=True)
+    with (OPS / "state" / "pipeline_errors.jsonl").open("a", encoding="utf-8") as f:
+        f.write(json.dumps({"at": datetime.now(KST).isoformat(timespec="seconds"), "step": step, "code": code, "report": p.name}, ensure_ascii=False) + "\n")
+    return p
 
 
 def first_line(p: Path) -> str:
@@ -41,11 +60,16 @@ def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("--trigger", default="manual", choices=["manual", "scheduled"])
     a = ap.parse_args(argv)
     t0 = time.perf_counter(); log = []
-    for name, cmd in STEPS:
+    for name, cmd in STEPS_OVERRIDE or STEPS:
         args = [sys.executable, str(OPS / cmd[0]), *cmd[1:]] + (["--trigger", a.trigger] if cmd[0] == "kings_ops.py" else [])
-        r = subprocess.run(args, capture_output=True, text=True)
-        log.append((name, r.returncode, (r.stdout or r.stderr).strip().splitlines()[-1:] or [""]))
-        if r.returncode != 0:
+        try:
+            r = subprocess.run(args, capture_output=True, text=True, timeout=STEP_TIMEOUT)
+            code, out = r.returncode, (r.stdout or r.stderr).strip().splitlines()[-1:] or [""]
+        except subprocess.TimeoutExpired:
+            code, out = 124, [f"{STEP_TIMEOUT}초 시간 초과"]
+        log.append((name, code, out))
+        if code != 0:
+            error_workflow(name, code, (r.stderr if code != 124 else out[0]) if code != 124 else out[0], a.trigger)
             break
     day = datetime.now(KST).strftime("%Y%m%d")
     rep = OPS / "reports"

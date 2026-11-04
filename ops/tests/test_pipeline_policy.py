@@ -29,3 +29,32 @@ class PolicyTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ContextErrorTest(unittest.TestCase):
+    def test_context_finds_compliance_item(self):
+        sys.path.insert(0, str(HERE / "company")); import context
+        hits = context.search("봉신설주 품목제조보고")
+        self.assertTrue(any("MFDS-ITEM-REPORT" in h["text"] or "품목제조보고" in h["text"] for h in hits))
+
+    def test_error_workflow_writes_report_and_stops(self):
+        sys.path.insert(0, str(HERE)); import importlib, pipeline
+        pipeline = importlib.reload(pipeline)
+        pipeline.STEPS_OVERRIDE = [("일부러 실패", ["company/does_not_exist.py"]), ("다음 단계", ["company/bridge.py"])]
+        before = set((HERE / "reports").glob("오류_*.md"))
+        rc = pipeline.main([])
+        new = set((HERE / "reports").glob("오류_*.md")) - before
+        self.assertEqual(rc, 1)
+        self.assertEqual(len(new), 1)
+        for p in new: p.unlink()
+        pipeline.STEPS_OVERRIDE = None
+
+    def test_brief_includes_tools_and_context(self):
+        sys.path.insert(0, str(HERE / "company")); import workflow
+        db = {"orders": {}, "tasks": {}}
+        oid = workflow.new_order(db, "식약청 위생검사 대응 서류 준비")
+        workflow.interpret(db, oid, "해석")
+        tid = workflow.add_task(db, oid, "식품안전", "x.md", ["서류철"])
+        b = workflow.brief(db, tid)
+        self.assertIn("쓸 수 있는 도구", b)
+        self.assertIn("관련 지식", b)
