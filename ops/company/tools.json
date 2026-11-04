@@ -1,16 +1,100 @@
 {
-  "_doc": "담당(에이전트)이 호출할 수 있는 도구 목록. kind=code 는 결정론(토큰 0), kind=draft 는 AI 초안, kind=outbox 는 대표 승인 후에만 실행되는 외부 동작.",
-  "tools": {
-    "정산대사":      {"kind": "code",   "run": "python3 ops/kings_ops.py run", "owners": ["정산원가", "총무부장", "손사장"]},
-    "가치사슬":      {"kind": "code",   "run": "python3 ops/enterprise/value_chain.py", "owners": ["기획실장", "시설부장", "설비관리", "손사장"]},
-    "주문수집":      {"kind": "code",   "run": "python3 ops/connectors/smartstore_api.py --days 3", "owners": ["출고재고", "판매채널", "CS응대"]},
-    "경보배정":      {"kind": "code",   "run": "python3 ops/company/bridge.py", "owners": ["손사장"]},
-    "전체파이프라인": {"kind": "code",   "run": "python3 ops/pipeline.py", "owners": ["손사장"]},
-    "지식검색":      {"kind": "code",   "run": "python3 ops/company/context.py \"질문\"", "owners": ["*"]},
-    "제안서초안":    {"kind": "draft",  "run": "SOP: sop/브랜드_지침.md + 가격표(미입력)", "owners": ["B2B영업"]},
-    "CS답변초안":    {"kind": "draft",  "run": "SOP: sop/CS_응대.md", "owners": ["CS응대"]},
-    "게시초안":      {"kind": "draft",  "run": "SOP: sop/브랜드_지침.md", "owners": ["브랜드콘텐츠"]},
-    "세무사문의초안": {"kind": "draft",  "run": "compliance_register.json 미확인 항목", "owners": ["컴플라이언스", "식품안전"]},
-    "발행큐등록":    {"kind": "outbox", "run": "workflow.py task --external --channel … → approve → sent → confirm", "owners": ["*"]}
+ "_doc": "담당(에이전트)이 호출할 수 있는 도구 목록. kind=code 는 결정론(토큰 0), kind=draft 는 AI 초안, kind=outbox 는 대표 승인 후에만 실행되는 외부 동작.",
+ "tools": {
+  "정산대사": {
+   "kind": "code",
+   "run": "python3 ops/kings_ops.py run",
+   "owners": [
+    "정산원가",
+    "총무부장",
+    "손사장"
+   ]
+  },
+  "가치사슬": {
+   "kind": "code",
+   "run": "python3 ops/enterprise/value_chain.py",
+   "owners": [
+    "기획실장",
+    "시설부장",
+    "설비관리",
+    "손사장"
+   ]
+  },
+  "주문수집": {
+   "kind": "code",
+   "run": "python3 ops/connectors/smartstore_api.py --days 3",
+   "owners": [
+    "출고재고",
+    "판매채널",
+    "CS응대"
+   ]
+  },
+  "경보배정": {
+   "kind": "code",
+   "run": "python3 ops/company/bridge.py",
+   "owners": [
+    "손사장"
+   ]
+  },
+  "전체파이프라인": {
+   "kind": "code",
+   "run": "python3 ops/pipeline.py",
+   "owners": [
+    "손사장"
+   ]
+  },
+  "지식검색": {
+   "kind": "code",
+   "run": "python3 ops/company/context.py \"질문\"",
+   "owners": [
+    "*"
+   ]
+  },
+  "제안서초안": {
+   "kind": "draft",
+   "run": "ops/sales/b2b.py 가 HTML 제안서 생성 · SOP: sop/B2B_페어링.md",
+   "owners": [
+    "B2B영업"
+   ]
+  },
+  "CS답변초안": {
+   "kind": "draft",
+   "run": "SOP: sop/CS_응대.md",
+   "owners": [
+    "CS응대"
+   ]
+  },
+  "게시초안": {
+   "kind": "draft",
+   "run": "SOP: sop/브랜드_지침.md",
+   "owners": [
+    "브랜드콘텐츠"
+   ]
+  },
+  "세무사문의초안": {
+   "kind": "draft",
+   "run": "compliance_register.json 미확인 항목",
+   "owners": [
+    "컴플라이언스",
+    "식품안전"
+   ]
+  },
+  "발행큐등록": {
+   "kind": "outbox",
+   "run": "workflow.py task --external --channel … → approve → sent → confirm",
+   "owners": [
+    "*"
+   ]
+  },
+  "B2B파이프라인": {
+   "kind": "code",
+   "run": "python3 ops/sales/b2b.py",
+   "owners": [
+    "B2B영업",
+    "거래처원장",
+    "영업부장",
+    "손사장"
+   ]
   }
+ }
 }
