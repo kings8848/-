@@ -1,0 +1,205 @@
+<title>킹스 대표 미션</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* 레이아웃: 위에 전체 진척, 아래로 6단계 미션 묶음 — 각 항목은 체크 + 어디·무엇·왜·완료 기준 */
+:root{
+  --bg:#f6f4f8; --paper:#fff; --ink:#221a2b; --muted:#6b6276; --line:#ddd5e6;
+  --plum:#5b2c83; --plum-soft:#efe7f6; --pear:#a8812a; --pear-soft:#f6eedb;
+  --done:#2f6b5a; --done-soft:#e3f1ec; --warn:#b2462e;
+  --display:"Noto Serif KR","Nanum Myeongjo",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17131c; --paper:#211b28; --ink:#efe9f4; --muted:#a79db3; --line:#3a3144;
+  --plum:#c59be8; --plum-soft:#2e2340; --pear:#e0bd6a; --pear-soft:#33291a;
+  --done:#7fd1b6; --done-soft:#1b2f29; --warn:#f08c72; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17131c; --paper:#211b28; --ink:#efe9f4; --muted:#a79db3; --line:#3a3144;
+  --plum:#c59be8; --plum-soft:#2e2340; --pear:#e0bd6a; --pear-soft:#33291a;
+  --done:#7fd1b6; --done-soft:#1b2f29; --warn:#f08c72; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:900px;margin:0 auto;display:grid;gap:22px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--pear);font-weight:600}
+h1{font:800 clamp(26px,4.5vw,36px)/1.25 var(--display);margin:4px 0 6px;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:64ch}
+.status{font-size:13px;color:var(--muted)}
+.overall{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px}
+.overall .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.big{font:800 30px var(--display);font-variant-numeric:tabular-nums}
+.bar{height:10px;background:var(--plum-soft);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--plum);width:0;transition:width .3s}
+.stages{display:flex;flex-wrap:wrap;gap:6px}
+.stages a{font-size:12px;padding:3px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--paper)}
+.stages a.full{background:var(--done-soft);border-color:var(--done);color:var(--done)}
+section.stage{display:grid;gap:10px}
+.stage>header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:6px}
+.stage h2{margin:0;font:800 20px var(--display)}
+.stage h2 small{font:500 12px var(--body);color:var(--pear);margin-left:8px;letter-spacing:.06em}
+.stage .why{margin:0;color:var(--muted);font-size:14px;width:100%}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;min-width:0}
+.item.on{background:var(--done-soft);border-color:var(--done)}
+.item input[type=checkbox]{width:22px;height:22px;margin-top:2px;accent-color:var(--done);cursor:pointer}
+.item input:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
+.body{min-width:0;display:grid;gap:6px}
+.title{font-weight:600;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.title label{cursor:pointer}
+.tag{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--plum-soft);color:var(--plum);font-weight:500}
+.tag.t{background:var(--pear-soft);color:var(--pear)}
+.on .title label{text-decoration:line-through;text-decoration-color:var(--done)}
+dl{margin:0;display:grid;grid-template-columns:4.2em 1fr;gap:2px 8px;font-size:13.5px}
+dt{color:var(--muted)} dd{margin:0;min-width:0;overflow-wrap:anywhere}
+code{font-size:12.5px;background:var(--plum-soft);padding:1px 5px;border-radius:4px}
+.ok{font-size:13px;border-top:1px dashed var(--line);padding-top:6px}
+.ok b{color:var(--done)}
+.note{width:100%;font:13px var(--body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.meta{font-size:12px;color:var(--done)}
+.finish{background:var(--pear-soft);border:2px solid var(--pear);border-radius:12px;padding:16px 18px;display:grid;gap:8px}
+.finish h2{margin:0;font:800 20px var(--display)}
+.finish ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.err{color:var(--warn);font-size:13px}
+@media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:4px}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">농업회사법인 킹스 · 대표이사 전용</div>
+  <h1>1인 법인 자동화 완성 미션</h1>
+  <p class="lede">중급(데이터 연결)과 고급(사람 없이 돌아가는 시스템)을 합친 대표님 할 일입니다. 항목을 끝내면 체크하세요. 체크는 저장되고, 손사장이 읽어서 시스템에서 실제로 됐는지 다시 확인합니다.</p>
+  <p class="status" id="status">체크 기록을 불러오는 중입니다…</p>
+</header>
+
+<div class="overall">
+  <div class="row"><span>전체 진척</span><span class="big" id="pct">0 / 0</span></div>
+  <div class="bar" aria-hidden="true"><i id="barfill"></i></div>
+  <nav class="stages" id="stagenav" aria-label="단계 바로가기"></nav>
+</div>
+
+<div id="list"></div>
+
+<div class="finish">
+  <h2>미션 완료 보고</h2>
+  <ol>
+    <li>모든 항목을 체크하면 Claude에게 <b>"미션 확인해줘"</b>라고 말씀하세요.</li>
+    <li>손사장이 체크 기록을 읽고, 항목마다 시스템에서 실제로 됐는지(파일·실행 기록·알림) 검증합니다.</li>
+    <li>검증 결과를 <b>운영검증 점수(목표 90점 이상)</b>와 <b>6차 산업 1×2×3 = 1</b>로 보고하면 미션 완료입니다.</li>
+  </ol>
+</div>
+</div>
+
+<script>
+const STAGES = [
+ {id:"A", name:"작업공간 연결", lv:"고급 기반", why:"대표님 PC와 손사장이 같은 폴더를 봐야 엑셀을 직접 읽고 매일 자동으로 돌릴 수 있습니다.", items:[
+  {id:"A1", t:"PC 상태 확인", time:"2분", where:"Claude 데스크톱 앱 → 코드(</>) 탭", what:"\"내 컴퓨터에 Python, Git, GitHub 로그인 상태가 있는지 확인만 해줘. 설치하지 말고 표로.\"", why:"엔진은 Python으로, 저장소는 Git으로 받습니다", ok:"설치 여부 표를 받음"},
+  {id:"A2", t:"엔진 폴더를 PC에 받기", time:"5분", where:"코드 탭", what:"\"GitHub kings8848/- 의 claude/pensive-wozniak-ibq62r 브랜치를 C:\\KINGS 로 받아줘\"", why:"OneDrive 밖에 두어야 동기화 중 파일이 깨지지 않습니다", ok:"C:\\KINGS\\ops 폴더가 보임"},
+  {id:"A3", t:"Remote Control에 폴더 등록", time:"2분", where:"Claude 앱 → 설정 → Claude Code → Remote Control", what:"C:\\KINGS 폴더 추가 (역량평가 기록 폴더도 필요하면 함께)", why:"클라우드의 손사장이 대표님 승인 후 PC 파일을 읽습니다", ok:"손사장이 연결 요청 → 대표님 승인 → 연결됨"},
+  {id:"A4", t:"첫 실행 확인", time:"1분", where:"코드 탭 (작업 폴더 C:\\KINGS)", what:"\"파이프라인 돌리고 아침보고 첫 줄 알려줘\"", why:"PC에서 시스템 전체가 도는지 확인", ok:"'파이프라인 정상' 첫 줄이 보임"},
+ ]},
+ {id:"B", name:"실제 기록 입력", lv:"중급 핵심", why:"지금 1차·2차 증거가 0이라 6차 산업 1×2×3 = 0입니다. 기록이 곧 브랜드 증거이자 광고 문구의 근거입니다.", items:[
+  {id:"B1", t:"최근 배치 1건 6공정 입력", time:"15분", where:"C:\\KINGS\\ops\\templates\\배치기록_양식.xlsx → 복사해 ops\\data\\batches.xlsx", what:"원료입고·담금·발효종료·증류·숙성·병입 6줄. 예시여부 N", why:"알코올 수지·재고 대사·품질 검사의 출발점", ok:"점수표 '실제 배치' 10점"},
+  {id:"B2", t:"그 배치의 남은 병 실사", time:"3분", where:"batches.xlsx 병입 줄 '실사 남은 병' 칸", what:"오늘 직접 센 병 수", why:"장부 재고와 실제 재고를 맞춥니다", ok:"점수표 '재고 대사' 5점"},
+  {id:"B3", t:"원료 입고 1건", time:"5분", where:"ops\\data\\raw_materials.csv (엑셀로 열기)", what:"날짜·원료(산돌배/옥수수)·산지·자가재배 Y/N·수량·단위·로트", why:"'19년 재배'를 데이터로 증명하는 1차 증거", ok:"콕핏 1차 '증거 있음'"},
+  {id:"B4", t:"누룩 종류·숙성 용기·숙성 기간 기록", time:"5분", where:"batches.xlsx 메모 칸", what:"예: 향온곡(녹두 누룩), 220L 옹기, 숙성 ○일", why:"광고 문구('옹기 숙성')의 사실 근거", ok:"브랜드 증거표 2차 ✅ 전환"},
+ ]},
+ {id:"C", name:"돈의 기준", lv:"중급 핵심", why:"원가와 단가가 없어서 영업이익·공장도가격·B2B 제안서 가격이 모두 막혀 있습니다.", items:[
+  {id:"C1", t:"병당 원가 4항목", time:"15분", where:"ops\\enterprise\\master.json (손사장에게 말로 불러 줘도 됨)", what:"제품별 원료·병마개·라벨포장·에너지인건 (원)", why:"병당 영업이익 계산", ok:"가치사슬 보고서 ⑥ 영업이익 ✅"},
+  {id:"C2", t:"제조장 반출가격(공장도가격)", time:"5분", where:"master.json factory_price", what:"제품별 반출가격", why:"주세 과세표준 = 반출가격 × (1 − 기준판매비율)", ok:"주세·교육세 계산값 표시"},
+  {id:"C3", t:"채널별 판매가와 B2B 공급 단가", time:"10분", where:"master.json price", what:"스마트스토어·와디즈·B2B 단가, 부가세 포함 여부", why:"B2B 제안서 가격 칸과 채널별 마진", ok:"B2B 게이트 '단가 미입력' 해소"},
+  {id:"C4", t:"스마트스토어 수수료율 확인", time:"5분", where:"스마트스토어센터 → 정산 관리", what:"실제 수수료율", why:"채널별 실마진", ok:"master.json 채널 수수료 확정"},
+  {id:"C5", t:"원장에 없는 채널 원본 위치 알려주기", time:"5분", where:"손사장에게 말로", what:"와디즈 정산서, 세금계산서(홈택스), 현장 판매 기록 위치", why:"매출 KPI가 실제보다 작게 나옴", ok:"보고서 '원장 미연결 채널' 0개"},
+ ]},
+ {id:"D", name:"법·세무 확인", lv:"중급 필수", why:"주기와 기준을 모르는 법정 의무가 남아 있습니다. 확인되면 대장에 넣고 기한 경보가 자동으로 뜹니다.", items:[
+  {id:"D1", t:"세무사 1회 문의", time:"통화", where:"담당 세무사", what:"주세율·교육세율·전통주 경감 구간·주세 신고 기한·리큐르 기준판매비율·세액 6,820원 산식", why:"세금·이익 숫자의 '미확정' 표시 해제", ok:"master.json verified=true"},
+  {id:"D2", t:"관할 지자체 식품위생과 문의", time:"통화", where:"양양군청 식품위생 담당", what:"자가품질검사 주기·항목, 위생교육, 건강진단 주기", why:"미실시 시 품목제조정지 처분 가능", ok:"의무 대장 주기 미확인 0건"},
+  {id:"D3", t:"관할 세무서 문의", time:"통화", where:"속초세무서 등 관할", what:"음식점 직접 공급 가능 범위·용도 표시, 시음주 무상 제공 사전승인 절차", why:"B2B 직거래·시음 키트의 법적 근거", ok:"B2B 게이트 세무서 항목 해소"},
+  {id:"D4", t:"신제품 서류 확인", time:"10분", where:"식품안전나라·세무서 신고 내역", what:"봉신설주 17·25, 설락소주 품목제조보고와 상표 신고(사용 2일 전)", why:"판매·제안 전 필수", ok:"의무 대장 '신제품' 경고 해소"},
+  {id:"D5", t:"누락 정산 처리", time:"10분", where:"Gmail → 첨부 엑셀 → Drive 07_재무·회계·세무", what:"6/2 이후 메일 7통 저장, 빠진 11구간은 추진단에 요청", why:"정산 원장 빈 구간 제거", ok:"보고서 누락 구간 0개"},
+  {id:"D6", t:"6차산업 인증 여부 확인", time:"통화", where:"한국농어촌공사", what:"인증경영체 보유·신청 요건·양조장 해당 여부", why:"돋움·도약·고도화 단계 지원", ok:"의무 대장 MAFRA-6TH-CERT 증빙 등록"},
+ ]},
+ {id:"E", name:"외부 연결·자동 실행", lv:"고급", why:"여기까지 되면 대표님이 컴퓨터를 켜지 않아도 매일 아침 보고와 경보가 휴대폰으로 옵니다.", items:[
+  {id:"E1", t:"커머스API 등록", time:"15분", where:"apicenter.commerce.naver.com → 애플리케이션 등록", what:"코드 탭에서 python ops/scripts/set_secret.py NAVER_COMMERCE_CLIENT_ID (그리고 _SECRET)", why:"메일 대신 주문 단위 실시간 출고 경보", ok:"API 주문 건수가 보고서에 찍힘"},
+  {id:"E2", t:"카카오 개발자 앱 등록", time:"15분", where:"developers.kakao.com → 애플리케이션 추가", what:"카카오 로그인·talk_message 동의 → set_secret.py로 KAKAO_REST_API_KEY, KAKAO_REFRESH_TOKEN", why:"오류·승인 요청을 휴대폰으로", ok:"키 저장 완료"},
+  {id:"E3", t:"카카오 시험 알림 받기", time:"1분", where:"코드 탭", what:"python ops/connectors/kakao_notify.py \"테스트\"", why:"실서버 검증", ok:"휴대폰에 '[킹스 알림] 테스트' 도착"},
+  {id:"E4", t:"매일 07:30 자동 실행 등록", time:"5분", where:"코드 탭", what:"\"pipeline.py를 매일 07:30에 자동 실행되게 작업 스케줄러에 등록해줘\"", why:"사람 개입 없는 24시간 파이프라인", ok:"등록 완료 메시지"},
+  {id:"E5", t:"3일 연속 아침 보고 수신", time:"3일", where:"카카오톡·콕핏", what:"매일 아침 알림과 콕핏 갱신 확인", why:"반복 실행 실증", ok:"3일 연속 도착"},
+ ]},
+ {id:"F", name:"결정·실증", lv:"고급 완성", why:"마지막으로 대표님만 내릴 수 있는 결정과, 실제 거래 1건으로 시스템이 돈을 버는지 증명합니다.", items:[
+  {id:"F1", t:"100억 계획서 A구역 승인", time:"10분", where:"ops\\company\\킹스_100억_시스템_계획서.md", what:"Phase 0~6 승인 또는 수정", why:"승인 전 착수 금지 원칙", ok:"D-0005 질문 답변 기록"},
+  {id:"F2", t:"미결 결정 답하기", time:"10분", where:"손사장에게 말로", what:"SNS 게시 방식 · 생산 확대 방식 · 도수 허용오차 · 외부 성분분석 주기 · 환불·교환 기준 · 브랜드 지침 확인", why:"답 없는 질문이 있으면 업무를 나누지 못합니다", ok:"콕핏 '결정' 0건"},
+  {id:"F3", t:"첫 B2B 리드 1곳", time:"—", where:"손사장에게 말로", what:"문의 온 곳 또는 이미 아는 매장(이름·메뉴·연락처·문의/동의 여부)", why:"핵심 워크플로우 실거래 실증의 시작", ok:"leads.csv 1건 · 제안서 생성"},
+  {id:"F4", t:"B2B 1건 승인→발송→확인", time:"—", where:"카카오 승인 알림 → workflow approve", what:"제안서 확인 후 승인, 발송, 회신 증거 기록", why:"Human-in-the-loop 실증", ok:"발행 큐 '완료' 1건"},
+  {id:"F5", t:"수작업 시간 실측 1건", time:"30분", where:"ops\\data\\time_log.csv", what:"정산서 1건을 손으로 맞춘 시간(분) vs 자동", why:"시스템이 대표님 시간을 얼마나 줄였는지", ok:"점수표 '전후 실측' 10점"},
+  {id:"F6", t:"최종 재평가 요청", time:"1분", where:"Claude", what:"\"미션 확인해줘\"", why:"손사장이 전 항목을 시스템에서 검증", ok:"운영검증 90점 이상 · 1×2×3 = 1"},
+ ]},
+];
+const ALL = STAGES.flatMap(s => s.items.map(i => ({...i, stage:s.id})));
+let state = {};
+let db = null, writable = true;
+
+function el(tag, attrs={}, ...kids){
+  const e = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs)) { if (k==="class") e.className=v; else if (k==="text") e.textContent=v; else e.setAttribute(k,v); }
+  for (const k of kids) if (k) e.append(k);
+  return e;
+}
+function fmt(ts){ try { return new Date(ts).toLocaleString("ko-KR",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"}); } catch { return ""; } }
+
+function render(){
+  const list = document.getElementById("list"); list.textContent = "";
+  const nav = document.getElementById("stagenav"); nav.textContent = "";
+  let done = 0;
+  for (const s of STAGES){
+    const n = s.items.filter(i => state[i.id]?.done).length; done += n;
+    const a = el("a",{href:"#stage-"+s.id, class: n===s.items.length ? "full" : "", text:`${s.id} ${s.name} ${n}/${s.items.length}`}); nav.append(a);
+    const sec = el("section",{class:"stage", id:"stage-"+s.id});
+    const h = el("header",{}, el("h2",{}, document.createTextNode(`${s.id}. ${s.name}`), el("small",{text:s.lv})), el("span",{class:"cnt", text:`${n} / ${s.items.length}`}), el("p",{class:"why", text:s.why}));
+    sec.append(h);
+    for (const it of s.items){
+      const st = state[it.id] || {};
+      const cb = el("input",{type:"checkbox", id:"cb-"+it.id, "aria-describedby":"ok-"+it.id});
+      cb.checked = !!st.done; cb.disabled = !writable;
+      cb.addEventListener("change", () => save(it.id, {done: cb.checked}));
+      const note = el("input",{class:"note", id:"note-"+it.id, type:"text", placeholder:"메모 (선택) — 예: 세무사 답변 요지"});
+      note.value = st.note || ""; note.disabled = !writable;
+      note.addEventListener("change", () => save(it.id, {note: note.value.slice(0,300)}));
+      const dl = el("dl",{}, el("dt",{text:"어디서"}), el("dd",{text:it.where}), el("dt",{text:"무엇을"}), el("dd",{text:it.what}), el("dt",{text:"왜"}), el("dd",{text:it.why}));
+      const body = el("div",{class:"body"},
+        el("div",{class:"title"}, el("label",{for:"cb-"+it.id, text:`${it.id} ${it.t}`}), el("span",{class:"tag t", text:it.time})),
+        dl, el("div",{class:"ok", id:"ok-"+it.id}, el("b",{text:"완료 기준 "}), document.createTextNode(it.ok)), note,
+        st.done && st.at ? el("div",{class:"meta", text:`체크함 · ${fmt(st.at)}`}) : null);
+      sec.append(el("div",{class:"item"+(st.done?" on":"")}, cb, body));
+    }
+    list.append(sec);
+  }
+  document.getElementById("pct").textContent = `${done} / ${ALL.length}`;
+  document.getElementById("barfill").style.width = (done/ALL.length*100)+"%";
+}
+
+async function save(id, patch){
+  state[id] = {...(state[id]||{}), ...patch};
+  if (patch.done !== undefined) state[id].at = patch.done ? Date.now() : null;
+  render();
+  if (!db) return;
+  try { await db.collection("checks").doc(id).set({...state[id], item: id}); setStatus("저장됨"); }
+  catch (e) { setStatus("저장하지 못했습니다. 이 페이지의 편집 권한이 있는지 확인하세요.", true); }
+}
+function setStatus(t, bad){ const s=document.getElementById("status"); s.textContent=t; s.className = bad ? "status err" : "status"; }
+
+render();
+(async () => {
+  const timer = setTimeout(() => setStatus("저장소에 연결하지 못했습니다. 체크는 이 화면에서만 보입니다.", true), 10000);
+  try {
+    db = await claude.use("db");
+    if (!db) { clearTimeout(timer); writable = false; setStatus("로그인해야 체크를 저장할 수 있습니다. 지금은 읽기 전용입니다.", true); render(); return; }
+    db.collection("checks").onSnapshot(snap => {
+      clearTimeout(timer);
+      state = {}; for (const d of snap.docs) state[d.id] = d.data() || {};
+      setStatus(Object.keys(state).length ? "체크 기록을 불러왔습니다" : "아직 체크한 항목이 없습니다. 끝낸 항목부터 체크하세요.");
+      render();
+    }, () => { clearTimeout(timer); setStatus("체크 기록을 불러오지 못했습니다. 새로고침해 주세요.", true); });
+  } catch { clearTimeout(timer); setStatus("저장소에 연결하지 못했습니다.", true); }
+})();
+</script>
