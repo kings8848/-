@@ -18,6 +18,7 @@
 - 제품: 금배주 17/25/40(375ml, 품목보고 202400063753~55), 금배주 25 봉신설주 에디션 750ml, 봉신설주 17(와디즈).
 
 ## 밟은 함정
+- [세무] 주세율·교육세율·전통주 경감 구간은 보도마다 다르다 → master.json verified=false 유지, 세무사 확인 전 '미확정' 표기.
 - [정산] Drive 엑셀은 `download_file_content`(base64)로 받으면 컨텍스트가 터진다 → `read_file_content`(텍스트)로 읽는다.
 - [정산] Gmail 첨부 엑셀은 현재 도구로 내용 추출 불가 → Drive에 저장된 것만 대사된다. 2026-06-02 이후분 7통 미저장.
 - [정산] 2025-09 2차 정정행 5건(행당 13,050원)은 2025-10-02 '9월 2차 정산 수정 내역' 메일 건. 오류로 잡지 말 것.
@@ -39,5 +40,8 @@
 | 두 계층 연결(경보→업무) | ops/company/bridge.py (상시 지시 D-0004) |
 | 조직도 | ops/company/조직도.md · `workflow.py org` |
 | Threads 연결 계획 | ops/company/SNS_연결계획_Threads.md |
+| 전사 가치사슬(입고~투자) | ops/enterprise/value_chain.py · master.json |
+| 시스템 진단(약점·불필요·추가) | ops/company/시스템_진단_약점_불필요_추가.md |
+| CEO 보고서 기준(스킬) | .claude/skills/kings-ceo-report |
 | 100억 시스템 계획서 | ops/company/킹스_100억_시스템_계획서.md |
 | Drive 보고서 | 09_AI연구·대화기록 / 운영검증_보고서_20261103_야간, _20261104 |

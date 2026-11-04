@@ -65,3 +65,10 @@ python3 -m unittest ops/tests/test_ops.py   # 회귀 시험 8개
 | 스마트스토어 커머스API 연동 | `ops/connectors/smartstore_api.py` (bcrypt 서명·토큰·변경주문 조회·중복 없는 적재) → 엔진이 결제 후 24시간 미발송을 긴급 경보. **실서버 미검증** — 대표님 .env 입력 후 첫 실행에서 검증 |
 | 배치 기록 엑셀 | `ops/templates/배치기록_양식.xlsx`(공정·제품 목록 선택) → `ops/data/batches.xlsx`로 저장하면 엔진이 csv보다 우선해 읽음 |
 | 누락 정산 대표 직접 | `ops/reports/누락정산_처리목록_대표용.md` (11구간 + 메일 7통 Gmail 링크) |
+
+## 전사 가치사슬 (2026-11-04 · `ops/enterprise/`)
+
+```bash
+python3 ops/enterprise/value_chain.py     # 입고→생산→재고→판매→세금→영업이익→시설투자 + 100억 시나리오
+```
+`master.json`의 null은 계산하지 않고 '입력 필요'로, verified=false 세율은 '미확정'으로 보고합니다. 비밀값은 `python ops/scripts/set_secret.py 이름` (화면에 안 보임).

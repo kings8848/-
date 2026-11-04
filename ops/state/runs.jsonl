@@ -6,3 +6,4 @@
 {"at": "2026-11-04T16:40:54+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 2, "score": 75}
 {"at": "2026-11-04T16:46:03+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.009, "urgent": 1, "warn": 2, "score": 75}
 {"at": "2026-11-04T16:47:22+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T17:02:14+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 2, "score": 75}
