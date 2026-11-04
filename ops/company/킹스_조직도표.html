@@ -59,6 +59,21 @@ ul{margin:0;padding-left:18px;font-size:14px}
 .out{font-size:12px;border-top:1px dashed var(--line);padding-top:6px}
 .out b{color:var(--warn);font-weight:600}
 
+.depts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;width:100%;border-top:2px solid var(--line);padding-top:22px}
+.dept{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;align-content:start;min-width:0}
+.dept h3{margin:0;font:800 18px var(--display);color:var(--plum)}
+.dept.prod h3{color:var(--pear)}
+.lead{font-size:13px;font-weight:600}
+.staff{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:13px}
+.staff li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline;border-top:1px dashed var(--line);padding-top:6px}
+.staff b{font-weight:600;color:var(--muted)}
+.staff span{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dept i{font-style:normal;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--plum-soft);color:var(--plum)}
+.dept i.c{background:var(--code-soft);color:var(--code)}
+.dept i.h{background:var(--pear-soft);color:var(--pear)}
+.dept p{margin:0;font-size:12px;color:var(--muted)}
+@media (max-width:980px){.depts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.depts{grid-template-columns:1fr}}
 table{border-collapse:collapse;width:100%;font-size:14px;background:var(--paper)}
 th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
 th{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em}
@@ -80,73 +95,92 @@ footer{font-size:12px;color:var(--muted)}
 <header>
   <div class="eyebrow">농업회사법인 킹스 주식회사 · 킹스양조장</div>
   <h1>킹스양조장 조직도</h1>
-  <p class="lede">사람은 대표 1명입니다. 손사장(총괄 AI)이 일을 나누고 검수하며, 실무 담당 6명 중 3명은 코드가, 3명은 AI가 맡습니다. 밖으로 나가는 일은 모두 대표 승인을 거칩니다.</p>
-  <div class="sum"><span>대표 <b>1</b></span><span>총괄 <b>1</b></span><span>실무 담당 <b>6</b> (코드 3 · AI 3)</span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
+  <p class="lede">일반 회사와 같은 부서·직급 체계입니다. 사람은 대표이사 1명이고, 사장(손사장)과 부장·대리는 AI와 코드가 맡습니다. AI 조직에서 직급은 <b>권한</b>입니다. 대리는 실행만, 부장은 부서 검수, 사장은 부서 간 조정, 대표이사는 최종 승인을 합니다.</p>
+  <div class="sum"><span>대표이사 <b>1</b></span><span>사장 <b>1</b></span><span>부장 <b>5</b> (대표 겸임 1)</span><span>대리 <b>8</b></span><span>부서 <b>5</b></span><span>자문 <b>1</b></span><span>2026-11-04 기준</span></div>
 </header>
 
-<div class="chart" role="img" aria-label="대표 아래 손사장, 손사장 아래 자동화 계층 3명과 AI 계층 3명, 손사장 옆 독립검토 자문">
+<div class="chart" role="img" aria-label="대표이사 아래 사장, 사장 아래 총무부·생산부·자재부·시설부·마케팅부, 사장 옆 감사 자문">
   <div class="node ceo">
-    <h2>대표 (CEO)</h2>
-    <div class="role">김종환 대표 · 사람</div>
-    <ul><li>양조·레시피·품질 판단</li><li>거래처·관계</li><li><b>최종 승인</b> (네 / 아니오)</li></ul>
+    <h2>대표이사</h2>
+    <div class="role">김종환 · 사람</div>
+    <ul><li>외부 발송·제출·시설투자 <b>최종 승인</b></li><li>생산부장 겸임 (양조·품질)</li></ul>
   </div>
   <div class="vline"></div>
   <div class="mid">
     <span></span>
     <div class="node son">
-      <h2>손사장 (총괄 에이전트)</h2>
-      <div class="role">비서실장 · 강한 모델</div>
-      <ul><li>지시 해석·확인 질문</li><li>업무 분해·배정·일괄 검수</li><li>발행 큐·아침 보고·회사의 기억</li></ul>
+      <h2>사장 · 손사장</h2>
+      <div class="role">총괄 AI · 강한 모델</div>
+      <ul><li>지시 해석·부서 배정</li><li>부서 간 조정·전사 검수</li><li>아침 보고·발행 큐</li></ul>
     </div>
     <div class="node adv">
-      <h3>독립검토 (자문)</h3>
-      <div class="role">다른 회사 모델 · 세무·제출·가격 결정만</div>
+      <h3>감사 · 독립검토</h3>
+      <div class="role">다른 회사 모델 · 세무·제출·가격만</div>
       <div class="who">승인권 없음</div>
     </div>
   </div>
   <div class="vline"></div>
 
-  <div class="layers">
-    <div class="layer auto">
-      <header><h4>자동화 계층</h4><span class="tag">코드 · AI 비용 0 · 계산과 경보만</span></header>
-      <article class="card">
-        <div class="top"><h3><span class="num">①</span>정산·원가</h3><span class="cnt">진행 <b>3</b> · 완료 <b>2</b></span></div>
-        <ul><li>로컬푸드·스마트스토어 정산 대사</li><li>누락 구간 탐지·매출 KPI</li><li>병당 원가·마진 (원가 입력 후)</li></ul>
-        <div class="out">대표에게: 불일치·누락 경보</div>
-      </article>
-      <article class="card">
-        <div class="top"><h3><span class="num">②</span>출고·재고</h3><span class="cnt">진행 <b>3</b> · 완료 <b>0</b></span></div>
-        <ul><li>발송대기·24시간 미발송 경보</li><li>병입 − 판매 − 실사 재고 대사</li></ul>
-        <div class="out">대표에게: <b>출고 지연 긴급 경보</b></div>
-      </article>
-      <article class="card">
-        <div class="top"><h3><span class="num">③</span>제조기록(양조)</h3><span class="cnt">진행 <b>2</b> · 완료 <b>0</b></span></div>
-        <ul><li>배치 6공정 (원료입고~병입) 연결</li><li>알코올 수지 검증</li></ul>
-        <div class="who">대표 입력: 배치기록 엑셀</div>
-        <div class="out">대표에게: 미기록 공정·수지 오류</div>
-      </article>
-    </div>
-
-    <div class="layer ai">
-      <header><h4>AI 계층</h4><span class="tag">판단·작성 · 초안까지만</span></header>
-      <article class="card">
-        <div class="top"><h3><span class="num">④</span>주세·식품표시</h3><span class="cnt">진행 <b>2</b> · 완료 <b>0</b></span></div>
-        <ul><li>주세·교육세 산식, 경감 구간</li><li>라벨·품목제조보고</li><li>주류 광고 규정</li></ul>
-        <div class="out">대표에게: 세무사 문의 초안</div>
-      </article>
-      <article class="card">
-        <div class="top"><h3><span class="num">⑤</span>정부지원사업</h3><span class="cnt">진행 <b>0</b> · 완료 <b>0</b></span></div>
-        <ul><li>공고 탐색</li><li>사업계획서 (HWPX)</li></ul>
-        <div class="out">대표에게: 제출본 (승인 후 제출)</div>
-      </article>
-      <article class="card">
-        <div class="top"><h3><span class="num">⑥</span>브랜드·콘텐츠</h3><span class="cnt">진행 <b>0</b> · 완료 <b>1</b></span></div>
-        <ul><li>봉신설주·돌배 스토리, 상세페이지</li><li>Threads·인스타 게시 초안</li></ul>
-        <div class="out">대표에게: 게시 초안 (승인 후 게시)</div>
-      </article>
-    </div>
+  <div class="depts">
+    <article class="dept">
+      <h3>총무부</h3>
+      <div class="lead">부장 · 총무부장 <i>AI</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 정산·회계 <i class="c">코드</i><span>진행 3 · 완료 2</span></li>
+        <li><b>대리</b> 세무·인허가 <i>AI</i><span>진행 2</span></li>
+        <li><b>대리</b> 지원사업 <i>AI</i><span>0</span></li>
+      </ul>
+      <p>정산 대사·세금·주세·인허가·지원사업 서류</p>
+    </article>
+    <article class="dept prod">
+      <h3>생산부</h3>
+      <div class="lead">부장 · 대표이사 겸임 <i class="h">사람</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 제조기록 <i class="c">코드</i><span>진행 2</span></li>
+      </ul>
+      <p>담금·발효·증류·숙성·병입, 배치 기록·알코올 수지·품질</p>
+    </article>
+    <article class="dept">
+      <h3>자재부</h3>
+      <div class="lead">부장 · 자재부장 <i>AI</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 입출고·재고 <i class="c">코드</i><span>진행 3</span></li>
+      </ul>
+      <p>원료 입고·병·라벨 자재, 재고 실사, 출고·발송 경보</p>
+    </article>
+    <article class="dept">
+      <h3>시설부</h3>
+      <div class="lead">부장 · 시설부장 <i>AI</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 설비·가동 <i class="c">코드</i><span>0</span></li>
+      </ul>
+      <p>발효조·증류기 가동률, 생산능력, 시설투자 회수기간</p>
+    </article>
+    <article class="dept">
+      <h3>마케팅부</h3>
+      <div class="lead">부장 · 마케팅부장 <i>AI</i></div>
+      <ul class="staff">
+        <li><b>대리</b> 판매채널 <i class="c">코드</i><span>0</span></li>
+        <li><b>대리</b> 콘텐츠 <i>AI</i><span>완료 1</span></li>
+      </ul>
+      <p>판매전략·채널(로컬푸드·스마트스토어·와디즈·B2B), 브랜드·SNS</p>
+    </article>
   </div>
 </div>
+
+<section>
+  <h2>직급별 권한</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>직급</th><th>누가</th><th>할 수 있는 것</th><th>할 수 없는 것</th></tr></thead>
+    <tbody>
+      <tr><td>대표이사</td><td>김종환 (사람)</td><td>외부 발송·제출·투자 최종 승인, 양조 판단</td><td>—</td></tr>
+      <tr><td>사장</td><td>손사장 (AI)</td><td>지시 해석, 부서 배정, 부서 간 조정, 전사 검수</td><td>대표 승인 없는 외부 발송</td></tr>
+      <tr><td>부장</td><td>부서별 AI (필요할 때만 호출)</td><td>부서 업무 검수·반려, 부서 계획</td><td>다른 부서 지시, 외부 발송</td></tr>
+      <tr><td>대리</td><td>코드 또는 AI</td><td>계산·경보·초안 작성</td><td>승인·검수·판단</td></tr>
+      <tr><td>자문</td><td>독립검토</td><td>위험 업무 권고</td><td>승인·지시</td></tr>
+    </tbody>
+  </table></div>
+</section>
 
 <section>
   <h2>업무 흐름</h2>
@@ -155,9 +189,9 @@ footer{font-size:12px;color:var(--muted)}
     <tbody>
       <tr><td>지시</td><td>대표</td><td>원문 그대로 봉인 (나중에 해석과 대조)</td></tr>
       <tr><td>해석·질문</td><td>손사장</td><td>불명확하면 임의로 정하지 않고 선택지로 질문</td></tr>
-      <tr><td>배정</td><td>손사장 → 담당</td><td>업무 1개 = 담당 1명 = 산출물 1개, 검수 기준은 배정 때 확정</td></tr>
-      <tr><td>수행</td><td>①~⑥</td><td>자동화 계층은 계산·경보, AI 계층은 초안</td></tr>
-      <tr><td>검수</td><td>손사장</td><td>한꺼번에 판정, 반려 3회면 대표에게 상신</td></tr>
+      <tr><td>배정</td><td>사장 → 부서(부장·대리)</td><td>업무 1개 = 담당 1명 = 산출물 1개, 검수 기준은 배정 때 확정</td></tr>
+      <tr><td>수행</td><td>대리</td><td>코드 대리는 계산·경보, AI 대리는 초안</td></tr>
+      <tr><td>검수</td><td>부장 → 사장</td><td>부서 검수 후 사장이 한꺼번에 판정, 반려 3회면 대표이사에게 상신</td></tr>
       <tr><td>승인·발송</td><td>대표 → 발행 큐</td><td>승인 → 발송 → 증거로 확인해야 완료</td></tr>
     </tbody>
   </table></div>
@@ -178,9 +212,9 @@ footer{font-size:12px;color:var(--muted)}
   <div class="tbl"><table class="future">
     <thead><tr><th>단계</th><th>추가 담당</th><th>외부 위탁</th></tr></thead>
     <tbody>
-      <tr><td>~1억</td><td>현재 6명 유지</td><td>—</td></tr>
-      <tr><td>~10억</td><td>⑦ B2B 영업지원 (견적·거래명세)</td><td>물류(3PL) · 세무 기장</td></tr>
-      <tr><td>~100억</td><td>⑧ 수출 (서류·인증)</td><td>생산 위탁 검토 (면허 조건 확인 후)</td></tr>
+      <tr><td>~1억</td><td>현재 5개 부서 유지</td><td>—</td></tr>
+      <tr><td>~10억</td><td>마케팅부 B2B 영업 대리 (견적·거래명세)</td><td>물류(3PL) · 세무 기장</td></tr>
+      <tr><td>~100억</td><td>해외사업부 신설 (수출 서류·인증)</td><td>생산 위탁 검토 (면허 조건 확인 후)</td></tr>
     </tbody>
   </table></div>
 </section>

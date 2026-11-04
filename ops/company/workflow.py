@@ -278,24 +278,29 @@ def brief(db, tid):
     return "\n".join(lines)
 
 
-LAYER = {"대표": "의사결정", "손사장": "총괄", "독립검토": "자문"}
+DEPT_ORDER = ["총무부", "생산부", "자재부", "시설부", "마케팅부"]
+RANK_POWER = {"대표이사": "외부 발송·제출·투자 최종 승인", "사장": "부서 간 조정·전사 검수", "부장": "부서 내 검수·반려", "대리": "실행·계산·초안(승인권 없음)", "자문": "권고만"}
 
 
 def org_chart(db):
-    """역할표 + 업무 현황으로 조직도 출력(대표 질문: 담당자가 몇 명인가)."""
+    """부서·직급 조직도 + 담당별 업무 건수(대표 질문: 총무·마케팅·자재·시설 + 사장·부장·대리)."""
     ro = roster()
-    cnt = {k: {"진행": 0, "완료": 0} for k in ro}
+    cnt = {k: [0, 0] for k in ro}
     for t in db["tasks"].values():
         if t["owner"] in cnt:
-            cnt[t["owner"]]["완료" if t["status"] == "완료" else "진행"] += 1
-    staff = [k for k in ro if k not in LAYER]
-    lines = [f"대표(CEO) — 승인·양조·관계", "└─ 손사장(총괄 에이전트) — 해석·배정·검수·보고"]
-    for i, k in enumerate(staff):
-        br = "└─" if i == len(staff) - 1 else "├─"
-        lines.append(f"     {br} {ro[k]['title']} [{ro[k]['model']}] 진행 {cnt[k]['진행']} · 완료 {cnt[k]['완료']}")
-    lines.append(f"   (옆) 독립검토 — 권고만, 승인권 없음 [{ro['독립검토']['model']}]")
-    lines.append(f"합계: 대표 1 · 총괄 1 · 실무 담당 {len(staff)} · 자문 1")
-    return "\n".join(lines)
+            cnt[t["owner"]][1 if t["status"] == "완료" else 0] += 1
+    L = ["대표이사 — 김종환 (사람) · " + RANK_POWER["대표이사"],
+         "└─ 사장 — 손사장 (총괄 AI) · " + RANK_POWER["사장"] + "        ◀ 감사·자문: 독립검토(권고만)"]
+    for i, d in enumerate(DEPT_ORDER):
+        br = "└─" if i == len(DEPT_ORDER) - 1 else "├─"
+        L.append(f"     {br} {d}")
+        mem = sorted([k for k, v in ro.items() if v.get("dept") == d], key=lambda k: 0 if ro[k]["rank"] == "부장" else 1)
+        for k in mem:
+            v = ro[k]
+            L.append(f"     {'   ' if br == '└─' else '│  '}  · {v['rank']} {v['title']} [{v.get('model','')}] 진행 {cnt[k][0]} · 완료 {cnt[k][1]}")
+    n = lambda rk: sum(1 for v in ro.values() if v.get("rank") == rk)
+    L.append(f"합계: 대표이사 1 · 사장 1 · 부장 {n('부장')}(대표 겸임 1) · 대리 {n('대리')} · 자문 1 · 부서 {len(DEPT_ORDER)}")
+    return "\n".join(L)
 
 
 def status_table(db):
