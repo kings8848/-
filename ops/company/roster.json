@@ -1,11 +1,11 @@
 {
-  "손사장": {"title": "비서실장(총괄)", "can_approve_internal": true},
-  "정산원가": {"title": "정산·원가", "engine": "kings_ops.reconcile_localfood/smartstore"},
-  "출고재고": {"title": "출고·재고", "engine": "kings_ops.smartstore/batches"},
-  "제조기록": {"title": "제조기록(양조)", "engine": "kings_ops.batches"},
-  "컴플라이언스": {"title": "주세·식품표시"},
-  "지원사업": {"title": "정부지원사업"},
-  "브랜드콘텐츠": {"title": "브랜드·콘텐츠"},
-  "독립검토": {"title": "외부 모델 독립검토", "advice_only": true},
-  "대표": {"title": "CEO", "can_approve_external": true}
+  "손사장": {"title": "비서실장(총괄)", "model": "강한 모델(Opus)", "topics": ["정산", "출고", "연결", "제조", "세무"], "can_approve_internal": true},
+  "정산원가": {"title": "정산·원가", "model": "코드(토큰 0) — kings_ops", "topics": ["정산"]},
+  "출고재고": {"title": "출고·재고", "model": "코드(토큰 0) — kings_ops", "topics": ["출고"]},
+  "제조기록": {"title": "제조기록(양조)", "model": "코드 검증 + 대표 입력", "topics": ["제조"]},
+  "컴플라이언스": {"title": "주세·식품표시", "model": "강한 모델(법규 판단)", "topics": ["세무", "정산"]},
+  "지원사업": {"title": "정부지원사업", "model": "강한 모델(제출물)", "topics": ["지원"]},
+  "브랜드콘텐츠": {"title": "브랜드·콘텐츠", "model": "비용 효율 모델(Sonnet)", "topics": ["브랜드"]},
+  "독립검토": {"title": "외부 모델 독립검토", "model": "다른 회사 모델(GPT 등) — 위험 업무만", "advice_only": true, "topics": []},
+  "대표": {"title": "CEO", "can_approve_external": true, "topics": []}
 }

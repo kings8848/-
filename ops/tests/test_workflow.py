@@ -58,13 +58,47 @@ class WFTest(unittest.TestCase):
         self.assertEqual(len(self.db["tasks"][t1]["history"]), 3)
         self.assertIn("1회차", self.w.brief(self.db, t1))
 
-    def test_external_needs_ceo_approval(self):
+    def test_outbox_flow_needs_approval_and_evidence(self):
         self.w.interpret(self.db, self.oid, "해석")
-        tid = self.w.add_task(self.db, self.oid, "지원사업", self.out("c.md", "이 문서에서 알 수 있는 것: 제출본"), ["양식 준수"], external=True)
+        with self.assertRaises(self.w.WFError):  # 채널 없는 외부 업무 거부
+            self.w.add_task(self.db, self.oid, "지원사업", "c.md", ["양식"], external=True)
+        tid = self.w.add_task(self.db, self.oid, "지원사업", self.out("c.md", "이 문서에서 알 수 있는 것: 제출본"), ["양식 준수"], external=True, channel="제출")
         self.w.submit(self.db, tid)
         self.assertEqual(self.w.review(self.db, passes=[tid])[tid], "대표승인대기")
+        with self.assertRaises(self.w.WFError):  # 승인 없이 발송 불가
+            self.w.sent(self.db, tid)
         self.w.approve(self.db, tid)
+        self.w.sent(self.db, tid)
+        with self.assertRaises(self.w.WFError):  # 증거 없는 완료 불가
+            self.w.confirm(self.db, tid, "확인")
+        self.w.confirm(self.db, tid, "접수번호 2026-1104-001 수신 확인")
         self.assertEqual(self.db["tasks"][tid]["status"], "완료")
+
+    def test_daily_cap(self):
+        self.w.interpret(self.db, self.oid, "해석")
+        f = self.out("d.md", "이 문서에서 알 수 있는 것: x")
+        ids = [self.w.add_task(self.db, self.oid, "지원사업", f, ["k"], external=True, channel="제출") for _ in range(4)]
+        for t in ids:
+            self.w.submit(self.db, t)
+        self.w.review(self.db, passes=ids)
+        for t in ids:
+            self.w.approve(self.db, t)
+        for t in ids[:3]:
+            self.w.sent(self.db, t)
+        with self.assertRaises(self.w.WFError):
+            self.w.sent(self.db, ids[3])
+
+    def test_memory_rules_and_topic_filter(self):
+        self.assertEqual(self.w.check_memory(), [])
+        must, pits = self.w.load_memory()
+        self.assertLessEqual(len(must), 10)
+        self.w.interpret(self.db, self.oid, "해석")
+        t_out = self.w.add_task(self.db, self.oid, "출고재고", "x.md", ["k"])
+        t_cal = self.w.add_task(self.db, self.oid, "정산원가", "x.md", ["k"])
+        b_out, b_cal = self.w.brief(self.db, t_out), self.w.brief(self.db, t_cal)
+        self.assertNotIn("연속 발송대기", b_out)      # 해소된 함정은 안 실림
+        self.assertNotIn("base64", b_out)             # 다른 주제 함정은 안 실림
+        self.assertIn("base64", b_cal)
 
 
 if __name__ == "__main__":

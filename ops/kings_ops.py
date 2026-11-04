@@ -298,6 +298,26 @@ def time_log(F: Findings) -> dict:
     return {"measured": {t: {"before": v["수작업"], "after": v["자동"], "saved": v["수작업"] - v["자동"]} for t, v in measured.items()}}
 
 
+# ───────────────────────── 연결 대장 ─────────────────────────
+def connections(F: Findings, today: date | None = None) -> list[dict]:
+    p = ROOT / "company" / "connections.json"
+    if not p.exists():
+        return []
+    today = today or datetime.now(KST).date()
+    rows = json.loads(p.read_text(encoding="utf-8"))["connections"]
+    for c in rows:
+        if c["status"] != "연결":
+            continue
+        if (today - d(c["last_checked"])).days > 7:
+            F.add("경고", "연결·점검", f"{c['name']} 마지막 확인 {c['last_checked']} — 7일 넘게 미확인", "연결 상태 확인 후 connections.json 갱신")
+        if c.get("expires") and 0 <= (d(c["expires"]) - today).days <= 7:
+            F.add("경고", "연결·만료", f"{c['name']} {c['expires']} 만료 예정", "재연결(토큰 갱신)")
+    off = [c["name"] for c in rows if c["status"] not in ("연결", "1회 실행 후 종료")]
+    if off:
+        F.add("정보", "연결·미연결", "미연결: " + ", ".join(off), "우선순위: PC 폴더(Remote Control) → 스마트스토어 커머스API")
+    return rows
+
+
 # ───────────────────────── 멱등 적재 + 실행 기록 ─────────────────────────
 def ingest(lf: dict, ss: dict) -> dict:
     STATE.mkdir(exist_ok=True)
@@ -446,6 +466,7 @@ def main(argv=None):
     ss = smartstore(F)
     bt = batches(F, lf)
     tl = time_log(F)
+    connections(F)
     if a.cmd == "score":
         sc = score(lf, ss, bt, tl, F, runs())
         print(json.dumps(sc, ensure_ascii=False, indent=1))

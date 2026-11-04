@@ -31,6 +31,10 @@ STATE = Path(os.environ.get("KINGS_WF_STATE", HERE.parent / "state" / "orders.js
 KST = timezone(timedelta(hours=9))
 FIRST_LINE = "이 문서에서 알 수 있는 것"
 MAX_REJECT = 3
+MAX_MUST_KNOW = 10
+# 발행 큐 하루 상한(영상: 스레드 0/250·인스타 0/25처럼 시스템이 강제)
+DAILY_CAP = {"고객안내": 20, "메일": 20, "제출": 3, "상품수정": 10, "SNS": 5}
+OUTBOX_STATES = ["대표승인대기", "발송대기", "게시확인필요", "완료", "실패", "반려"]
 
 
 def now():
@@ -78,7 +82,7 @@ def verify(db):
 
 
 # ───────── 태스크 ─────────
-def add_task(db, oid, owner, output, accept, after=(), external=False):
+def add_task(db, oid, owner, output, accept, after=(), external=False, channel=None):
     if oid not in db["orders"]:
         raise WFError(f"{oid} 없음")
     if db["orders"][oid]["interpretation"] is None:
@@ -90,12 +94,14 @@ def add_task(db, oid, owner, output, accept, after=(), external=False):
     crit = [c.strip() for c in accept if c.strip()]
     if not crit:
         raise WFError("검수 기준 없이 배정 불가")
+    if external and channel not in DAILY_CAP:
+        raise WFError(f"외부 업무는 발행 채널 지정 필요: {', '.join(DAILY_CAP)}")
     for a in after:
         if a not in db["tasks"]:
             raise WFError(f"선행 {a} 없음")
     tid = f"T-{len(db['tasks']) + 1:04d}"
     db["tasks"][tid] = {"order": oid, "owner": owner, "output": output, "accept": crit, "accept_locked": True,
-                        "after": list(after), "external": external, "status": "배정", "rejects": 0,
+                        "after": list(after), "external": external, "channel": channel, "status": "배정", "rejects": 0,
                         "history": [], "advice": [], "log": [f"{now()} 배정 → {owner}"]}
     return tid
 
@@ -163,15 +169,84 @@ def approve(db, tid):
     t = db["tasks"][tid]
     if t["status"] != "대표승인대기":
         raise WFError(f"{tid}는 승인 대기 상태가 아님({t['status']})")
-    t["status"] = "완료"
-    t["log"].append(f"{now()} 대표 승인")
+    t["status"] = "발송대기"
+    t["log"].append(f"{now()} 대표 승인 → 발행 큐")
+
+
+def sent(db, tid):
+    """실제로 내보냈음(고객 안내·메일 발송·제출). 확인 전까지 완료가 아님."""
+    t = db["tasks"][tid]
+    if t["status"] != "발송대기":
+        raise WFError(f"{tid}는 승인 전이거나 이미 처리됨({t['status']}) — 승인 없이 나가는 경로 없음")
+    today = now()[:10]
+    used = sum(1 for x in db["tasks"].values() if x.get("channel") == t["channel"] and x.get("sent_at", "")[:10] == today)
+    if used >= DAILY_CAP[t["channel"]]:
+        raise WFError(f"{t['channel']} 오늘 상한 {DAILY_CAP[t['channel']]}건 초과")
+    t["status"] = "게시확인필요"
+    t["sent_at"] = now()
+    t["log"].append(f"{now()} 발송")
+
+
+def confirm(db, tid, evidence, ok=True):
+    """나간 뒤 실제 반영 확인(예: 17시 주문현황 발송대기 0). 증거 없으면 완료 불가."""
+    t = db["tasks"][tid]
+    if t["status"] != "게시확인필요":
+        raise WFError(f"{tid}는 확인 단계가 아님({t['status']})")
+    if len(evidence.strip()) < 10:
+        raise WFError("확인 증거를 10자 이상 적어야 함(무엇으로 확인했는지)")
+    t["status"] = "완료" if ok else "실패"
+    t["evidence"] = evidence
+    t["log"].append(f"{now()} 게시 확인 {'성공' if ok else '실패'}: {evidence}")
+
+
+def outbox_counts(db):
+    c = {s: 0 for s in OUTBOX_STATES}
+    for t in db["tasks"].values():
+        if t["external"] and t["status"] in c:
+            c[t["status"]] += 1
+    return c
+
+
+# ───────── 회사의 기억 ─────────
+def load_memory():
+    text = (HERE / "memory.md").read_text(encoding="utf-8")
+    sec, must, pits = None, [], []
+    for line in text.splitlines():
+        if line.startswith("## "):
+            sec = line[3:].strip()
+        elif line.startswith("- ") and sec == "반드시 아는 것":
+            must.append(line[2:].strip())
+        elif line.startswith("- [") and sec == "밟은 함정":
+            body = line[2:]
+            tag = body[1:body.index("]")]
+            rest = body[body.index("]") + 1:]
+            resolved = None
+            if rest.startswith("[해소:"):
+                resolved = rest[len("[해소:"):rest.index("]")].strip()
+                rest = rest[rest.index("]") + 1:]
+            pits.append({"tag": tag, "resolved": resolved, "text": rest.strip()})
+    return must, pits
+
+
+def check_memory():
+    must, pits = load_memory()
+    errs = []
+    if len(must) > MAX_MUST_KNOW:
+        errs.append(f"반드시 아는 것 {len(must)}개 > {MAX_MUST_KNOW}개 — 내릴 것을 고르십시오")
+    errs += [f"해소 설명이 10자 미만: [{p['tag']}] {p['text'][:30]}" for p in pits if p["resolved"] is not None and len(p["resolved"]) < 10]
+    return errs
 
 
 def brief(db, tid):
     t = db["tasks"][tid]
     o = db["orders"][t["order"]]
-    mem = (HERE / "memory.md").read_text(encoding="utf-8")
-    lines = [mem, "\n---\n", f"## 지시 {t['order']} 원문(불변)\n{o['original']}\n",
+    must, pits = load_memory()
+    topics = set(roster()[t["owner"]].get("topics", []))
+    mine = [p for p in pits if p["tag"] in topics and p["resolved"] is None]
+    lines = ["## 반드시 아는 것"] + [f"- {m}" for m in must]
+    if mine:
+        lines += [f"## 이 담당 주제({', '.join(sorted(topics))})의 미해소 함정"] + [f"- [{p['tag']}] {p['text']}" for p in mine]
+    lines += ["\n---\n", f"## 지시 {t['order']} 원문(불변)\n{o['original']}\n",
              f"## 해석\n{o['interpretation']}\n", f"## 태스크 {tid} · 담당 {t['owner']}\n- 산출물: {t['output']}",
              f"- 첫 줄 규칙: '{FIRST_LINE}: …'", "- 검수 기준:"] + [f"  - {c}" for c in t["accept"]]
     if t["history"]:
@@ -194,12 +269,16 @@ def main(argv=None):
     p = sp.add_parser("interpret"); p.add_argument("oid"); p.add_argument("text")
     p = sp.add_parser("task"); p.add_argument("oid"); p.add_argument("--owner", required=True); p.add_argument("--output", required=True)
     p.add_argument("--accept", required=True); p.add_argument("--after", nargs="*", default=[]); p.add_argument("--external", action="store_true")
+    p.add_argument("--channel", choices=list(DAILY_CAP))
     p = sp.add_parser("submit"); p.add_argument("tid")
     p = sp.add_parser("review"); p.add_argument("--pass", dest="passes", nargs="*", default=[])
     p.add_argument("--reject", nargs="*", default=[], help='T-0001="지적"'); p.add_argument("--impossible", nargs="*", default=[])
     p = sp.add_parser("advise"); p.add_argument("tid"); p.add_argument("text")
     p = sp.add_parser("approve"); p.add_argument("tid")
+    p = sp.add_parser("sent"); p.add_argument("tid")
+    p = sp.add_parser("confirm"); p.add_argument("tid"); p.add_argument("evidence"); p.add_argument("--fail", action="store_true")
     p = sp.add_parser("brief"); p.add_argument("tid")
+    sp.add_parser("outbox"); sp.add_parser("memcheck")
     sp.add_parser("verify"); sp.add_parser("status")
     a = ap.parse_args(argv)
     db = load()
@@ -209,7 +288,7 @@ def main(argv=None):
         elif a.cmd == "interpret":
             interpret(db, a.oid, a.text)
         elif a.cmd == "task":
-            print(add_task(db, a.oid, a.owner, a.output, a.accept.split(";"), a.after, a.external))
+            print(add_task(db, a.oid, a.owner, a.output, a.accept.split(";"), a.after, a.external, a.channel))
         elif a.cmd == "submit":
             submit(db, a.tid)
         elif a.cmd == "review":
@@ -219,6 +298,14 @@ def main(argv=None):
             advise(db, a.tid, a.text)
         elif a.cmd == "approve":
             approve(db, a.tid)
+        elif a.cmd == "sent":
+            sent(db, a.tid)
+        elif a.cmd == "confirm":
+            confirm(db, a.tid, a.evidence, not a.fail)
+        elif a.cmd == "outbox":
+            print(" · ".join(f"{k} {v}" for k, v in outbox_counts(db).items())); return 0
+        elif a.cmd == "memcheck":
+            errs = check_memory(); print("\n".join(errs) or "회사의 기억 규칙 통과"); return 1 if errs else 0
         elif a.cmd == "brief":
             print(brief(db, a.tid)); return 0
         elif a.cmd == "verify":
