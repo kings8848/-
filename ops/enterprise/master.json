@@ -1,0 +1,151 @@
+{
+  "_doc": "킹스 전사 마스터. null = 대표 입력 필요(추정 금지). verified=false 값은 세무사·실측 확인 전이라 보고서에 '미확정'으로 표시.",
+  "target_annual_revenue": 10000000000,
+  "products": {
+    "금배주 25": {
+      "volume_l": 0.375,
+      "abv": 25,
+      "price": {
+        "로컬푸드": 15000,
+        "스마트스토어": null,
+        "와디즈": null,
+        "B2B": null
+      },
+      "factory_price": null,
+      "unit_cost": {
+        "원료": null,
+        "병·마개": null,
+        "라벨·포장": null,
+        "에너지·인건": null
+      },
+      "source": "라벨·정산서(로컬푸드 단가 15,000)",
+      "liquor_type": "리큐르"
+    },
+    "금배주 17": {
+      "volume_l": 0.375,
+      "abv": 17,
+      "price": {},
+      "factory_price": null,
+      "unit_cost": {},
+      "source": "라벨",
+      "liquor_type": "리큐르"
+    },
+    "금배주 40": {
+      "volume_l": 0.375,
+      "abv": 40,
+      "price": {},
+      "factory_price": null,
+      "unit_cost": {},
+      "source": "라벨",
+      "liquor_type": "리큐르"
+    },
+    "봉신설주 17": {
+      "volume_l": 0.75,
+      "abv": 17,
+      "price": {
+        "와디즈": null,
+        "B2B": null
+      },
+      "factory_price": null,
+      "unit_cost": {},
+      "source": "상세페이지",
+      "liquor_type": "리큐르"
+    },
+    "봉신설주 25": {
+      "volume_l": null,
+      "abv": 25,
+      "price": {
+        "B2B": null
+      },
+      "factory_price": null,
+      "unit_cost": {},
+      "liquor_type": "리큐르",
+      "verified": false,
+      "source": "B2B 시나리오(대표 제공) — 품목제조보고·라벨 확인 필요"
+    },
+    "설락소주": {
+      "volume_l": null,
+      "abv": null,
+      "price": {
+        "B2B": null
+      },
+      "factory_price": null,
+      "unit_cost": {},
+      "liquor_type": "일반증류주",
+      "verified": false,
+      "source": "B2B 시나리오(대표 제공) — 품목제조보고·주종 확인 필요"
+    }
+  },
+  "channels": {
+    "로컬푸드": {
+      "fee_rate": 0.13,
+      "verified": true,
+      "source": "정산서 13부"
+    },
+    "스마트스토어": {
+      "fee_rate": null,
+      "verified": false,
+      "source": "정산 입금액만 있음 — 수수료율 확인 필요"
+    },
+    "와디즈": {
+      "fee_rate": null,
+      "verified": false,
+      "source": "미연결"
+    },
+    "B2B": {
+      "fee_rate": 0.0,
+      "verified": false,
+      "source": "직거래 가정 — 대표 확인"
+    }
+  },
+  "tax": {
+    "liquor_tax_rate": {
+      "value": 0.72,
+      "verified": false,
+      "note": "증류주·리큐르 종가세율 — 세무사 확인 전"
+    },
+    "education_tax_rate": {
+      "value": 0.3,
+      "verified": false,
+      "note": "주세액 대비 — 세무사 확인 전"
+    },
+    "traditional_reduction_tiers_kl": {
+      "value": [
+        [
+          100,
+          0.5
+        ],
+        [
+          200,
+          0.3
+        ],
+        [
+          500,
+          0.0
+        ]
+      ],
+      "verified": false,
+      "note": "전년도 출고량 기준 증류주 경감 구간(2025 시행령 개정안 보도). 상충 보도 있음 — 확정 필요"
+    },
+    "vat_rate": {
+      "value": 0.1,
+      "verified": true
+    },
+    "base_price_deduction": {
+      "value": {
+        "리큐르": 0.209,
+        "일반증류주": 0.197
+      },
+      "verified": false,
+      "note": "기준판매비율(2024-01-01 출고분~, 보도). 과세표준 = 반출가격×(1−비율). 현행 확인 필요"
+    }
+  },
+  "capacity": {
+    "bottles_per_batch": null,
+    "batch_days": null,
+    "parallel_vessels": null,
+    "operating_days_year": null,
+    "note": "실배치 1건 입력 시 자동 채움"
+  },
+  "investments": []
+}

@@ -1,0 +1,17 @@
+{"at": "2026-11-03T23:35:36+09:00", "trigger": "manual", "ledger_size": 124, "added": 124, "offered": 124, "urgent": 1, "warn": 2, "score": 55}
+{"at": "2026-11-03T23:35:36+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "urgent": 1, "warn": 2, "score": 65}
+{"at": "2026-11-04T09:01:17+09:00", "trigger": "scheduled", "ledger_size": 124, "added": 0, "offered": 124, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T16:23:40+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T16:29:58+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T16:40:54+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T16:46:03+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.009, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T16:47:22+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T17:02:14+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 2, "score": 75}
+{"at": "2026-11-04T17:15:20+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T22:35:07+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T22:38:55+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T22:40:18+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T22:45:04+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.005, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T23:04:48+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.006, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T23:11:01+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.006, "urgent": 1, "warn": 5, "score": 75}
+{"at": "2026-11-04T23:11:56+09:00", "trigger": "manual", "ledger_size": 124, "added": 0, "offered": 124, "duration_sec": 0.004, "urgent": 1, "warn": 5, "score": 75}

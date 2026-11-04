@@ -1,0 +1,739 @@
+{
+ "generated_at": "2026-11-04T23:11:56+09:00",
+ "score": {
+  "rows": [
+   {
+    "area": "운영체계",
+    "item": "원본 추적: 모든 원장 행이 원본 파일·메일 ID를 가짐",
+    "max": 10,
+    "got": 10,
+    "evidence": "정산 상세 118행·입금 15건 전부 출처 ID 보유"
+   },
+   {
+    "area": "운영체계",
+    "item": "검증 규칙 코드화(합계·13%·부가세·반품·정정·중복)",
+    "max": 10,
+    "got": 10,
+    "evidence": "규칙 검사 101회 실행, 통과 101회"
+   },
+   {
+    "area": "운영체계",
+    "item": "예외→조치 목록 자동 생성",
+    "max": 10,
+    "got": 10,
+    "evidence": "조치 항목 23개 생성"
+   },
+   {
+    "area": "운영체계",
+    "item": "반복 실행 무중복(같은 자료 재처리 시 신규 0건)",
+    "max": 10,
+    "got": 10,
+    "evidence": "실행 17회 중 재처리 무중복 확인 16회"
+   },
+   {
+    "area": "운영체계",
+    "item": "예약 실행 실증(사람 개입 없이 정해진 시각에 실행·기록)",
+    "max": 10,
+    "got": 10,
+    "evidence": "예약 실행 기록 1회"
+   },
+   {
+    "area": "업무자동화",
+    "item": "실거래 정산 대사(정산서 머리합계와 전부 일치)",
+    "max": 10,
+    "got": 10,
+    "evidence": "완전 대사 13개 구간 / 13개"
+   },
+   {
+    "area": "업무자동화",
+    "item": "판매채널 2곳 이상 연결",
+    "max": 5,
+    "got": 5,
+    "evidence": "양양로컬푸드 정산서 + 스마트스토어 입금·주문현황"
+   },
+   {
+    "area": "업무자동화",
+    "item": "원장 누락 구간 자동 탐지",
+    "max": 5,
+    "got": 5,
+    "evidence": "누락 구간 11개 탐지"
+   },
+   {
+    "area": "업무자동화",
+    "item": "출고 지연 자동 경보",
+    "max": 5,
+    "got": 5,
+    "evidence": "주문현황 76일치 감시, 미해소 경보 있음"
+   },
+   {
+    "area": "업무자동화",
+    "item": "실제 배치 1건 원료→병입 연결·알코올 수지 검증",
+    "max": 10,
+    "got": 0,
+    "evidence": "완결 배치 0건"
+   },
+   {
+    "area": "업무자동화",
+    "item": "병입-판매 재고 대사",
+    "max": 5,
+    "got": 0,
+    "evidence": "재고 대사 0건(실사 포함 0건)"
+   },
+   {
+    "area": "업무자동화",
+    "item": "전후 실측(같은 업무 수작업 vs 자동 소요시간)",
+    "max": 10,
+    "got": 0,
+    "evidence": "실측 업무 0개"
+   }
+  ],
+  "areas": {
+   "운영체계": {
+    "got": 50,
+    "max": 50
+   },
+   "업무자동화": {
+    "got": 25,
+    "max": 50
+   }
+  },
+  "total": 75,
+  "max": 100
+ },
+ "findings": [
+  {
+   "level": "정보",
+   "area": "정산·중복",
+   "msg": "2025-08-01~2025-08-15 정산서가 Drive에 2부 있음(내용 동일) → 1부만 원장 반영",
+   "action": "Drive에서 사본 1부를 '99_미분류·검토'로 이동",
+   "ref": "17_VfKQxbm6yGIPCJ2g5ouRKzDf5zGaNQ"
+  },
+  {
+   "level": "정보",
+   "area": "정산·반품",
+   "msg": "2025-08-16~2025-08-31 반품·취소 3건(수량 -4병) 상계 확인",
+   "action": "반품된 병의 재입고/폐기 여부를 재고 장부에 기록",
+   "ref": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+  },
+  {
+   "level": "정보",
+   "area": "정산·정정",
+   "msg": "2025-09-16~2025-09-30 단가×수량과 판매금액이 다른 행 5건(행당 13,050원) — 2025-10-02 '9월 2차 정산 수정 내역' 메일과 연결됨",
+   "action": "정정 사유(할인·오류)를 원장 비고에 기록",
+   "ref": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+  },
+  {
+   "level": "확인",
+   "area": "정산·세무",
+   "msg": "2026-03-01~2026-03-15 신양식(농가상세) 정산서는 공급가 칸이 없고 세액 6,820원이 정산금액/11(5,932)·판매금액/11(6,818) 어느 쪽과도 맞지 않음",
+   "action": "세무사 또는 로컬푸드에 세액 산식 확인(부가세 신고 전)",
+   "ref": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+  },
+  {
+   "level": "경고",
+   "area": "정산·누락",
+   "msg": "Drive 원장에 없는 정산 구간 11개: 2025-10-01~2025-10-15, 2025-12-16~2025-12-31, 2026-01-01~2026-01-15, 2026-01-16~2026-01-31, 2026-02-01~2026-02-15, 2026-02-16~2026-02-28, 2026-03-16~2026-03-31, 2026-04-01~2026-04-15, 2026-04-16~2026-04-30, 2026-05-01~2026-05-15, 2026-05-16~2026-05-31 중 13일",
+   "action": "Gmail '매일 아홉 시 정산' 첨부를 Drive에 저장하거나 추진단에 재발송 요청 → 판매 없었던 구간은 '판매 0' 확인서로 닫기",
+   "ref": ""
+  },
+  {
+   "level": "경고",
+   "area": "정산·누락",
+   "msg": "2026-06-02 이후 Gmail로 받은 정산 메일 7통이 Drive 원장에 없음 (최근: 2026-11-02 '매일 아홉 시 정산')",
+   "action": "첨부 엑셀을 Drive '07_재무·회계·세무/정산원본'에 저장 → 다음 실행 때 자동 대사",
+   "ref": "1a19b281206e37a1"
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 4건이 2025-07-28~2025-08-02 (6일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 1건이 2025-09-14~2025-09-15 (2일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 2건이 2025-10-10~2025-10-13 (4일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 1건이 2025-10-16~2025-10-21 (6일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 2건이 2025-10-29~2025-10-31 (3일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 1건이 2025-11-21~2025-11-23 (3일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 1건이 2026-06-13~2026-06-14 (2일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "출고·지연(과거)",
+   "msg": "발송대기 6건이 2026-09-26~2026-09-28 (3일) 지속 후 해소",
+   "action": "예약발송·선물 지정일이었는지 메모(재발 방지 기준 마련)",
+   "ref": ""
+  },
+  {
+   "level": "긴급",
+   "area": "출고·지연",
+   "msg": "스마트스토어 발송대기 1건이 2026-11-02부터 2일째 미발송 (최신 2026-11-03 17시 기준)",
+   "action": "오늘 오전 발송 처리 또는 구매자에게 발송 예정일 안내 (지연 시 판매자 점수·페널티 위험)",
+   "ref": "1a1a0843c21d9e41"
+  },
+  {
+   "level": "확인",
+   "area": "배치·추적",
+   "msg": "실제 배치 기록 0건 (Drive·Gmail에서 제조기록부를 찾지 못함: 품목제조보고서·라벨만 있음)",
+   "action": "templates/batch_record_template.csv 양식으로 최근 1배치(금배주 25 또는 봉신설주 17) 6개 공정 입력 — 약 15분",
+   "ref": ""
+  },
+  {
+   "level": "확인",
+   "area": "성과·측정",
+   "msg": "전후 실측 기록 0건",
+   "action": "다음 정산서 1건을 수작업으로 대사할 때 걸린 분(minute)을 time_log.csv에 기록",
+   "ref": ""
+  },
+  {
+   "level": "정보",
+   "area": "연결·미연결",
+   "msg": "미연결: 대표님 PC 폴더(Remote Control), 스마트스토어 커머스API, YouTube, Threads(Meta 개발자 앱), 카카오톡 나에게 보내기(알림)",
+   "action": "우선순위: PC 폴더(Remote Control) → 스마트스토어 커머스API",
+   "ref": ""
+  },
+  {
+   "level": "경고",
+   "area": "인허가·주기미확인",
+   "msg": "법정 의무 4건 주기 미확인: 주세 신고·납부(출고분), 자가품질검사(자체 또는 위탁기관), 영업자 위생교육, 종사자 건강진단",
+   "action": "세무사·관할 지자체 식품위생과에 주기 확인 → compliance_register.json cycle 기입",
+   "ref": ""
+  },
+  {
+   "level": "확인",
+   "area": "인허가·증빙없음",
+   "msg": "증빙 미등록 18건: NTS-LICENSE, NTS-TAX-RETURN, NTS-BASE-PRICE, NTS-LABEL, NTS-BOOKS, MFDS-SELF-QC, MFDS-HYGIENE-EDU, MFDS-HEALTH-CHECK, SALES-ONLINE, KCC-AD-CONSENT, NTS-TASTING, NTS-DIRECT-SUPPLY, NTS-USE-LABEL, SALES-LEAD-SOURCE, MFDS-NEW-PRODUCTS, MAFRA-6TH-CERT, AD-TRUTH, TOUR-PERMIT",
+   "action": "해당 서류(신고서·성적서·이수증) 위치를 evidence에 기록",
+   "ref": ""
+  },
+  {
+   "level": "경고",
+   "area": "인허가·신제품",
+   "msg": "상표 사용·변경 신고(사용 개시 2일 전까지, 관할 세무서) · 용도 표시(가정용 등): 봉신설주 17(750ml) 신규 라벨 신고 여부 확인",
+   "action": "봉신설주 17 보고·신고 서류 확인",
+   "ref": "NTS-LABEL"
+  },
+  {
+   "level": "경고",
+   "area": "인허가·신제품",
+   "msg": "품목제조보고(판매·판매예정 전 제품): 봉신설주 17(17도·750ml)은 별도 보고 또는 변경보고 대상인지 확인 — Drive에서 보고서 못 찾음",
+   "action": "봉신설주 17 보고·신고 서류 확인",
+   "ref": "MFDS-ITEM-REPORT"
+  },
+  {
+   "level": "확인",
+   "area": "매출·채널누락",
+   "msg": "원장에 없는 판매채널: 와디즈(봉신설주 펀딩), B2B·선물세트 직거래(세금계산서), 양조장 현장 판매 — 매출 KPI가 실제보다 작게 나옴",
+   "action": "각 채널 정산 원본 위치(와디즈 정산서·홈택스 세금계산서) 알려주기",
+   "ref": ""
+  }
+ ],
+ "ingest": {
+  "ledger_size": 124,
+  "added": 0,
+  "offered": 124
+ },
+ "localfood": {
+  "periods": [
+   {
+    "period": "2025-06-16~2025-06-30",
+    "qty": 2,
+    "sales": 30000,
+    "fee": 3900,
+    "payout": 26100,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "1KnWTlN3mGq0KquKykN-lG4vPbyt8xK_X"
+   },
+   {
+    "period": "2025-07-01~2025-07-15",
+    "qty": 5,
+    "sales": 75000,
+    "fee": 9750,
+    "payout": 65250,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ"
+   },
+   {
+    "period": "2025-07-16~2025-07-31",
+    "qty": 9,
+    "sales": 135000,
+    "fee": 17550,
+    "payout": 117450,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+   },
+   {
+    "period": "2025-08-01~2025-08-15",
+    "qty": 15,
+    "sales": 225000,
+    "fee": 29250,
+    "payout": 195750,
+    "pay_lag_days": 4,
+    "reconciled": true,
+    "source_file_id": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+   },
+   {
+    "period": "2025-08-16~2025-08-31",
+    "qty": 15,
+    "sales": 225000,
+    "fee": 29250,
+    "payout": 195750,
+    "pay_lag_days": 2,
+    "reconciled": true,
+    "source_file_id": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+   },
+   {
+    "period": "2025-09-01~2025-09-15",
+    "qty": 7,
+    "sales": 105000,
+    "fee": 13650,
+    "payout": 91350,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+   },
+   {
+    "period": "2025-09-16~2025-09-30",
+    "qty": 9,
+    "sales": 125250,
+    "fee": 16280,
+    "payout": 108970,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+   },
+   {
+    "period": "2025-10-16~2025-10-31",
+    "qty": 21,
+    "sales": 315000,
+    "fee": 40950,
+    "payout": 274050,
+    "pay_lag_days": 3,
+    "reconciled": true,
+    "source_file_id": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+   },
+   {
+    "period": "2025-11-01~2025-11-15",
+    "qty": 33,
+    "sales": 495000,
+    "fee": 64350,
+    "payout": 430650,
+    "pay_lag_days": 3,
+    "reconciled": true,
+    "source_file_id": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+   },
+   {
+    "period": "2025-11-16~2025-11-30",
+    "qty": 8,
+    "sales": 120000,
+    "fee": 15600,
+    "payout": 104400,
+    "pay_lag_days": 2,
+    "reconciled": true,
+    "source_file_id": "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm"
+   },
+   {
+    "period": "2025-12-01~2025-12-15",
+    "qty": 1,
+    "sales": 15000,
+    "fee": 1950,
+    "payout": 13050,
+    "pay_lag_days": 1,
+    "reconciled": true,
+    "source_file_id": "1XJikLqdl-gb5C68BQhazVAaEQ52lVG_y"
+   },
+   {
+    "period": "2026-03-01~2026-03-15",
+    "qty": 5,
+    "sales": 75000,
+    "fee": 9750,
+    "payout": 65250,
+    "pay_lag_days": null,
+    "reconciled": true,
+    "source_file_id": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+   },
+   {
+    "period": "2026-05-23~2026-05-25",
+    "qty": 5,
+    "sales": 75000,
+    "fee": 9750,
+    "payout": 65250,
+    "pay_lag_days": 8,
+    "reconciled": true,
+    "source_file_id": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+   }
+  ],
+  "duplicates": [
+   [
+    "17_VfKQxbm6yGIPCJ2g5ouRKzDf5zGaNQ",
+    "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+   ]
+  ],
+  "gaps": [
+   "2025-10-01~2025-10-15",
+   "2025-12-16~2025-12-31",
+   "2026-01-01~2026-01-15",
+   "2026-01-16~2026-01-31",
+   "2026-02-01~2026-02-15",
+   "2026-02-16~2026-02-28",
+   "2026-03-16~2026-03-31",
+   "2026-04-01~2026-04-15",
+   "2026-04-16~2026-04-30",
+   "2026-05-01~2026-05-15",
+   "2026-05-16~2026-05-31 중 13일"
+  ],
+  "checks_total": 101,
+  "checks_pass": 101,
+  "fully_reconciled": [
+   "2025-06-16~2025-06-30",
+   "2025-07-01~2025-07-15",
+   "2025-07-16~2025-07-31",
+   "2025-08-01~2025-08-15",
+   "2025-08-16~2025-08-31",
+   "2025-09-01~2025-09-15",
+   "2025-09-16~2025-09-30",
+   "2025-10-16~2025-10-31",
+   "2025-11-01~2025-11-15",
+   "2025-11-16~2025-11-30",
+   "2025-12-01~2025-12-15",
+   "2026-03-01~2026-03-15",
+   "2026-05-23~2026-05-25"
+  ],
+  "totals": {
+   "qty": 135,
+   "sales": 2015250,
+   "fee": 261980,
+   "payout": 1753270
+  },
+  "avg_pay_lag": 2.3,
+  "mails": [
+   {
+    "thread_id": "198177311b3efd45",
+    "subject": "매일아홉시 6월~7월 1차 정산 내역",
+    "received_kst": "2025-07-17"
+   },
+   {
+    "thread_id": "19877c07f3b1521a",
+    "subject": "매일아홉시 7월 2차 정산 내역",
+    "received_kst": "2025-08-05"
+   },
+   {
+    "thread_id": "198c15b83d12d123",
+    "subject": "매일아홉시 8월 1차 정산내역",
+    "received_kst": "2025-08-19"
+   },
+   {
+    "thread_id": "199097257b28ca44",
+    "subject": "매일아홉시 9월 2일 정산내역",
+    "received_kst": "2025-09-02"
+   },
+   {
+    "thread_id": "199515db97e00528",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-09-16"
+   },
+   {
+    "thread_id": "1999ea69431d7d46",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-10-01"
+   },
+   {
+    "thread_id": "199a371885418cf5",
+    "subject": "9월 2차 정산 수정 내역",
+    "received_kst": "2025-10-02"
+   },
+   {
+    "thread_id": "199efedc879101c1",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-10-17"
+   },
+   {
+    "thread_id": "199ff3ebb44ec93c",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-10-20"
+   },
+   {
+    "thread_id": "19a4c6dffcad8bba",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-11-04"
+   },
+   {
+    "thread_id": "19a9624a6efa5de1",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-11-18"
+   },
+   {
+    "thread_id": "19ae1c0d8dcaae4e",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-12-03"
+   },
+   {
+    "thread_id": "19b25ee3e77ec008",
+    "subject": "수수료정산_상세 - 킹스.xlsx",
+    "received_kst": "2025-12-16"
+   },
+   {
+    "thread_id": "19cd06b72112ca6a",
+    "subject": "매일아홉시 정산내역",
+    "received_kst": "2026-03-09"
+   },
+   {
+    "thread_id": "19cf994c43aa1074",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-03-17"
+   },
+   {
+    "thread_id": "19d6addadda6814d",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-04-08"
+   },
+   {
+    "thread_id": "19da84bcc46832e7",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-04-20"
+   },
+   {
+    "thread_id": "19df1deb496a5a79",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-05-04"
+   },
+   {
+    "thread_id": "19e3f3c10e18a485",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-05-19"
+   },
+   {
+    "thread_id": "19e8723c6b214b3f",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-06-02"
+   },
+   {
+    "thread_id": "19ec9e300ff0df99",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-06-15"
+   },
+   {
+    "thread_id": "19f693c88ddf3d2c",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-07-16"
+   },
+   {
+    "thread_id": "1a05ba37bd535193",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-09-01"
+   },
+   {
+    "thread_id": "1a0a8b8c01029bf8",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-09-16"
+   },
+   {
+    "thread_id": "1a0f63d2c355ea7c",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-10-01"
+   },
+   {
+    "thread_id": "1a156a98a847d3f7",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-10-20"
+   },
+   {
+    "thread_id": "1a19b281206e37a1",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-11-02"
+   }
+  ],
+  "mails_after_drive": [
+   {
+    "thread_id": "19ec9e300ff0df99",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-06-15"
+   },
+   {
+    "thread_id": "19f693c88ddf3d2c",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-07-16"
+   },
+   {
+    "thread_id": "1a05ba37bd535193",
+    "subject": "매일 아홉 시 정산내역",
+    "received_kst": "2026-09-01"
+   },
+   {
+    "thread_id": "1a0a8b8c01029bf8",
+    "subject": "매일 아홉 시 정산 내역",
+    "received_kst": "2026-09-16"
+   },
+   {
+    "thread_id": "1a0f63d2c355ea7c",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-10-01"
+   },
+   {
+    "thread_id": "1a156a98a847d3f7",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-10-20"
+   },
+   {
+    "thread_id": "1a19b281206e37a1",
+    "subject": "매일 아홉 시 정산",
+    "received_kst": "2026-11-02"
+   }
+  ],
+  "unique_file_ids": [
+   "1KnWTlN3mGq0KquKykN-lG4vPbyt8xK_X",
+   "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ",
+   "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5",
+   "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza",
+   "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6",
+   "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c",
+   "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk",
+   "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m",
+   "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K",
+   "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm",
+   "1XJikLqdl-gb5C68BQhazVAaEQ52lVG_y",
+   "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ",
+   "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+  ]
+ },
+ "smartstore": {
+  "api_orders": 0,
+  "api_waiting": 0,
+  "monthly": {
+   "2025-08": 504788,
+   "2025-09": 37058,
+   "2025-10": 82223,
+   "2025-11": 100758,
+   "2025-12": 37072,
+   "2026-06": 46576,
+   "2026-09": 28041,
+   "2026-10": 126898
+  },
+  "total": 963414,
+  "status_days": 76,
+  "status_range": [
+   "2025-07-28",
+   "2026-11-03"
+  ],
+  "alerts_closed": 8,
+  "open_alert": true,
+  "latest": {
+   "gmail_message_id": "1a1a0843c21d9e41",
+   "sent_utc": "2026-11-03T08:26:22Z",
+   "status_date": "2026-11-03",
+   "new_orders": "0",
+   "awaiting_shipment": "1",
+   "cancel_req": "0",
+   "return_req": "0",
+   "exchange_req": "0",
+   "confirm_extend": "0",
+   "reviews": "0"
+  }
+ },
+ "batches": {
+  "batches": [],
+  "real_complete": 0,
+  "inventory": []
+ },
+ "time_log": {
+  "measured": {}
+ },
+ "kpi": {
+  "by_month": {
+   "2025-06": {
+    "localfood_gross": 30000,
+    "smartstore_net": 0
+   },
+   "2025-07": {
+    "localfood_gross": 210000,
+    "smartstore_net": 0
+   },
+   "2025-08": {
+    "localfood_gross": 450000,
+    "smartstore_net": 504788
+   },
+   "2025-09": {
+    "localfood_gross": 230250,
+    "smartstore_net": 37058
+   },
+   "2025-10": {
+    "localfood_gross": 315000,
+    "smartstore_net": 82223
+   },
+   "2025-11": {
+    "localfood_gross": 615000,
+    "smartstore_net": 100758
+   },
+   "2025-12": {
+    "localfood_gross": 15000,
+    "smartstore_net": 37072
+   },
+   "2026-03": {
+    "localfood_gross": 75000,
+    "smartstore_net": 0
+   },
+   "2026-05": {
+    "localfood_gross": 75000,
+    "smartstore_net": 0
+   },
+   "2026-06": {
+    "localfood_gross": 0,
+    "smartstore_net": 46576
+   },
+   "2026-09": {
+    "localfood_gross": 0,
+    "smartstore_net": 28041
+   },
+   "2026-10": {
+    "localfood_gross": 0,
+    "smartstore_net": 126898
+   }
+  },
+  "trailing12": 1119345,
+  "target": 10000000000,
+  "achieved_pct": 0.0112,
+  "channels_missing": [
+   "와디즈(봉신설주 펀딩)",
+   "B2B·선물세트 직거래(세금계산서)",
+   "양조장 현장 판매"
+  ]
+ }
+}

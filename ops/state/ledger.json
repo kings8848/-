@@ -1,0 +1,964 @@
+{
+"0019ca04efd87d8a": {
+"date": "2025-09-25",
+"kind": "localfood",
+"payout": 11354,
+"qty": 1,
+"sales": 13050,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"038497fb6c9c332b": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"03c976a3ead8ca1b": {
+"date": "2025-09-13",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+},
+"05d15dab79ea0781": {
+"date": "2025-10-18",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"08e91e97a5a71cb6": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"09c423374b75d59a": {
+"amount": 46576,
+"date": "2026-06-22",
+"kind": "smartstore_deposit",
+"src": "19eeca204aaed6ff"
+},
+"0bbf132a7f85e70a": {
+"date": "2026-05-23",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+},
+"0d3deba5a862e82f": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"13be914479a0f2b2": {
+"date": "2025-10-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"1a4c546c5d87bc4f": {
+"date": "2025-10-19",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"1d39791ae6cd41e3": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"1dadd38fb8ca42e3": {
+"date": "2025-08-15",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"1e187447ec02bd05": {
+"date": "2025-08-16",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"1e7a9b8cfbaf47c5": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"1f0bd879de1bc5a4": {
+"amount": 18536,
+"date": "2025-11-12",
+"kind": "smartstore_deposit",
+"src": "19a755d204eb0eab"
+},
+"20ed6074445f3a19": {
+"date": "2025-10-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"216d02f07037bbc1": {
+"date": "2025-09-25",
+"kind": "localfood",
+"payout": 11354,
+"qty": 1,
+"sales": 13050,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"21ca3ca1742a16bf": {
+"amount": 45137,
+"date": "2025-08-07",
+"kind": "smartstore_deposit",
+"src": "19881d91f9e31cf0"
+},
+"21dad8b704bcd6e6": {
+"amount": 90271,
+"date": "2025-08-06",
+"kind": "smartstore_deposit",
+"src": "1987cae1b781110d"
+},
+"229b486f1363ec93": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"294353d86d3a3529": {
+"date": "2025-08-31",
+"kind": "localfood",
+"payout": -26100,
+"qty": -2,
+"sales": -30000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"2adf0ce48cf8972c": {
+"amount": 37071,
+"date": "2025-11-07",
+"kind": "smartstore_deposit",
+"src": "19a5b9e253322d22"
+},
+"2cb7d1b27164ee6b": {
+"date": "2025-07-19",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"2cd7a1ca8683ffaf": {
+"date": "2025-07-19",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"2e0b79153585447d": {
+"amount": 37072,
+"date": "2025-12-02",
+"kind": "smartstore_deposit",
+"src": "19adc5c7384ef33c"
+},
+"302679231c366795": {
+"date": "2025-08-20",
+"kind": "localfood",
+"payout": 39150,
+"qty": 3,
+"sales": 45000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"325d57b2e7f839e7": {
+"date": "2025-08-31",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"3401c8bd25a9e8c8": {
+"date": "2025-11-01",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"34536d515d84eb1e": {
+"amount": 26615,
+"date": "2025-11-10",
+"kind": "smartstore_deposit",
+"src": "19a6b1108ad166b9"
+},
+"3714d8a7b8ad808a": {
+"date": "2025-09-09",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+},
+"3b67d34639badfc9": {
+"date": "2025-07-27",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"3c1ea16d87147e9c": {
+"date": "2025-11-01",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"3c2b914ed7fe6a4c": {
+"date": "2025-08-31",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"40ed0a4ffa535f8b": {
+"date": "2025-11-01",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"43f24d2f3562d7f9": {
+"date": "2025-07-27",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"452ad2bdb7a5ee6f": {
+"date": "2026-03-04",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+},
+"465cb196688fa09b": {
+"date": "2025-09-06",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+},
+"4708ce1c88e562fc": {
+"date": "2025-09-16",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"4720f4beb2eaaaa3": {
+"date": "2025-10-30",
+"kind": "localfood",
+"payout": 52200,
+"qty": 4,
+"sales": 60000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"499257ed8eb188b4": {
+"date": "2025-10-17",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"4bbe07fb94e99580": {
+"date": "2025-08-04",
+"kind": "localfood",
+"payout": 65250,
+"qty": 5,
+"sales": 75000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"517022b0f9bcf400": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"52a2b3aa371a3848": {
+"amount": 339833,
+"date": "2025-08-11",
+"kind": "smartstore_deposit",
+"src": "198966eac2e60424"
+},
+"55f10295c6da1a7b": {
+"date": "2025-09-27",
+"kind": "localfood",
+"payout": 11354,
+"qty": 1,
+"sales": 13050,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"582da1b197f2a888": {
+"date": "2025-09-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+},
+"58b8ed8d33319212": {
+"date": "2025-08-30",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"5de5639102b62a73": {
+"date": "2025-11-20",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm"
+},
+"5e52be10a15447b7": {
+"amount": 126898,
+"date": "2026-10-28",
+"kind": "smartstore_deposit",
+"src": "1a17fcecca2b2bf7"
+},
+"62df649ae78e8aa3": {
+"amount": 29547,
+"date": "2025-08-01",
+"kind": "smartstore_deposit",
+"src": "19862efc8fafabcb"
+},
+"6a15750a6c62a1d5": {
+"date": "2025-08-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"6ae87fd042b8703c": {
+"date": "2025-10-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"6b4216211cf089ca": {
+"date": "2025-12-05",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1XJikLqdl-gb5C68BQhazVAaEQ52lVG_y"
+},
+"6b901c576c0e64a8": {
+"date": "2025-07-05",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ"
+},
+"6d13790037fae2d6": {
+"amount": 28041,
+"date": "2026-09-16",
+"kind": "smartstore_deposit",
+"src": "1a0a785c90ed9ea3"
+},
+"6fe345d2173a7f8f": {
+"date": "2025-11-13",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"713d8564eb43e1dd": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"7225650f8fb9a5e1": {
+"date": "2025-08-01",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"7628a7f552b9fd0a": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"7b27d3338780d12e": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"7cfd210cefa77726": {
+"date": "2026-05-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+},
+"7f4708a719500be7": {
+"date": "2026-05-23",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+},
+"82db207b67fd2292": {
+"amount": 18536,
+"date": "2025-11-04",
+"kind": "smartstore_deposit",
+"src": "19a4c2b1c896db68"
+},
+"8524dafb09fad108": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"866eb63c79280ce6": {
+"date": "2025-11-28",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm"
+},
+"86b2c1baf90eda9a": {
+"date": "2025-10-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"891f076926cc7758": {
+"date": "2025-09-17",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"8d30a84a18b66525": {
+"date": "2025-08-17",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"8f57aa7218ed692d": {
+"amount": 18529,
+"date": "2025-09-12",
+"kind": "smartstore_deposit",
+"src": "1993b3bf0d3a2a8c"
+},
+"92520130f3757665": {
+"date": "2025-09-17",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"92d4b4e3b5578f5a": {
+"date": "2026-03-01",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+},
+"9438d798bfd1fa47": {
+"date": "2025-07-18",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"94a1ac888cda235c": {
+"date": "2025-07-08",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ"
+},
+"9598bd97d3c5ad1a": {
+"date": "2026-03-07",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+},
+"96d4c2fb928c916d": {
+"date": "2025-07-08",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ"
+},
+"9963db5a8d3cfb8a": {
+"date": "2025-11-11",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"9e668e8bcd9b4952": {
+"date": "2025-10-21",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"9efbde6547f85c2a": {
+"date": "2025-10-18",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"9f7cb6d60bfd46d8": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 52200,
+"qty": 4,
+"sales": 60000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"a1d95b0a8c51fe35": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"a22f9e2b08bc5ee7": {
+"date": "2025-07-19",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"a28891f4d139f21d": {
+"date": "2025-11-28",
+"kind": "localfood",
+"payout": 39150,
+"qty": 3,
+"sales": 45000,
+"src": "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm"
+},
+"a4b90e6f80ef4129": {
+"date": "2025-10-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"a52f95682a587aec": {
+"date": "2025-08-30",
+"kind": "localfood",
+"payout": -13050,
+"qty": -1,
+"sales": -15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"a84c6d1b3203ff2c": {
+"date": "2025-10-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"ab51f07f8eb7ed04": {
+"date": "2025-10-18",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"ae0310c972a46208": {
+"date": "2026-03-15",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+},
+"b076db783a17773f": {
+"date": "2025-07-24",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"b12526eb80080c2e": {
+"date": "2025-08-03",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"b18024bc2eb30d19": {
+"date": "2026-05-24",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+},
+"b310b09a8ba8e0c4": {
+"date": "2025-10-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"b83e55a101eb60f3": {
+"date": "2025-08-02",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"b895474afffe28a9": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"bc40c72d5ef34cc1": {
+"date": "2025-09-07",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1o5niwtZgeGv-PJ9rJZ8gPfplATxVcV-c"
+},
+"be02c9d90863fe1b": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"be194f758773047b": {
+"date": "2025-09-26",
+"kind": "localfood",
+"payout": 11354,
+"qty": 1,
+"sales": 13050,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"c17087b8af6dd1e8": {
+"date": "2025-07-12",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1gSCnxFAZGuB8BK6TunonTTBbs0dfFznZ"
+},
+"c446322e91099eea": {
+"amount": 82223,
+"date": "2025-10-23",
+"kind": "smartstore_deposit",
+"src": "19a0e5ddb008ecc7"
+},
+"c4b568b14dc9b2cd": {
+"date": "2025-09-25",
+"kind": "localfood",
+"payout": 11354,
+"qty": 1,
+"sales": 13050,
+"src": "1y-SokH9M4EBwtKzwlIWEAd_2T3RIUlDk"
+},
+"c716cfb4a39696f8": {
+"date": "2026-05-25",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1abM4HEJJWLbFfBFlk6hSqxMYLGrBa6vC"
+},
+"c9b7017d40c25aac": {
+"date": "2026-03-13",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1c4Wgpb59B_PyL4sYXiGJzRj8P95mWFgJ"
+},
+"cb3f3a5e2b8bbab0": {
+"date": "2025-10-18",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"cc66f2c77ad63013": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": -13050,
+"qty": -1,
+"sales": -15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"cd4bbe30d81cc2b3": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"cf36937daddb348b": {
+"date": "2025-08-04",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"cf72290ea950fdf7": {
+"date": "2025-08-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+},
+"d365d39f1bf55619": {
+"date": "2025-07-20",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"d5d71ff67e4ba688": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"d5f9940aed006978": {
+"date": "2025-11-14",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"d6b6420919ad547f": {
+"date": "2025-11-18",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1tK2YKGlkiEqDYzooBVr2gjKnmgIdMKmm"
+},
+"d7a176bd9020a4ff": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"d959fec2bec0ab76": {
+"date": "2025-11-15",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"dbce15008e32f020": {
+"date": "2025-11-11",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"dec650ba9ce0f45e": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 26100,
+"qty": 2,
+"sales": 30000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"e3dc9db06b09bd6d": {
+"date": "2025-06-26",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1KnWTlN3mGq0KquKykN-lG4vPbyt8xK_X"
+},
+"e4025d9e0b3cc880": {
+"date": "2025-10-26",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1_i8o4QsfD5neiut11p98tMOZW5G6x_0m"
+},
+"e94c78981f402f83": {
+"date": "2025-07-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "18XgHfI_HiH80tv79lDkyekX7eCPXEkN5"
+},
+"e981402c59166ed4": {
+"amount": 18529,
+"date": "2025-09-17",
+"kind": "smartstore_deposit",
+"src": "19954f90a7875893"
+},
+"f0001e1177fd65e0": {
+"date": "2025-06-27",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1KnWTlN3mGq0KquKykN-lG4vPbyt8xK_X"
+},
+"f363aec787b839fd": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"f71ab17213716fc7": {
+"date": "2025-11-02",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"fa347668f65eb4db": {
+"date": "2025-08-30",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"fb7c99525d01d279": {
+"date": "2025-11-01",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1DYXvSH04Y7zgBorfkxzujL5Vj7mdoH-K"
+},
+"fbb84d6a30b9a2b4": {
+"date": "2025-08-29",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1JzYzcd4oW6Q-_VnQPkMuBD5i3iUi8lS6"
+},
+"fc85fd81e6989ba6": {
+"date": "2025-08-09",
+"kind": "localfood",
+"payout": 13050,
+"qty": 1,
+"sales": 15000,
+"src": "1wDAhY_uuOxprQ-suTokC-1mbeOjTnTza"
+}
+}

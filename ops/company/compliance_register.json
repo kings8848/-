@@ -1,0 +1,225 @@
+{
+ "_doc": "주류 제조자 법정 의무 대장. cycle=null 은 주기 미확인(세무사·식약처 확인 필요). evidence 가 비면 '증빙 없음' 경보.",
+ "items": [
+  {
+   "id": "NTS-LICENSE",
+   "regulator": "국세청",
+   "law": "주류 면허 등에 관한 법률",
+   "what": "주류 제조면허(지역특산주) 유지 · 동업·면허대여 금지",
+   "owner": "컴플라이언스",
+   "cycle": "상시",
+   "evidence": "",
+   "note": "판매대행 위탁 시 동업경영 해당 여부 확인(국세청 서면-2023-소비-4309)",
+   "verified": true
+  },
+  {
+   "id": "NTS-TAX-RETURN",
+   "regulator": "국세청",
+   "law": "주세법",
+   "what": "주세 신고·납부(출고분)",
+   "owner": "컴플라이언스",
+   "cycle": null,
+   "evidence": "",
+   "note": "신고 기한 세무사 확인 필요",
+   "verified": false
+  },
+  {
+   "id": "NTS-BASE-PRICE",
+   "regulator": "국세청",
+   "law": "주세법 · 기준판매비율",
+   "what": "반출가격(공장도가격) 신고·과세표준 = 반출가격 × (1 − 기준판매비율)",
+   "owner": "기획실장",
+   "cycle": "가격 변경 시",
+   "evidence": "",
+   "note": "리큐르 기준판매비율 20.9%(2024-01-01 출고분~, 보도) — 현행 비율 확인",
+   "verified": false
+  },
+  {
+   "id": "NTS-LABEL",
+   "regulator": "국세청",
+   "law": "주류의 제조, 설비 및 표시 등에 관한 명령위임 고시(제2026-24호)",
+   "what": "상표 사용·변경 신고(사용 개시 2일 전까지, 관할 세무서) · 용도 표시(가정용 등)",
+   "owner": "컴플라이언스",
+   "cycle": "라벨 신규·변경 시",
+   "evidence": "",
+   "note": "봉신설주 17(750ml) 신규 라벨 신고 여부 확인",
+   "verified": true
+  },
+  {
+   "id": "NTS-BOOKS",
+   "regulator": "국세청",
+   "law": "주세법 기장의무",
+   "what": "제조·저장·출고 장부",
+   "owner": "제조기록",
+   "cycle": "상시",
+   "evidence": "",
+   "note": "배치기록 엑셀 + 출고 원장으로 대체 가능한지 세무사 확인",
+   "verified": false
+  },
+  {
+   "id": "MFDS-ITEM-REPORT",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법 시행규칙 제45조",
+   "what": "품목제조보고(판매·판매예정 전 제품)",
+   "owner": "식품안전",
+   "cycle": "신제품·변경 시",
+   "evidence": "금배주 17/25/40 보고번호 202400063753~55 (Drive 품목제조보고서 2025-07-26)",
+   "note": "봉신설주 17(17도·750ml)은 별도 보고 또는 변경보고 대상인지 확인 — Drive에서 보고서 못 찾음",
+   "verified": true
+  },
+  {
+   "id": "MFDS-SELF-QC",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법 시행규칙 제31조·별표 12",
+   "what": "자가품질검사(자체 또는 위탁기관)",
+   "owner": "식품안전",
+   "cycle": null,
+   "evidence": "",
+   "note": "리큐르 검사 주기·항목 확인 필요. 미실시 시 품목제조정지 처분 가능(검사기관 안내)",
+   "verified": false
+  },
+  {
+   "id": "MFDS-HYGIENE-EDU",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법",
+   "what": "영업자 위생교육",
+   "owner": "식품안전",
+   "cycle": null,
+   "evidence": "",
+   "note": "주기 확인 필요",
+   "verified": false
+  },
+  {
+   "id": "MFDS-HEALTH-CHECK",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법",
+   "what": "종사자 건강진단",
+   "owner": "식품안전",
+   "cycle": null,
+   "evidence": "",
+   "note": "주기 확인 필요. 지자체 합동단속 점검 항목(예산군 2023 사례)",
+   "verified": false
+  },
+  {
+   "id": "MFDS-INSPECTION",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법",
+   "what": "위생점검 대응 서류철(영업등록증·품목제조보고·자가품질검사 성적서·위생교육·건강진단·원료 수불)",
+   "owner": "식품안전",
+   "cycle": "점검 시",
+   "evidence": "",
+   "note": "점검 통보 시 이 대장 출력으로 바로 대응",
+   "verified": true
+  },
+  {
+   "id": "SALES-ONLINE",
+   "regulator": "국세청",
+   "law": "주류 통신판매 고시",
+   "what": "전통주 통신판매 요건(성인 인증 등)·플랫폼 범위",
+   "owner": "판매채널",
+   "cycle": "채널 추가 시",
+   "evidence": "",
+   "note": "일반 온라인몰 확대 행정예고 — 시행 여부 확인",
+   "verified": false
+  },
+  {
+   "id": "KCC-AD-CONSENT",
+   "regulator": "방송통신위원회·KISA",
+   "law": "정보통신망법 제50조·시행령 제61조",
+   "what": "영리목적 광고성 이메일 — 수신자 명시적 사전 동의(거래관계 예외: 거래 종료 후 6개월, 같은 종류 재화)",
+   "owner": "B2B영업",
+   "cycle": "발송 시마다",
+   "evidence": "",
+   "note": "B2B(사업자) 수신자 예외 근거 미확인 → 문의(inbound)·동의(Y) 리드만 메일, 나머지는 방문·전화 제안",
+   "verified": true
+  },
+  {
+   "id": "NTS-TASTING",
+   "regulator": "국세청",
+   "law": "주류 면허법 시행령 제41조",
+   "what": "시음주 무상 제공 — 제조자는 세무서장 사전승인 하 예외 허용, 금품 제공 금지 위반 과태료 2천만원 이하",
+   "owner": "컴플라이언스",
+   "cycle": "시음 행사·키트 전",
+   "evidence": "",
+   "note": "B2B 무료 시음 키트는 사전승인 증빙이 evidence에 있어야 제안서에 넣음",
+   "verified": true
+  },
+  {
+   "id": "NTS-DIRECT-SUPPLY",
+   "regulator": "국세청",
+   "law": "주류 면허법 제16조·명령위임 고시 제3조",
+   "what": "전통주 제조자의 음식점 직접 공급 범위(직매장·반출 상대방·용도 제한)",
+   "owner": "컴플라이언스",
+   "cycle": "신규 거래처 유형 추가 시",
+   "evidence": "",
+   "note": "고급 레스토랑·오마카세·전통주 바 직거래 가능 범위를 관할 세무서에 확인 전에는 거래 확정 금지",
+   "verified": false
+  },
+  {
+   "id": "NTS-USE-LABEL",
+   "regulator": "국세청",
+   "law": "명령위임 고시 제2026-24호",
+   "what": "용도 표시(가정용·유흥음식점용) — 음식점 납품분 라벨",
+   "owner": "식품안전",
+   "cycle": "음식점 납품 전",
+   "evidence": "",
+   "note": "현재 라벨의 용도 표시와 음식점 납품 시 필요한 표시 확인",
+   "verified": true
+  },
+  {
+   "id": "SALES-LEAD-SOURCE",
+   "regulator": "네이버 등 플랫폼",
+   "law": "서비스 이용약관",
+   "what": "매장 정보 수집 — 공식 API(네이버 지역검색 등) 범위 내, 크롤링 금지",
+   "owner": "B2B영업",
+   "cycle": "수집 시",
+   "evidence": "",
+   "note": "지역검색 API는 이메일 미제공. 연락처는 매장 공개 문의창구·직접 방문으로",
+   "verified": false
+  },
+  {
+   "id": "MFDS-NEW-PRODUCTS",
+   "regulator": "식약처·지자체",
+   "law": "식품위생법 시행규칙 제45조",
+   "what": "설락소주·봉신설주 25 품목제조보고",
+   "owner": "식품안전",
+   "cycle": "판매 전",
+   "evidence": "",
+   "note": "Drive에서 보고서 못 찾음 — B2B 제안 전 확인",
+   "verified": true
+  },
+  {
+   "id": "MAFRA-6TH-CERT",
+   "regulator": "농림축산식품부·한국농어촌공사",
+   "law": "농촌융복합산업법",
+   "what": "6차산업 인증경영체 — 인증 시 돋움(10억 미만)·도약(10~50억)·고도화(50억 이상) 단계 지원",
+   "owner": "지원사업",
+   "cycle": "인증 유효기간(확인 필요)",
+   "evidence": "",
+   "note": "기회 항목: 인증 보유 여부·신청 요건·양조장 해당 여부 확인",
+   "verified": false
+  },
+  {
+   "id": "AD-TRUTH",
+   "regulator": "식약처·공정위",
+   "law": "식품표시광고법·표시광고법",
+   "what": "광고 문구의 사실성 — 숙성 기간·재배 이력·원료 표현은 기록으로 입증 가능해야 함",
+   "owner": "브랜드콘텐츠",
+   "cycle": "게시 전",
+   "evidence": "",
+   "note": "브랜드 포지셔닝 증거표 ✅ 문구만 사용",
+   "verified": true
+  },
+  {
+   "id": "TOUR-PERMIT",
+   "regulator": "지자체",
+   "law": "관광·숙박 관련 법령(유형별)",
+   "what": "양조장 체험·체류형 쉼터 운영 인허가",
+   "owner": "기획실장",
+   "cycle": "사업 착수 전",
+   "evidence": "",
+   "note": "체험·숙박 형태별 필요 인허가 확인 전 홍보 금지",
+   "verified": false
+  }
+ ]
+}
