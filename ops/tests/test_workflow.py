@@ -21,6 +21,15 @@ class WFTest(unittest.TestCase):
         p.write_text(first + "\n본문", encoding="utf-8")
         return os.path.relpath(p, REPO)
 
+    def test_open_question_blocks_split(self):
+        self.w.interpret(self.db, self.oid, "해석")
+        self.w.ask(self.db, self.oid, "월 AI 예산 상한은?", ["3만원", "10만원"])
+        with self.assertRaises(self.w.WFError):
+            self.w.add_task(self.db, self.oid, "정산원가", "x.md", ["k"])
+        self.w.answer(self.db, self.oid, 1, "3만원")
+        tid = self.w.add_task(self.db, self.oid, "정산원가", "x.md", ["k"])
+        self.assertIn("3만원", self.w.brief(self.db, tid))
+
     def test_original_sealed(self):
         self.assertEqual(self.w.verify(self.db), [])
         self.db["orders"][self.oid]["original"] += " (수정)"

@@ -66,7 +66,7 @@ class WFError(Exception):
 def new_order(db, text, depth="생략"):
     oid = f"D-{len(db['orders']) + 1:04d}"
     db["orders"][oid] = {"original": text, "sha256": sha(text), "depth": depth, "created": now(),
-                         "interpretation": None, "log": [f"{now()} 지시 등록(원문 봉인)"]}
+                         "interpretation": None, "questions": [], "log": [f"{now()} 지시 등록(원문 봉인)"]}
     return oid
 
 
@@ -74,6 +74,25 @@ def interpret(db, oid, text):
     o = db["orders"][oid]
     o["interpretation"] = text
     o["log"].append(f"{now()} 해석 작성")
+
+
+def ask(db, oid, q, options=()):
+    """영상: '불명확한 점은 임의로 결정하지 말고 먼저 질문'. 답이 오기 전엔 분해 불가."""
+    o = db["orders"][oid]
+    o.setdefault("questions", []).append({"q": q, "options": list(options), "answer": None, "asked": now()})
+    o["log"].append(f"{now()} 확인 질문: {q}")
+    return len(o["questions"])
+
+
+def answer(db, oid, n, text):
+    qs = db["orders"][oid]["questions"]
+    qs[n - 1]["answer"] = text
+    qs[n - 1]["answered"] = now()
+    db["orders"][oid]["log"].append(f"{now()} 답변 {n}: {text}")
+
+
+def open_questions(db, oid):
+    return [q for q in db["orders"][oid].get("questions", []) if q["answer"] is None]
 
 
 def verify(db):
@@ -87,6 +106,9 @@ def add_task(db, oid, owner, output, accept, after=(), external=False, channel=N
         raise WFError(f"{oid} 없음")
     if db["orders"][oid]["interpretation"] is None:
         raise WFError("해석(방향 정리) 전에는 분해할 수 없음")
+    oq = open_questions(db, oid)
+    if oq:
+        raise WFError(f"대표 답변 대기 질문 {len(oq)}개 — 임의 결정 금지: {oq[0]['q']}")
     if owner not in roster():
         raise WFError(f"담당 '{owner}'은 역할표에 없음")
     if roster()[owner].get("advice_only"):
@@ -247,7 +269,8 @@ def brief(db, tid):
     if mine:
         lines += [f"## 이 담당 주제({', '.join(sorted(topics))})의 미해소 함정"] + [f"- [{p['tag']}] {p['text']}" for p in mine]
     lines += ["\n---\n", f"## 지시 {t['order']} 원문(불변)\n{o['original']}\n",
-             f"## 해석\n{o['interpretation']}\n", f"## 태스크 {tid} · 담당 {t['owner']}\n- 산출물: {t['output']}",
+             f"## 해석\n{o['interpretation']}\n",
+             "## 대표 확인 답변\n" + ("\n".join(f"- {q['q']} → {q['answer']}" for q in o.get("questions", [])) or "- 없음") + "\n", f"## 태스크 {tid} · 담당 {t['owner']}\n- 산출물: {t['output']}",
              f"- 첫 줄 규칙: '{FIRST_LINE}: …'", "- 검수 기준:"] + [f"  - {c}" for c in t["accept"]]
     if t["history"]:
         lines.append("## 지난 회차 지적(같은 지적 반복 금지)")
@@ -279,6 +302,8 @@ def main(argv=None):
     p = sp.add_parser("confirm"); p.add_argument("tid"); p.add_argument("evidence"); p.add_argument("--fail", action="store_true")
     p = sp.add_parser("brief"); p.add_argument("tid")
     sp.add_parser("outbox"); sp.add_parser("memcheck")
+    p = sp.add_parser("ask"); p.add_argument("oid"); p.add_argument("q"); p.add_argument("--options", nargs="*", default=[])
+    p = sp.add_parser("answer"); p.add_argument("oid"); p.add_argument("n", type=int); p.add_argument("text")
     sp.add_parser("verify"); sp.add_parser("status")
     a = ap.parse_args(argv)
     db = load()
@@ -289,6 +314,10 @@ def main(argv=None):
             interpret(db, a.oid, a.text)
         elif a.cmd == "task":
             print(add_task(db, a.oid, a.owner, a.output, a.accept.split(";"), a.after, a.external, a.channel))
+        elif a.cmd == "ask":
+            print(ask(db, a.oid, a.q, a.options))
+        elif a.cmd == "answer":
+            answer(db, a.oid, a.n, a.text)
         elif a.cmd == "submit":
             submit(db, a.tid)
         elif a.cmd == "review":
