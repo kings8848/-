@@ -9,6 +9,7 @@
 
 17도는 원본 그림의 비율이 60×155와 달라서, 25도 그림을 바탕으로
 金 글자를 은색으로, 붉은 산을 주황으로 바꿔 만든다.
+17·25도의 金 글자는 40도 그림의 입체 글자를 옮겨 쓴다.
 """
 import base64
 import pathlib
@@ -64,15 +65,38 @@ def remove_old_text(img):
     return cv2.inpaint(img, full, 9, cv2.INPAINT_TELEA)
 
 
+def _char_mask(img):
+    """金 글자(금색) 부분만 고른다. 달과 금실은 제외."""
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h, s = hsv[..., 0], hsv[..., 1]
+    yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
+    box = (yy > 304) & (yy < 720) & (xx > 90) & (xx < 700) & ~((xx > 520) & (yy < 345))
+    return (box & (h > 6) & (h < 34) & (s > 60)).astype(np.uint8)
+
+
+def transplant_3d(base):
+    """평평한 金 글자를 지우고 40도 그림의 입체 金 글자를 옮겨 심는다."""
+    src = imread(SRC / "앞면_40.webp")[..., :3]
+    old = cv2.dilate(_char_mask(base), np.ones((13, 13), np.uint8)) * 255
+    clean = cv2.inpaint(base, old, 9, cv2.INPAINT_TELEA)
+    m = cv2.morphologyEx(_char_mask(src), cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8))
+    m = cv2.dilate(m, np.ones((15, 15), np.uint8)).astype(np.float32)
+    a = cv2.GaussianBlur(m, (0, 0), 3.5)[..., None]
+    return (clean * (1 - a) + src * a).astype(np.uint8)
+
+
 def to_17(img):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV).astype(np.float32)
     h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
     yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
-    # 金 글자: 금 → 은
-    gold = (yy > 295) & (yy < 710) & (xx > 105) & (xx < 665) & (h > 8) & (h < 32) & (s > 70)
-    g = cv2.GaussianBlur(gold.astype(np.float32), (0, 0), 1.2)
-    s2 = s * (1 - g * 0.95)
-    v2 = np.clip(v + g * (22 + (v - 128) * 0.35), 0, 255)
+    # 金 글자: 금 → 은 (밝기는 실제 명도로 바꿔 입체감 유지, 주변 종이는 건드리지 않음)
+    core = (_char_mask(img) > 0) & (s > 105)
+    core = cv2.morphologyEx(core.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
+    g = cv2.GaussianBlur(core.astype(np.float32), (0, 0), 0.8)
+    luma = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY).astype(np.float32)
+    silver = np.clip((luma - 40) * 1.18 + 38, 0, 255)
+    s2 = s * (1 - g)
+    v2 = v * (1 - g) + silver * g
     # 아래 산: 붉은색 → 주황
     red = (yy > 1150) & ((h < 10) | (h > 168)) & (s > 35)
     r = cv2.GaussianBlur(red.astype(np.float32), (0, 0), 2.0)
@@ -167,6 +191,8 @@ def build():
     for p in PRODUCTS:
         img = imread(SRC / p["base"])[..., :3]
         img = remove_old_text(img)
+        if p["abv"] in (17, 25):
+            img = transplant_3d(img)
         if p["variant"] == "17":
             img = to_17(img)
         elif p["variant"] == "40":
