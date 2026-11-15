@@ -36,11 +36,12 @@ SEAL = dict(left=37.2, top=84.6, size=10.5)
 METAL = {
     "gold": ("#fbe9a6", "#d9a521", "#8a5a0c"),
     "silver": ("#ffffff", "#b9bcc0", "#6d7176"),
+    "black": ("#8d8d8d", "#161616", "#000000"),
 }
 PRODUCTS = [
     dict(abv=17, base="앞면_25.webp", metal="silver", variant="17"),
     dict(abv=25, base="앞면_25.webp", metal="gold", variant=None),
-    dict(abv=40, base="앞면_40.webp", metal="gold", variant=None),
+    dict(abv=40, base="앞면_40.webp", metal="black", variant="40"),
 ]
 
 
@@ -80,6 +81,20 @@ def to_17(img):
     s2 = np.clip(s2 * (1 + r * 0.25), 0, 255)
     out = np.stack([h2, s2, v2], axis=-1).astype(np.uint8)
     return cv2.cvtColor(out, cv2.COLOR_HSV2BGR)
+
+
+def to_40(img):
+    """金 글자: 금 → 블랙 유광(밝은 반사광만 남기고 어둡게)."""
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV).astype(np.float32)
+    h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
+    gold = (yy > 295) & (yy < 715) & (xx > 95) & (xx < 690) & (h > 6) & (h < 34) & (s > 60)
+    gold = cv2.morphologyEx(gold.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+    g = cv2.GaussianBlur(gold.astype(np.float32), (0, 0), 1.0)
+    t = v / 255.0
+    gloss = 255 * (0.05 + 0.10 * t + 0.80 * np.clip((t - 0.80) / 0.20, 0, 1) ** 1.6)
+    out = np.stack([h, s * (1 - g), v * (1 - g) + gloss * g], axis=-1)
+    return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_HSV2BGR)
 
 
 def data_uri(p, mime):
@@ -154,6 +169,8 @@ def build():
         img = remove_old_text(img)
         if p["variant"] == "17":
             img = to_17(img)
+        elif p["variant"] == "40":
+            img = to_40(img)
         img = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
         img = cv2.copyMakeBorder(img, 2 * pad, 2 * pad, 2 * pad, 2 * pad, cv2.BORDER_REFLECT)
         ok, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, 95])
