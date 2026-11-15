@@ -40,9 +40,9 @@ METAL = {
     "black": ("#8d8d8d", "#161616", "#000000"),
 }
 PRODUCTS = [
-    dict(abv=17, base="앞면_25.webp", metal="silver", variant="17", moon=("silver", "gold"), top="orange"),
-    dict(abv=25, base="앞면_25.webp", metal="gold", variant=None, moon=("gold", "black"), top="red"),
-    dict(abv=40, base="앞면_40.webp", metal="black", variant="40", moon=("black", "silver"), top=None),
+    dict(abv=17, base="앞면_25.webp", metal="silver", variant="17", moon=[("silver", .7), ("gold", .3)], top="orange"),
+    dict(abv=25, base="앞면_25.webp", metal="gold", variant=None, moon=[("gold", .7), ("black", .3)], top="red"),
+    dict(abv=40, base="앞면_40.webp", metal="black", variant="40", moon=[("black", .5), ("gold", .25), ("silver", .25)], top=None),
 ]
 
 
@@ -159,8 +159,11 @@ def _metal(img, kind):
     return np.repeat(v[..., None], 3, axis=2)
 
 
-def recolor_moon(img, main, accent, main_share=0.7):
-    """달(금박 배) 색을 main → accent 로 왼쪽 위에서 오른쪽 아래로 서서히 바꾼다."""
+def recolor_moon(img, stops):
+    """달(금박 배) 색을 왼쪽 위에서 오른쪽 아래로 서서히 바꾼다.
+
+    stops: [(금속, 비율), ...] 예) [("black", .5), ("gold", .25), ("silver", .25)]
+    """
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV).astype(np.float32)
     yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]].astype(np.float32)
     d = np.hypot(xx - MOON["cx"], yy - MOON["cy"])
@@ -169,9 +172,13 @@ def recolor_moon(img, main, accent, main_share=0.7):
     alpha = (inside * goldness)[..., None]
     # 대각선 위치 0(왼쪽 위) ~ 1(오른쪽 아래)
     t = ((xx - MOON["cx"]) + (yy - MOON["cy"])) / (2 * MOON["r"] * 0.7071) * 0.5 + 0.5
-    w = np.clip((t - (main_share - 0.22)) / 0.44, 0, 1)
-    w = (w * w * (3 - 2 * w))[..., None]
-    mixed = _metal(img, main) * (1 - w) + _metal(img, accent) * w
+    mixed = _metal(img, stops[0][0])
+    edge, half = 0.0, 0.22 if len(stops) == 2 else 0.11
+    for (_, share), (kind, _) in zip(stops, stops[1:]):
+        edge += share
+        w = np.clip((t - (edge - half)) / (2 * half), 0, 1)
+        w = (w * w * (3 - 2 * w))[..., None]
+        mixed = mixed * (1 - w) + _metal(img, kind) * w
     return np.clip(img * (1 - alpha) + mixed * alpha, 0, 255).astype(np.uint8)
 
 
@@ -253,7 +260,7 @@ def build():
             img = to_40(img)
         if p["top"]:
             img = recolor_top_patch(img, p["top"])
-        img = recolor_moon(img, *p["moon"])
+        img = recolor_moon(img, p["moon"])
         img = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
         img = cv2.copyMakeBorder(img, 2 * pad, 2 * pad, 2 * pad, 2 * pad, cv2.BORDER_REFLECT)
         ok, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, 95])
