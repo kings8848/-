@@ -34,10 +34,11 @@ WARNING = ("알코올은 발암물질로 지나친 음주는 간암·위암 등�
 BOX_TOP, BOX_BOTTOM, BOX_SIDE = 123.2, 4.6, 3.2   # 경고 상자: 위, 아래 여백, 좌우 여백
 SEAL = dict(left=24.9, top=95.6, size=10.2)   # "주" 바로 아래 가운데
 
+# 도수 숫자용 금속 색: (그라데이션 5단, 테두리·두께 색, 반사광 세기)
 METAL = {
-    "gold": ("#fff3b8", "#d69c12", "#6e4504"),
-    "silver": ("#fafafa", "#9a9ea3", "#41454a"),
-    "black": ("#8d8d8d", "#161616", "#000000"),
+    "gold": (("#fff7c9", "#f4c531", "#a56a06", "#f8d655", "#b0760a"), "#4f3002", 0.95),
+    "silver": (("#ffffff", "#cfd2d6", "#6c7177", "#e2e5e8", "#858a90"), "#25282b", 0.95),
+    "black": (("#8b8b8b", "#1c1c1c", "#000000", "#444444", "#050505"), "#000000", 1.6),
 }
 PRODUCTS = [
     dict(abv=17, base="앞면_25.webp", metal="silver", variant="17", moon=[("silver", .7), ("gold", .3)], top="orange"),
@@ -195,7 +196,7 @@ def font_css():
         ("Cinzel", 600, "cinzel-latin-600-normal.woff2"),
         ("Cinzel", 900, "cinzel-latin-900-normal.woff2"),
         ("Cinzel", 700, "cinzel-latin-700-normal.woff2"),
-        ("Cormorant", 700, "cormorant-garamond-latin-700-normal.woff2"),
+        ("SerifL", 900, "noto-serif-kr-latin-900-normal.woff2"),
     ]
     return "\n".join(
         f"@font-face{{font-family:'{n}';font-weight:{w};src:url({data_uri(FONTS / f, 'font/woff2')}) format('woff2');}}"
@@ -203,31 +204,40 @@ def font_css():
 
 
 def page_html(p, bg_uri, seal_uri):
-    hi, mid, lo = METAL[p["metal"]]
-    bold = p["metal"] != "black"          # 금·은 숫자는 굵게 + 두께(그림자) 표현
-    wt = 900 if bold else 600
-    tx = {17: 326, 25: 344, 40: 340}[p["abv"]]
+    stops, edge, spec = METAL[p["metal"]]
+    n = p["abv"]
+    end = {17: 396, 25: 418, 40: 424}[n]          # 숫자 오른쪽 끝(도 기호 앞)
+    grad = "".join(f'<stop offset="{o}" stop-color="{c}"/>' for o, c in zip((0, .3, .55, .72, 1), stops))
+    glyphs = (f'<text x="{end}" y="186" text-anchor="end" font-family="Cinzel" font-weight="900" font-size="200">{n}</text>'
+              f'<circle cx="{end + 34}" cy="66" r="17" fill="none" stroke-width="12"/>')
     depth = "".join(
-        f'<text x="{tx + d}" y="{112 + d * 1.3}" text-anchor="end" font-family="Cinzel" font-weight="{wt}" '
-        f'font-size="118" fill="{lo}" stroke="{lo}" stroke-width="1.5" opacity="{o}">{p["abv"]}</text>'
-        for d, o in ((3.2, .35), (2.2, .6), (1.2, .85))) if bold else ""
+        f'<g transform="translate({d} {d * 1.25})" fill="{edge}" stroke="{edge}" stroke-width="5" opacity="{o}">{glyphs}</g>'
+        for d, o in ((7, .45), (5.5, .7), (4, .9), (2.5, 1), (1.2, 1)))
     return f"""<section class="page"><div class="art" style="background-image:url({bg_uri})"></div>
 <div class="trim">
   <img class="seal" src="{seal_uri}">
   <div class="haze"></div>
-  <svg class="abv" viewBox="-30 0 600 150" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="m{p['abv']}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="{hi}"/><stop offset=".45" stop-color="{mid}"/>
-      <stop offset="1" stop-color="{lo}"/></linearGradient></defs>
-    <g fill="url(#m{p['abv']})" stroke="{lo}" stroke-width="{1.5 if bold else .8}" paint-order="stroke" stroke-linejoin="round">
-      <rect x="62" y="70.5" width="78" height="{3.6 if bold else 2.6}" stroke="none"/>
-      <rect x="400" y="70.5" width="78" height="{3.6 if bold else 2.6}" stroke="none"/>
+  <svg class="abv" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="m{n}" x1="0" y1="0" x2="0" y2="1">{grad}</linearGradient>
+      <filter id="b{n}" x="-10%" y="-15%" width="125%" height="140%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="bl"/>
+        <feSpecularLighting in="bl" surfaceScale="9" specularConstant="{spec}" specularExponent="60" lighting-color="#ffffff" result="sp">
+          <feDistantLight azimuth="235" elevation="46"/></feSpecularLighting>
+        <feComposite in="sp" in2="SourceAlpha" operator="in" result="sp2"/>
+        <feComposite in="SourceGraphic" in2="sp2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+      </filter>
+      <filter id="s{n}" x="-10%" y="-10%" width="130%" height="140%">
+        <feDropShadow dx="4" dy="7" stdDeviation="5" flood-color="#000" flood-opacity=".42"/></filter>
+    </defs>
+    <g filter="url(#s{n})">
       {depth}
-      <text x="{tx}" y="112" text-anchor="end" font-family="Cinzel" font-weight="{wt}" font-size="118">{p['abv']}</text>
-      <circle cx="{tx + 24}" cy="40" r="11" fill="none" stroke="url(#m{p['abv']})" stroke-width="{7 if bold else 5}"/>
+      <g filter="url(#b{n})" fill="url(#m{n})" stroke="{edge}" stroke-width="2.4" paint-order="stroke" stroke-linejoin="round">
+        <g stroke="url(#m{n})">{glyphs.replace('<text ', f'<text stroke="{edge}" ')}</g>
+      </g>
     </g></svg>
   <div class="en">GEUMBAEJU</div>
-  <div class="vol">375 mL</div>
+  <div class="vol"><i></i>375 mL<i></i></div>
 </div></section>"""
 
 
@@ -239,17 +249,14 @@ body {{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
 .art {{ position: absolute; inset: 0; background-size: 100% 100%; }}
 .trim {{ position: absolute; left: {BLEED}mm; top: {BLEED}mm; width: {W_MM}mm; height: {H_MM}mm; }}
 .seal {{ position: absolute; left: {SEAL['left']}mm; top: {SEAL['top']}mm; width: {SEAL['size']}mm; height: {SEAL['size']}mm; mix-blend-mode: multiply; opacity: .93; }}
-.haze {{ position: absolute; left: 3mm; right: 3mm; top: 115mm; height: 31mm;
-  background: radial-gradient(ellipse at 50% 55%, rgba(250,244,232,.8) 0%, rgba(250,244,232,.6) 45%, rgba(250,244,232,0) 72%); }}
-.abv {{ position: absolute; left: 6mm; width: 48mm; top: 118.6mm; height: 12mm; }}
-.en {{ position: absolute; left: 0; right: 0; top: 131.6mm; text-align: center; font-family: 'Cinzel'; font-weight: 700;
-  font-size: 14.5pt; letter-spacing: .05em; color: #17130f; line-height: 1; }}
-.vol {{ position: absolute; left: 0; right: 0; top: 138.6mm; text-align: center; font-family: 'Cormorant'; font-weight: 700;
-  font-size: 13.5pt; letter-spacing: .05em; color: #17130f; line-height: 1; -webkit-text-stroke: .18pt #17130f; }}
-.warn {{ position: absolute; left: {BOX_SIDE}mm; right: {BOX_SIDE}mm; top: {BOX_TOP}mm; bottom: {BOX_BOTTOM}mm;
-  background: #fff; border: .45mm solid #000; color: #000; padding: .8mm 1.1mm 0;
-  font-family: 'KRL','KR',sans-serif; font-weight: 700; font-size: 10pt; line-height: 1.2; letter-spacing: -.07em; word-break: keep-all; text-wrap: balance; }}
-.warn b {{ font-weight: 900; }}
+.haze {{ position: absolute; left: 2.5mm; right: 2.5mm; top: 110mm; height: 39mm;
+  background: radial-gradient(ellipse at 50% 52%, rgba(250,244,232,.86) 0%, rgba(250,244,232,.7) 46%, rgba(250,244,232,0) 73%); }}
+.abv {{ position: absolute; left: 3mm; width: 54mm; top: 112.6mm; height: 20.7mm; overflow: visible; }}
+.en {{ position: absolute; left: 0; right: 0; top: 133.4mm; text-align: center; font-family: 'Cinzel'; font-weight: 900;
+  font-size: 14.5pt; letter-spacing: .06em; color: #120e0a; line-height: 1; }}
+.vol {{ position: absolute; left: 0; right: 0; top: 140.4mm; display: flex; justify-content: center; align-items: center; gap: 2.2mm;
+  font-family: 'SerifL'; font-weight: 900; font-size: 14.5pt; letter-spacing: .02em; color: #120e0a; line-height: 1; }}
+.vol i {{ display: block; width: 7mm; height: .45mm; background: #120e0a; }}
 """
 
 
