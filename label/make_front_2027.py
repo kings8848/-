@@ -40,9 +40,9 @@ METAL = {
     "black": ("#8d8d8d", "#161616", "#000000"),
 }
 PRODUCTS = [
-    dict(abv=17, base="앞면_25.webp", metal="silver", variant="17", moon=("silver", "gold")),
-    dict(abv=25, base="앞면_25.webp", metal="gold", variant=None, moon=("gold", "black")),
-    dict(abv=40, base="앞면_40.webp", metal="black", variant="40", moon=("black", "silver")),
+    dict(abv=17, base="앞면_25.webp", metal="silver", variant="17", moon=("silver", "gold"), top="orange"),
+    dict(abv=25, base="앞면_25.webp", metal="gold", variant=None, moon=("gold", "black"), top="red"),
+    dict(abv=40, base="앞면_40.webp", metal="black", variant="40", moon=("black", "silver"), top=None),
 ]
 
 
@@ -118,6 +118,28 @@ def to_40(img):
     t = v / 255.0
     gloss = 255 * (0.05 + 0.10 * t + 0.80 * np.clip((t - 0.80) / 0.20, 0, 1) ** 1.6)
     out = np.stack([h, s * (1 - g), v * (1 - g) + gloss * g], axis=-1)
+    return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_HSV2BGR)
+
+
+def recolor_top_patch(img, accent):
+    """오른쪽 위 딥블루 물감을 아래쪽 포인트 색(주황·붉은색)으로 바꿔 위아래 색을 맞춘다."""
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV).astype(np.float32)
+    h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    yy = np.mgrid[0:img.shape[0], 0:img.shape[1]][0]
+    if accent == "orange":
+        low = (yy > 1300) & (h > 9) & (h < 24) & (s > 90) & (v > 150)
+    else:  # red
+        low = (yy > 1300) & ((h < 8) | (h > 172)) & (s > 80) & (v > 150)
+    th, ts, tv = (float(np.median(c[low])) for c in (h, s, v))
+    blue = (yy < 335) & (h > 92) & (h < 128)
+    bv, bs = float(np.median(v[blue & (s > 60)])), float(np.median(s[blue & (s > 60)]))
+    a = cv2.GaussianBlur((blue * np.clip((s - 22) / 40.0, 0, 1)).astype(np.float32), (0, 0), 1.0)
+    h2 = h * (1 - a) + th * a
+    s2 = s * (1 - a) + np.clip(ts * (0.55 + 0.45 * s / bs), 0, 255) * a
+    v2 = v * (1 - a) + np.clip(tv + (v - bv) * 0.45, 0, 255) * a
+    # 색상(H)은 섞으면 중간색이 끼므로 경계에서는 가까운 쪽으로 고른다
+    h2 = np.where(a > 0.5, th, h)
+    out = np.stack([h2, s2, v2], axis=-1)
     return cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_HSV2BGR)
 
 
@@ -229,6 +251,8 @@ def build():
             img = to_17(img)
         elif p["variant"] == "40":
             img = to_40(img)
+        if p["top"]:
+            img = recolor_top_patch(img, p["top"])
         img = recolor_moon(img, *p["moon"])
         img = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
         img = cv2.copyMakeBorder(img, 2 * pad, 2 * pad, 2 * pad, 2 * pad, cv2.BORDER_REFLECT)
