@@ -32,11 +32,11 @@ WARNING = ("알코올은 발암물질로 지나친 음주는 간암·위암 등�
 
 # 배치(mm, 재단선 기준)
 BOX_TOP, BOX_BOTTOM, BOX_SIDE = 123.2, 4.6, 3.2   # 경고 상자: 위, 아래 여백, 좌우 여백
-SEAL = dict(left=37.2, top=84.6, size=10.5)
+SEAL = dict(left=24.9, top=95.6, size=10.2)   # "주" 바로 아래 가운데
 
 METAL = {
-    "gold": ("#fbe9a6", "#d9a521", "#8a5a0c"),
-    "silver": ("#ffffff", "#b9bcc0", "#6d7176"),
+    "gold": ("#fff3b8", "#d69c12", "#6e4504"),
+    "silver": ("#fafafa", "#9a9ea3", "#41454a"),
     "black": ("#8d8d8d", "#161616", "#000000"),
 }
 PRODUCTS = [
@@ -193,6 +193,7 @@ def font_css():
         ("KR", 900, "noto-sans-kr-korean-900-normal.woff2"),
         ("KRL", 900, "noto-sans-kr-latin-900-normal.woff2"),
         ("Cinzel", 600, "cinzel-latin-600-normal.woff2"),
+        ("Cinzel", 900, "cinzel-latin-900-normal.woff2"),
         ("Cinzel", 700, "cinzel-latin-700-normal.woff2"),
         ("Cormorant", 700, "cormorant-garamond-latin-700-normal.woff2"),
     ]
@@ -203,6 +204,13 @@ def font_css():
 
 def page_html(p, bg_uri, seal_uri):
     hi, mid, lo = METAL[p["metal"]]
+    bold = p["metal"] != "black"          # 금·은 숫자는 굵게 + 두께(그림자) 표현
+    wt = 900 if bold else 600
+    tx = {17: 326, 25: 344, 40: 340}[p["abv"]]
+    depth = "".join(
+        f'<text x="{tx + d}" y="{112 + d * 1.3}" text-anchor="end" font-family="Cinzel" font-weight="{wt}" '
+        f'font-size="118" fill="{lo}" stroke="{lo}" stroke-width="1.5" opacity="{o}">{p["abv"]}</text>'
+        for d, o in ((3.2, .35), (2.2, .6), (1.2, .85))) if bold else ""
     return f"""<section class="page"><div class="art" style="background-image:url({bg_uri})"></div>
 <div class="trim">
   <img class="seal" src="{seal_uri}">
@@ -211,11 +219,12 @@ def page_html(p, bg_uri, seal_uri):
     <defs><linearGradient id="m{p['abv']}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="{hi}"/><stop offset=".45" stop-color="{mid}"/>
       <stop offset="1" stop-color="{lo}"/></linearGradient></defs>
-    <g fill="url(#m{p['abv']})" stroke="{lo}" stroke-width=".8">
-      <rect x="62" y="71" width="78" height="2.6" stroke="none"/>
-      <rect x="400" y="71" width="78" height="2.6" stroke="none"/>
-      <text x="{340 if p['abv'] != 17 else 322}" y="112" text-anchor="end" font-family="Cinzel" font-weight="600" font-size="118">{p['abv']}</text>
-      <circle cx="{362 if p['abv'] != 17 else 344}" cy="40" r="11" fill="none" stroke="url(#m{p['abv']})" stroke-width="5"/>
+    <g fill="url(#m{p['abv']})" stroke="{lo}" stroke-width="{1.5 if bold else .8}" paint-order="stroke" stroke-linejoin="round">
+      <rect x="62" y="70.5" width="78" height="{3.6 if bold else 2.6}" stroke="none"/>
+      <rect x="400" y="70.5" width="78" height="{3.6 if bold else 2.6}" stroke="none"/>
+      {depth}
+      <text x="{tx}" y="112" text-anchor="end" font-family="Cinzel" font-weight="{wt}" font-size="118">{p['abv']}</text>
+      <circle cx="{tx + 24}" cy="40" r="11" fill="none" stroke="url(#m{p['abv']})" stroke-width="{7 if bold else 5}"/>
     </g></svg>
   <div class="en">GEUMBAEJU</div>
   <div class="vol">375 mL</div>
@@ -235,8 +244,8 @@ body {{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
 .abv {{ position: absolute; left: 6mm; width: 48mm; top: 118.6mm; height: 12mm; }}
 .en {{ position: absolute; left: 0; right: 0; top: 131.6mm; text-align: center; font-family: 'Cinzel'; font-weight: 700;
   font-size: 14.5pt; letter-spacing: .05em; color: #17130f; line-height: 1; }}
-.vol {{ position: absolute; left: 0; right: 0; top: 139.6mm; text-align: center; font-family: 'Cormorant'; font-weight: 700;
-  font-size: 10pt; letter-spacing: .04em; color: #17130f; line-height: 1; }}
+.vol {{ position: absolute; left: 0; right: 0; top: 138.6mm; text-align: center; font-family: 'Cormorant'; font-weight: 700;
+  font-size: 13.5pt; letter-spacing: .05em; color: #17130f; line-height: 1; -webkit-text-stroke: .18pt #17130f; }}
 .warn {{ position: absolute; left: {BOX_SIDE}mm; right: {BOX_SIDE}mm; top: {BOX_TOP}mm; bottom: {BOX_BOTTOM}mm;
   background: #fff; border: .45mm solid #000; color: #000; padding: .8mm 1.1mm 0;
   font-family: 'KRL','KR',sans-serif; font-weight: 700; font-size: 10pt; line-height: 1.2; letter-spacing: -.07em; word-break: keep-all; text-wrap: balance; }}
