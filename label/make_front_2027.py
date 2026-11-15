@@ -5,6 +5,8 @@
 입력: label/금배주_2027/원본/ 의 앞면 그림(25·40), 낙관
 출력: label/금배주_2027/앞면/ 의 PNG(재단 크기)·PDF(사방 2mm 재단 여유 포함)
 
+앞면에는 경고문구를 넣지 않는다(대표 결정, 2026-11-15). 경고문구는 뒷면 라벨에 있다.
+
 17도는 원본 그림의 비율이 60×155와 달라서, 25도 그림을 바탕으로
 金 글자를 은색으로, 붉은 산을 주황으로 바꿔 만든다.
 """
@@ -47,16 +49,18 @@ def imread(p):
 
 
 def remove_old_text(img):
-    """원본에 박혀 있는 도수·영문·용량 글자를 지운다(경고 상자 위로 드러나는 부분만)."""
-    y0, y1, x0, x1 = 1530, 1625, 170, 610
-    roi = img[y0:y1, x0:x1]
-    bg = cv2.medianBlur(roi, 61)
-    diff = cv2.absdiff(roi, bg).max(axis=2)
-    mask = (diff > 22).astype(np.uint8) * 255
-    mask = cv2.dilate(mask, np.ones((9, 9), np.uint8))
+    """원본 그림에 박혀 있는 도수·영문·용량 글자만 골라 지운다."""
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gold = ((hsv[..., 0] > 8) & (hsv[..., 0] < 33) & (hsv[..., 1] > 85)) | (gray < 75)
+    dark = gray < 80
     full = np.zeros(img.shape[:2], np.uint8)
-    full[y0:y1, x0:x1] = mask
-    return cv2.inpaint(img, full, 7, cv2.INPAINT_TELEA)
+    for (x0, y0, x1, y1), m in (((185, 1548, 596, 1662), gold),
+                                ((148, 1680, 618, 1758), dark),
+                                ((305, 1795, 472, 1852), dark)):
+        full[y0:y1, x0:x1] = m[y0:y1, x0:x1] * 255
+    full = cv2.dilate(full, np.ones((11, 11), np.uint8))
+    return cv2.inpaint(img, full, 9, cv2.INPAINT_TELEA)
 
 
 def to_17(img):
@@ -115,7 +119,6 @@ def page_html(p, bg_uri, seal_uri):
     </g></svg>
   <div class="en">GEUMBAEJU</div>
   <div class="vol">375 mL</div>
-  <div class="warn"><b>경고 :</b> {WARNING}</div>
 </div></section>"""
 
 
@@ -127,12 +130,12 @@ body {{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
 .art {{ position: absolute; inset: 0; background-size: 100% 100%; }}
 .trim {{ position: absolute; left: {BLEED}mm; top: {BLEED}mm; width: {W_MM}mm; height: {H_MM}mm; }}
 .seal {{ position: absolute; left: {SEAL['left']}mm; top: {SEAL['top']}mm; width: {SEAL['size']}mm; height: {SEAL['size']}mm; mix-blend-mode: multiply; opacity: .93; }}
-.haze {{ position: absolute; left: 3mm; right: 3mm; top: 93.5mm; height: 30mm;
-  background: radial-gradient(ellipse at 50% 55%, rgba(250,244,232,.95) 0%, rgba(250,244,232,.85) 48%, rgba(250,244,232,0) 74%); }}
-.abv {{ position: absolute; left: 6mm; width: 48mm; top: 96.4mm; height: 12mm; }}
-.en {{ position: absolute; left: 0; right: 0; top: 110mm; text-align: center; font-family: 'Cinzel'; font-weight: 700;
+.haze {{ position: absolute; left: 3mm; right: 3mm; top: 115mm; height: 31mm;
+  background: radial-gradient(ellipse at 50% 55%, rgba(250,244,232,.8) 0%, rgba(250,244,232,.6) 45%, rgba(250,244,232,0) 72%); }}
+.abv {{ position: absolute; left: 6mm; width: 48mm; top: 118.6mm; height: 12mm; }}
+.en {{ position: absolute; left: 0; right: 0; top: 131.6mm; text-align: center; font-family: 'Cinzel'; font-weight: 700;
   font-size: 14.5pt; letter-spacing: .05em; color: #17130f; line-height: 1; }}
-.vol {{ position: absolute; left: 0; right: 0; top: 117.3mm; text-align: center; font-family: 'Cormorant'; font-weight: 700;
+.vol {{ position: absolute; left: 0; right: 0; top: 139.6mm; text-align: center; font-family: 'Cormorant'; font-weight: 700;
   font-size: 10pt; letter-spacing: .04em; color: #17130f; line-height: 1; }}
 .warn {{ position: absolute; left: {BOX_SIDE}mm; right: {BOX_SIDE}mm; top: {BOX_TOP}mm; bottom: {BOX_BOTTOM}mm;
   background: #fff; border: .45mm solid #000; color: #000; padding: .8mm 1.1mm 0;
@@ -171,8 +174,6 @@ const {{chromium}} = require('playwright');
   const trims = await pg.$$('.trim');
   for (let i = 0; i < trims.length; i++)
     await trims[i].screenshot({{path: '{OUT}/금배주' + abv[i] + '_앞면_60x155.png'}});
-  const lines = await pg.$$eval('.warn', els => els.map(e => [e.scrollHeight, e.clientHeight]));
-  console.log('경고상자 내용높이/상자높이(px):', JSON.stringify(lines));
   await b.close();
 }})();"""
     subprocess.run(["node", "-e", js], check=True)
