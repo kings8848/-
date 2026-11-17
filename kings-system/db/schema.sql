@@ -675,3 +675,188 @@ SELECT substr(started_at,1,7) AS ym, harness_code, COUNT(*) AS runs,
        SUM(fatal_count) AS fatals, ROUND(SUM(cost_won)) AS cost_won,
        SUM(provider = 'local') AS local_runs
 FROM harness_runs GROUP BY ym, harness_code;
+
+
+-- ---------------------------------------------------------------------
+-- 9. AI 운영 조직 (v0.3): 부서·목표·업무·이벤트·권한·상신·예외·현장 지시
+-- ---------------------------------------------------------------------
+CREATE TABLE departments (
+  dept_code  TEXT PRIMARY KEY,                    -- MKT_INT, PRODUCT, BRAND, SALES, CRM, PLAN, FIN, QA, EXT, COO, BOARD
+  name       TEXT NOT NULL,
+  mission    TEXT
+);
+
+CREATE TABLE goals (                               -- 목표 트리: 분기 → 월 → 주
+  goal_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  parent_id  INTEGER REFERENCES goals(goal_id),
+  level      TEXT NOT NULL CHECK (level IN ('연','분기','월','주')),
+  period     TEXT NOT NULL,                       -- 2027-Q1, 2027-02, 2027-W06
+  dept_code  TEXT REFERENCES departments(dept_code),
+  title      TEXT NOT NULL,
+  metric     TEXT,                                -- 측정 지표
+  target     REAL,
+  actual     REAL,
+  status     TEXT DEFAULT '진행' CHECK (status IN ('진행','달성','미달','취소'))
+);
+
+CREATE TABLE events (                              -- 자동 실행의 시작점
+  event_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  occurred_at TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  event_type  TEXT NOT NULL,                      -- 주문발생, 재고부족, 문의접수, 마감도래, 실적변화, 배송지연, 저평점, 발효이상, AI노출변화, 플랫폼정책
+  ref_type    TEXT, ref_id TEXT,
+  payload     TEXT,
+  handled     INTEGER DEFAULT 0
+);
+
+CREATE TABLE tasks (                               -- 업무 티켓 (AI 총괄이 생성·배정)
+  task_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+  goal_id      INTEGER REFERENCES goals(goal_id),
+  event_id     INTEGER REFERENCES events(event_id),
+  dept_code    TEXT NOT NULL REFERENCES departments(dept_code),
+  role         TEXT NOT NULL CHECK (role IN ('조사','판단','제작','실행','검수')),
+  title        TEXT NOT NULL,
+  executor     TEXT NOT NULL CHECK (executor IN ('AI','규칙','대표','외주','단기인력','설비')),
+  harness_code TEXT,
+  input_ref    TEXT,                              -- 입력 파일·레코드
+  output_ref   TEXT,                              -- 산출물
+  prev_task_id INTEGER REFERENCES tasks(task_id),  -- 부서 간 인계
+  due_at       TEXT,
+  status       TEXT DEFAULT '대기' CHECK (status IN ('대기','진행','검수','완료','되돌림','상신','예외','취소')),
+  retries      INTEGER DEFAULT 0,
+  created_at   TEXT DEFAULT (datetime('now','localtime')),
+  done_at      TEXT
+);
+
+CREATE TABLE authority_rules (                     -- 권한표 (대표 확정, 변경은 rule_changes)
+  rule_id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  domain      TEXT NOT NULL CHECK (domain IN ('예산','가격','수량','발신','수정','데이터')),
+  action      TEXT NOT NULL,                      -- 부자재발주, 할인적용, 파손재발송 …
+  limit_value REAL,                               -- 한도 (금액·수량·비율)
+  limit_unit  TEXT,
+  condition   TEXT,                               -- 기존 거래처, 승인된 캠페인 등
+  version     TEXT NOT NULL,
+  active      INTEGER DEFAULT 1
+);
+
+CREATE TABLE approvals (                           -- 상신과 결재
+  approval_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id     INTEGER REFERENCES tasks(task_id),
+  dept_code   TEXT REFERENCES departments(dept_code),
+  rule_id     INTEGER REFERENCES authority_rules(rule_id),   -- 넘은 권한
+  title       TEXT NOT NULL,
+  options     TEXT,                               -- 선택지와 추천안
+  cost_risk   TEXT,
+  due_at      TEXT,
+  requested_at TEXT DEFAULT (datetime('now','localtime')),
+  decision    TEXT CHECK (decision IN ('승인','반려','수정승인','보류')),
+  decided_at  TEXT,
+  comment     TEXT
+);
+
+CREATE TABLE exceptions (                          -- 자동 복구 실패 → 대표
+  exc_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id     INTEGER REFERENCES tasks(task_id),
+  severity    TEXT NOT NULL CHECK (severity IN ('긴급','높음','보통')),
+  dept_code   TEXT REFERENCES departments(dept_code),
+  summary     TEXT NOT NULL,
+  attempts    TEXT,                               -- 시도 내역
+  recommend   TEXT,                               -- 추천 조치
+  opened_at   TEXT DEFAULT (datetime('now','localtime')),
+  closed_at   TEXT,
+  resolution  TEXT
+);
+
+CREATE TABLE work_orders (                         -- 현장 작업 지시서
+  wo_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id      INTEGER REFERENCES tasks(task_id),
+  work_type    TEXT NOT NULL CHECK (work_type IN ('담금','발효점검','증류','숙성점검','블렌딩','병입','검사','포장','출고','재발송','조립','설비점검','외주발주','기타')),
+  target_ref   TEXT,                              -- 배치·로트·주문
+  qty          REAL,
+  sop_ref      TEXT,
+  assignee     TEXT NOT NULL CHECK (assignee IN ('대표','단기인력','외주','설비','택배')),
+  partner_id   TEXT REFERENCES partners(partner_id),
+  due_at       TEXT,
+  accepted_at  TEXT,                              -- 접수 확인
+  done_at      TEXT,
+  proof        TEXT,                              -- 완료 증빙 (수량·사진 경로·측정값·납품서)
+  status       TEXT DEFAULT '발행' CHECK (status IN ('발행','접수','진행','완료','지연','취소')),
+  reminders    INTEGER DEFAULT 0
+);
+
+CREATE TABLE contracts (
+  contract_id  TEXT PRIMARY KEY,
+  partner_id   TEXT REFERENCES partners(partner_id),
+  type         TEXT CHECK (type IN ('공급','납품','외주','임대','보험','지원사업','기타')),
+  title        TEXT NOT NULL,
+  start_date   TEXT, end_date TEXT,
+  amount       INTEGER,
+  terms        TEXT,
+  file_path    TEXT,
+  renew_notice INTEGER DEFAULT 30                 -- 만료 며칠 전 알림
+);
+
+CREATE TABLE rule_changes (                        -- 중요 규칙 변경 통제
+  change_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  target       TEXT NOT NULL,                     -- 권한표, 하한선 공식, 주세 집계, 검수 기준, 위임 단계 …
+  importance   TEXT NOT NULL CHECK (importance IN ('일반','중요')),
+  before_value TEXT, after_value TEXT,
+  reason       TEXT,
+  proposed_by  TEXT,
+  approval_id  INTEGER REFERENCES approvals(approval_id),
+  tested       INTEGER DEFAULT 0,
+  rollback_plan TEXT,
+  applied_at   TEXT,
+  version      TEXT
+);
+
+CREATE TABLE metrics_monthly (
+  ym          TEXT NOT NULL,
+  dept_code   TEXT NOT NULL REFERENCES departments(dept_code),
+  metric      TEXT NOT NULL,
+  value       REAL,
+  target      REAL,
+  PRIMARY KEY (ym, dept_code, metric)
+);
+
+-- 일일 결재 목록: 상신 대기 + 열린 예외
+CREATE VIEW v_board_inbox AS
+SELECT '상신' AS kind, approval_id AS id, dept_code, title AS summary, due_at AS due, NULL AS severity
+FROM approvals WHERE decision IS NULL
+UNION ALL
+SELECT '예외', exc_id, dept_code, summary, NULL, severity
+FROM exceptions WHERE closed_at IS NULL;
+
+-- 부서별 업무 현황
+CREATE VIEW v_dept_workload AS
+SELECT dept_code,
+       SUM(status IN ('대기','진행','검수')) AS open_tasks,
+       SUM(status = '완료') AS done_tasks,
+       SUM(status = '되돌림') AS rollbacks,
+       SUM(status IN ('상신','예외')) AS escalated,
+       SUM(executor = 'AI') AS ai_tasks, SUM(executor = '규칙') AS rule_tasks
+FROM tasks GROUP BY dept_code;
+
+-- 열린 현장 작업 지시서 (미접수·지연 포함)
+CREATE VIEW v_open_work_orders AS
+SELECT wo_id, work_type, target_ref, qty, assignee, due_at, status, reminders,
+       CASE WHEN accepted_at IS NULL THEN '미접수'
+            WHEN due_at < datetime('now','localtime') THEN '마감초과' END AS alert
+FROM work_orders WHERE status NOT IN ('완료','취소');
+
+-- 처리 안 된 이벤트
+CREATE VIEW v_unhandled_events AS
+SELECT event_id, occurred_at, event_type, ref_type, ref_id FROM events WHERE handled = 0;
+
+-- 기본 부서
+INSERT INTO departments VALUES
+ ('BOARD','대표·경영 이사회','비전·자본 배분·제품 철학·중대 예외'),
+ ('COO','AI 총괄 운영','목표 분해·배정·일정·인계·성과 확인'),
+ ('MKT_INT','시장정보','바깥 변화를 먼저 안다'),
+ ('PRODUCT','상품전략','무엇을 얼마에 몇 병 만들지 제안한다'),
+ ('BRAND','브랜드','고객과 고객의 AI에게 보인다'),
+ ('SALES','영업','매출을 만든다'),
+ ('CRM','고객관리','경험을 다음 구매로 잇는다'),
+ ('PLAN','생산계획','팔릴 만큼, 제때, 품질대로 만든다'),
+ ('FIN','재무관리','돈과 세금을 지킨다'),
+ ('QA','품질준법','사고와 위반을 막는다'),
+ ('EXT','대외사업','외부 자원을 가져온다');
