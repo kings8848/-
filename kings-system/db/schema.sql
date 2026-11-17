@@ -1050,3 +1050,174 @@ SELECT import_id, item_code, qty,
        ROUND(amount_fx * fx_rate + freight + duty + customs_fee) AS landed_krw,
        ROUND((amount_fx * fx_rate + freight + duty + customs_fee) / NULLIF(qty,0)) AS unit_cost
 FROM imports;
+
+
+-- ---------------------------------------------------------------------
+-- 11. 결과 책임 운영 단위·위임장·상태 모형·상품 피드 (v0.5)
+-- ---------------------------------------------------------------------
+CREATE TABLE units (                               -- 결과 책임 운영 단위
+  unit_code   TEXT PRIMARY KEY,                   -- U1_NEW ~ U6_RELIABILITY
+  name        TEXT NOT NULL,
+  outcome     TEXT NOT NULL                       -- 끝까지 책임질 결과
+);
+
+CREATE TABLE unit_mandates (                       -- 업무 위임장 (대표 발행)
+  mandate_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+  unit_code    TEXT NOT NULL REFERENCES units(unit_code),
+  version      TEXT NOT NULL,
+  goal         TEXT NOT NULL,                     -- 목표
+  discretion   TEXT NOT NULL,                     -- 재량
+  evidence     TEXT NOT NULL,                     -- 증거 (원본 자료)
+  done_when    TEXT NOT NULL,                     -- 완료 조건
+  escalate_if  TEXT NOT NULL,                     -- 예외 조건과 대상
+  absence_rule TEXT NOT NULL CHECK (absence_rule IN ('보류','기존조건유지','대행')),
+  absence_hours INTEGER DEFAULT 48,               -- 무응답 기준 시간
+  approval_id  INTEGER REFERENCES approvals(approval_id),   -- 대표 결재
+  valid_from   TEXT, valid_to TEXT,
+  active       INTEGER DEFAULT 1
+);
+
+CREATE TABLE unit_runs (                           -- 업무 진행 기록부 (AI 밖에 두는 상태)
+  run_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  unit_code     TEXT NOT NULL REFERENCES units(unit_code),
+  mandate_id    INTEGER REFERENCES unit_mandates(mandate_id),
+  event_id      INTEGER REFERENCES events(event_id),
+  title         TEXT NOT NULL,
+  current_step  TEXT,
+  steps_done    INTEGER DEFAULT 0,
+  external_results INTEGER DEFAULT 0,             -- 발송·등록·주문·입금 등 외부 결과 수
+  internal_docs INTEGER DEFAULT 0,                -- AI 간 중간 문서 수
+  state_note    TEXT,                             -- 다음에 이어서 할 일 (재개용)
+  outcome_ref   TEXT,                             -- 결과 레코드 (주문·입금 등)
+  outcome_value REAL,                             -- 이익·회수액 등
+  owner_touches INTEGER DEFAULT 0,                -- 대표 개입 횟수
+  total_cost    REAL DEFAULT 0,                   -- AI + 검수 + 재작업 + 외주
+  started_at    TEXT DEFAULT (datetime('now','localtime')),
+  last_progress TEXT,
+  ended_at      TEXT,
+  status        TEXT DEFAULT '진행' CHECK (status IN ('진행','대기','완료','실패','예외','보류'))
+);
+
+CREATE TABLE value_transfers (                     -- 가치 이전 (할인·환불·적립·무상·무료배송)
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  occurred_at TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  kind        TEXT NOT NULL CHECK (kind IN ('할인','환불','적립금','무상제공','무료배송')),
+  amount      INTEGER NOT NULL,
+  order_id    TEXT REFERENCES orders(order_id),
+  unit_code   TEXT REFERENCES units(unit_code),
+  approved_by TEXT                                -- 위임장 / 대표
+);
+
+CREATE TABLE product_bom (                         -- 세트·제품 구성표
+  sku        TEXT NOT NULL REFERENCES products(sku),
+  item_code  TEXT NOT NULL REFERENCES items(item_code),
+  qty        REAL NOT NULL,                       -- 1세트(1병)당 소요량
+  unit       TEXT NOT NULL,
+  PRIMARY KEY (sku, item_code)
+);
+
+CREATE TABLE packing_capacity (                    -- 포장 능력
+  sku            TEXT NOT NULL REFERENCES products(sku),
+  sets_per_hour  REAL NOT NULL,
+  hours_per_week REAL NOT NULL,                   -- 대표 + 대행 파트너 가용 시간
+  valid_from     TEXT,
+  PRIMARY KEY (sku)
+);
+
+CREATE TABLE cash_events (                         -- 현금 흐름 예정
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  due_date   TEXT NOT NULL,
+  direction  TEXT NOT NULL CHECK (direction IN ('입금','지급')),
+  amount     INTEGER NOT NULL,
+  source     TEXT,                                -- 정산, B2B, 세금, 급여, 발주안 …
+  certainty  TEXT DEFAULT '확정' CHECK (certainty IN ('확정','예상','시나리오')),
+  ref_id     TEXT
+);
+
+CREATE TABLE cash_balance (                        -- 기준일 현금 잔고
+  as_of   TEXT PRIMARY KEY,
+  amount  INTEGER NOT NULL
+);
+
+CREATE TABLE price_rules (                         -- 거래 가능한 가격 조건
+  rule_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+  sku          TEXT NOT NULL REFERENCES products(sku),
+  channel_code TEXT REFERENCES channels(channel_code),
+  min_qty      INTEGER DEFAULT 1,
+  price        INTEGER NOT NULL,
+  condition    TEXT,                              -- B2B, 시즌, 선물 구성 등
+  valid_from   TEXT, valid_to TEXT,
+  approval_id  INTEGER REFERENCES approvals(approval_id)
+);
+
+ALTER TABLE products ADD COLUMN lead_days INTEGER DEFAULT 2;           -- 주문 후 출고까지
+ALTER TABLE products ADD COLUMN adult_only INTEGER DEFAULT 1;
+
+-- 세트별 생산·포장 가능 수량 (재료 최솟값 vs 포장 능력)
+CREATE VIEW v_set_capacity AS
+WITH stock AS (
+  SELECT item_code, SUM(qty) AS qty FROM inventory_moves GROUP BY item_code
+), by_item AS (
+  SELECT b.sku, b.item_code, IFNULL(s.qty,0) AS on_hand, b.qty AS per_set,
+         CAST(IFNULL(s.qty,0) / b.qty AS INTEGER) AS sets_possible
+  FROM product_bom b LEFT JOIN stock s ON s.item_code = b.item_code
+)
+SELECT bi.sku,
+       MIN(bi.sets_possible) AS material_limit,
+       (SELECT item_code FROM by_item x WHERE x.sku = bi.sku ORDER BY sets_possible LIMIT 1) AS bottleneck_item,
+       CAST(pc.sets_per_hour * pc.hours_per_week AS INTEGER) AS weekly_packing_limit
+FROM by_item bi LEFT JOIN packing_capacity pc ON pc.sku = bi.sku
+GROUP BY bi.sku;
+
+-- 주별 현금 곡선 (기준 잔고 + 예정 입출금 누적)
+CREATE VIEW v_cash_projection AS
+WITH base AS (SELECT amount AS base_amount, as_of FROM cash_balance ORDER BY as_of DESC LIMIT 1),
+wk AS (
+  SELECT strftime('%Y-W%W', e.due_date) AS week,
+         SUM(CASE WHEN e.direction = '입금' THEN e.amount ELSE -e.amount END) AS net
+  FROM cash_events e, base b WHERE e.due_date >= b.as_of
+  GROUP BY week
+)
+SELECT week, net,
+       (SELECT base_amount FROM base) + SUM(net) OVER (ORDER BY week) AS projected_balance
+FROM wk;
+
+-- 월별 가치 이전 총액
+CREATE VIEW v_value_transfer_monthly AS
+SELECT substr(occurred_at,1,7) AS ym, SUM(amount) AS total,
+       SUM(kind='할인') AS discounts, SUM(kind='환불') AS refunds,
+       SUM(kind IN ('적립금','무상제공','무료배송')) AS others
+FROM value_transfers GROUP BY ym;
+
+-- 무진전 감지: 5단계 이상인데 외부 결과 0, 또는 중간 문서 3개 초과
+CREATE VIEW v_stalled_runs AS
+SELECT run_id, unit_code, title, steps_done, external_results, internal_docs, last_progress
+FROM unit_runs
+WHERE status = '진행' AND ((steps_done >= 5 AND external_results = 0) OR internal_docs > 3);
+
+-- 단위별 핵심 지표
+CREATE VIEW v_unit_kpi AS
+SELECT unit_code,
+       COUNT(*) AS runs,
+       SUM(status = '완료') AS completed,
+       ROUND(100.0 * SUM(status = '완료' AND owner_touches = 0) / NULLIF(SUM(status = '완료'),0), 1) AS no_owner_rate_pct,
+       ROUND(SUM(total_cost) / NULLIF(SUM(status = '완료'),0)) AS cost_per_done,
+       ROUND(SUM(outcome_value)) AS outcome_total
+FROM unit_runs GROUP BY unit_code;
+
+-- 상품 피드 (거래 가능한 상품 정보의 공통 원본)
+CREATE VIEW v_product_feed AS
+SELECT p.sku, p.product_name, p.liquor_type, p.volume_ml, p.abv,
+       p.price_retail, p.lead_days, p.adult_only,
+       IFNULL((SELECT SUM(qty) FROM inventory_moves m WHERE m.item_code = p.item_code),0) AS stock_on_hand,
+       (SELECT COUNT(*) FROM price_rules r WHERE r.sku = p.sku) AS price_rule_count,
+       (SELECT GROUP_CONCAT(channel_code) FROM channel_listings l WHERE l.sku = p.sku AND l.status = '판매중') AS live_channels
+FROM products p WHERE p.active = 1;
+
+INSERT INTO units VALUES
+ ('U1_NEW','신규 매출 확보','이익이 남는 신규 주문'),
+ ('U2_ACCOUNT','거래처 운영','거래 성사와 대금 회수'),
+ ('U3_RETAIN','고객 유지','재구매와 고객 유지'),
+ ('U4_SUPPLY','수요·공급 조정','판매 가능한 재고와 납기 준수'),
+ ('U5_CASH','현금·수익 관리','현금 상태와 주문별 수익 파악'),
+ ('U6_RELIABILITY','운영 신뢰성 관리','업무 중단과 누락 최소화');
