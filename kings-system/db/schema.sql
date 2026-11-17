@@ -331,6 +331,10 @@ CREATE TABLE shipments (
   courier        TEXT,
   tracking_no    TEXT,
   is_tax_release INTEGER DEFAULT 1,               -- 주세 반출 대상 여부 (기준 세무사 확인)
+  hold_reason    TEXT,                            -- 출고 보류 사유 (성인 미인증, 주소 오류 등)
+  packed_photo   TEXT,                            -- 포장 사진 경로 (파손 분쟁 대비)
+  delivered_at   TEXT,                            -- 배송 완료 시각 → D+3 후기 요청
+  delay_flag     INTEGER DEFAULT 0,               -- 3일 이상 미배송
   note           TEXT
 );
 
@@ -505,3 +509,169 @@ JOIN batch_inputs bi  ON bi.batch_id = b.batch_id
 JOIN material_lots ml ON ml.lot_id = bi.lot_id
 LEFT JOIN harvests h  ON h.harvest_lot = ml.harvest_lot;
 -- 증류·숙성·블렌드를 거친 경우의 다단계 추적은 자동화 프로그램(A-23)에서 처리
+
+
+-- ---------------------------------------------------------------------
+-- 8. 마케팅·서비스·매출·출고 확장 + 하네스 (v0.2)
+-- ---------------------------------------------------------------------
+CREATE TABLE campaigns (
+  campaign_id  TEXT PRIMARY KEY,                  -- CP-27-SEOL
+  name         TEXT NOT NULL,
+  season       TEXT,                              -- 설, 추석, 연말, 한정판, 상시
+  start_date   TEXT, end_date TEXT,
+  target_sku   TEXT REFERENCES products(sku),
+  channels     TEXT,
+  budget       INTEGER DEFAULT 0,
+  goal_amount  INTEGER,
+  limited_qty  INTEGER,
+  status       TEXT DEFAULT '기획' CHECK (status IN ('기획','준비','진행','종료','취소')),
+  note         TEXT
+);
+
+CREATE TABLE contents (
+  content_id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  channel        TEXT NOT NULL,                   -- 인스타, 쇼츠, 블로그, 스마트스토어, 카톡채널
+  planned_date   TEXT,
+  published_date TEXT,
+  title          TEXT,
+  campaign_id    TEXT REFERENCES campaigns(campaign_id),
+  loop_q_id      INTEGER,                         -- 답하는 루프 질문
+  harness_run_id INTEGER,
+  real_photo     INTEGER DEFAULT 1,               -- 실사진 사용 여부
+  status         TEXT DEFAULT '기획' CHECK (status IN ('기획','초안','승인','게시','보류')),
+  url            TEXT,
+  views INTEGER, clicks INTEGER, orders INTEGER,
+  note           TEXT
+);
+
+CREATE TABLE loop_questions (                      -- 고객(과 고객의 AI)이 물을 상황별 질문
+  q_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  situation     TEXT NOT NULL,                    -- 명절선물, 페어링, 원료, 지역, 한정, 기업선물
+  question      TEXT NOT NULL,
+  target_sku    TEXT REFERENCES products(sku),
+  answer_path   TEXT,                             -- 공식 답이 있는 문서·페이지
+  last_checked  TEXT
+);
+
+CREATE TABLE ai_visibility_checks (                -- AI 간택 진단 (H06)
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  check_date    TEXT NOT NULL,
+  ai_service    TEXT NOT NULL,
+  q_id          INTEGER REFERENCES loop_questions(q_id),
+  question      TEXT,
+  appeared      INTEGER NOT NULL,                 -- 킹스양조장이 나왔나 (0/1)
+  correct       INTEGER,                          -- 정보가 맞았나 (0/1, 안 나오면 NULL)
+  wrong_detail  TEXT,
+  competitors   TEXT,                             -- 대신 나온 곳
+  action        TEXT                              -- 정정, 보강, 확대
+);
+
+CREATE TABLE reviews (
+  review_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  channel      TEXT NOT NULL,
+  order_id     TEXT REFERENCES orders(order_id),
+  customer_id  TEXT REFERENCES customers(customer_id),
+  rating       INTEGER CHECK (rating BETWEEN 1 AND 5),
+  content      TEXT,
+  posted_at    TEXT,
+  reply        TEXT,
+  replied_at   TEXT,
+  issue_flag   INTEGER DEFAULT 0,                 -- 평점 3 이하 → CS 연결
+  cs_id        INTEGER REFERENCES cs_tickets(cs_id)
+);
+
+CREATE TABLE review_requests (                     -- D+3 후기 요청 대기열
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_id     TEXT NOT NULL REFERENCES orders(order_id),
+  due_date     TEXT NOT NULL,
+  sent_at      TEXT,
+  status       TEXT DEFAULT '대기' CHECK (status IN ('대기','발송','제외'))
+);
+
+CREATE TABLE settlements (                         -- 플랫폼 정산
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  channel      TEXT NOT NULL,
+  period_start TEXT, period_end TEXT,
+  gross        INTEGER NOT NULL,                  -- 주문 금액 합계
+  fee          INTEGER DEFAULT 0,
+  shipping     INTEGER DEFAULT 0,
+  expected_net INTEGER,                           -- 계산된 정산 예정액
+  paid_amount  INTEGER,                           -- 실제 입금액
+  paid_at      TEXT,
+  matched      INTEGER DEFAULT 0,                 -- 대사 일치 여부
+  note         TEXT
+);
+
+CREATE TABLE returns (
+  return_id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_id      TEXT NOT NULL REFERENCES orders(order_id),
+  type          TEXT CHECK (type IN ('반품','교환','파손재발송')),
+  reason        TEXT,
+  approved      INTEGER DEFAULT 0,                -- 대표 승인
+  received_at   TEXT,
+  restock       INTEGER DEFAULT 0,                -- 재입고(1) / 폐기(0)
+  refund_amount INTEGER DEFAULT 0,
+  note          TEXT
+);
+
+CREATE TABLE harness_runs (                        -- 하네스 실행 기록
+  run_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  harness_code   TEXT NOT NULL,                   -- H01 ~ H10
+  version        TEXT,
+  started_at     TEXT DEFAULT (datetime('now','localtime')),
+  finished_at    TEXT,
+  provider       TEXT CHECK (provider IN ('cloud','local','off')),
+  data_grade     TEXT CHECK (data_grade IN ('공개','내부','기밀','개인정보')),
+  input_ref      TEXT,                            -- SKU, 지원사업 코드, 기간 등
+  output_path    TEXT,
+  fatal_count    INTEGER DEFAULT 0,
+  warn_count     INTEGER DEFAULT 0,
+  rollback_count INTEGER DEFAULT 0,
+  result         TEXT CHECK (result IN ('통과','되돌림','반려','진행중')),
+  owner_approved INTEGER DEFAULT 0,
+  cost_won       REAL DEFAULT 0,
+  note           TEXT
+);
+
+-- 일별·채널별 매출
+CREATE VIEW v_sales_daily AS
+SELECT order_date, channel, COUNT(*) AS orders, SUM(total_amount) AS amount,
+       ROUND(AVG(total_amount)) AS avg_order
+FROM orders WHERE status NOT IN ('취소','반품')
+GROUP BY order_date, channel;
+
+-- 오늘 출고 대상과 보류
+CREATE VIEW v_ship_queue AS
+SELECT o.order_id, o.order_date, o.channel, o.customer_id, o.adult_checked,
+       CASE WHEN o.adult_checked = 0 THEN '성인 미인증' END AS hold_reason
+FROM orders o
+LEFT JOIN shipments s ON s.order_id = o.order_id
+WHERE o.status IN ('접수','결제완료') AND s.shipment_id IS NULL;
+
+-- 재구매 안내 대상 (마케팅 동의 + 120일 이상 미구매)
+CREATE VIEW v_reorder_targets AS
+SELECT customer_id, name, grade, orders, total_amount, last_order
+FROM v_customer_summary
+WHERE consent_marketing = 1 AND orders >= 1
+  AND julianday('now') - julianday(last_order) >= 120;
+
+-- 미정산·불일치
+CREATE VIEW v_settlement_gap AS
+SELECT channel, period_start, period_end, expected_net, paid_amount,
+       IFNULL(paid_amount,0) - IFNULL(expected_net,0) AS gap
+FROM settlements WHERE matched = 0;
+
+-- AI 간택 진단 최신 결과
+CREATE VIEW v_ai_visibility_latest AS
+SELECT a.ai_service, COALESCE(a.question, q.question) AS question, q.situation,
+       a.appeared, a.correct, a.wrong_detail, a.competitors, a.check_date
+FROM ai_visibility_checks a LEFT JOIN loop_questions q ON q.q_id = a.q_id
+WHERE a.check_date = (SELECT MAX(check_date) FROM ai_visibility_checks);
+
+-- 하네스별 월간 품질·비용
+CREATE VIEW v_harness_monthly AS
+SELECT substr(started_at,1,7) AS ym, harness_code, COUNT(*) AS runs,
+       SUM(result = '통과') AS passed, SUM(rollback_count) AS rollbacks,
+       SUM(fatal_count) AS fatals, ROUND(SUM(cost_won)) AS cost_won,
+       SUM(provider = 'local') AS local_runs
+FROM harness_runs GROUP BY ym, harness_code;
