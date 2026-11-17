@@ -860,3 +860,193 @@ INSERT INTO departments VALUES
  ('FIN','재무관리','돈과 세금을 지킨다'),
  ('QA','품질준법','사고와 위반을 막는다'),
  ('EXT','대외사업','외부 자원을 가져온다');
+
+
+-- ---------------------------------------------------------------------
+-- 10. 판매·관리 시스템 (v0.4): 채널·상품등록·광고·세금계산서·결산·재고실사·수출·수입
+-- ---------------------------------------------------------------------
+CREATE TABLE channels (
+  channel_code      TEXT PRIMARY KEY,             -- SS(스마트스토어), MALL(자사몰), OM1(오픈마켓), KAKAO, OFF, B2B, EXPORT
+  name              TEXT NOT NULL,
+  type              TEXT CHECK (type IN ('오픈마켓','자사몰','메신저','오프라인','B2B','수출')),
+  fee_rate          REAL DEFAULT 0,               -- 수수료율 (%)
+  settle_cycle_days INTEGER,                      -- 정산 주기
+  adult_verify      TEXT,                         -- 성인 인증 방식
+  active            INTEGER DEFAULT 1,
+  note              TEXT
+);
+
+CREATE TABLE channel_listings (                    -- 채널별 상품 등록
+  listing_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  channel_code       TEXT NOT NULL REFERENCES channels(channel_code),
+  sku                TEXT NOT NULL REFERENCES products(sku),
+  channel_product_no TEXT,
+  url                TEXT,
+  listed_price       INTEGER,                     -- 채널에 실제 올라간 가격
+  approved_price     INTEGER,                     -- 승인된 가격
+  listed_stock       INTEGER,
+  adult_setting      INTEGER DEFAULT 0,           -- 성인 인증 설정 확인
+  compliance_ok      INTEGER DEFAULT 0,           -- 품질준법 검수 통과
+  status             TEXT DEFAULT '준비' CHECK (status IN ('준비','검수','판매중','품절','중지')),
+  last_synced        TEXT,
+  UNIQUE (channel_code, sku)
+);
+
+CREATE TABLE ad_campaigns (
+  ad_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  platform     TEXT NOT NULL,
+  campaign_id  TEXT REFERENCES campaigns(campaign_id),
+  sku          TEXT REFERENCES products(sku),
+  approval_id  INTEGER REFERENCES approvals(approval_id),   -- 광고비 결재
+  start_date   TEXT, end_date TEXT,
+  budget       INTEGER NOT NULL,
+  target_roas  REAL,                              -- 목표 ROAS (매출/광고비, 배)
+  status       TEXT DEFAULT '계획' CHECK (status IN ('계획','검수','집행','중지','종료'))
+);
+
+CREATE TABLE ad_daily (                            -- 광고 일일 실적
+  ad_id       INTEGER NOT NULL REFERENCES ad_campaigns(ad_id),
+  day         TEXT NOT NULL,
+  spend       INTEGER DEFAULT 0,
+  impressions INTEGER, clicks INTEGER, orders INTEGER,
+  revenue     INTEGER DEFAULT 0,
+  PRIMARY KEY (ad_id, day)
+);
+
+CREATE TABLE tax_invoices (                        -- 전자세금계산서 발행·수취
+  ti_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  direction    TEXT NOT NULL CHECK (direction IN ('발행','수취')),
+  issue_date   TEXT NOT NULL,
+  supply_month TEXT,                              -- 공급 월 (월 합계 발행)
+  partner_id   TEXT REFERENCES partners(partner_id),
+  supply_amount INTEGER NOT NULL,
+  vat          INTEGER NOT NULL,
+  approval_no  TEXT,                              -- 국세청 승인번호
+  order_id     TEXT REFERENCES orders(order_id),
+  expense_id   TEXT REFERENCES expenses(expense_id),
+  kind         TEXT DEFAULT '정상' CHECK (kind IN ('정상','수정','취소')),
+  status       TEXT DEFAULT '발행' CHECK (status IN ('예정','발행','전송','취소'))
+);
+
+CREATE TABLE closing_tasks (                       -- 월·연 결산 체크리스트
+  ym          TEXT NOT NULL,                      -- 2027-06 또는 2027-Y
+  item_no     INTEGER NOT NULL,
+  item        TEXT NOT NULL,
+  dept_code   TEXT REFERENCES departments(dept_code),
+  due_date    TEXT,
+  status      TEXT DEFAULT '대기' CHECK (status IN ('대기','진행','완료','상신')),
+  done_at     TEXT,
+  note        TEXT,
+  PRIMARY KEY (ym, item_no)
+);
+
+CREATE TABLE inventory_counts (                    -- 재고 점검·실사
+  count_id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  count_date  TEXT NOT NULL,
+  count_type  TEXT CHECK (count_type IN ('주간간이','월실사','분기원액','연말')),
+  item_code   TEXT NOT NULL REFERENCES items(item_code),
+  lot_id      TEXT,
+  book_qty    REAL NOT NULL,
+  actual_qty  REAL NOT NULL,
+  reason      TEXT,
+  adjusted    INTEGER DEFAULT 0,                  -- 조정 기록 반영 여부
+  wo_id       INTEGER REFERENCES work_orders(wo_id)
+);
+
+CREATE TABLE export_deals (
+  deal_id      TEXT PRIMARY KEY,                  -- EX-27-001
+  buyer_id     TEXT REFERENCES partners(partner_id),
+  country      TEXT NOT NULL,
+  incoterm     TEXT,                              -- EXW, FOB, CIF …
+  currency     TEXT DEFAULT 'USD',
+  amount_fx    REAL,
+  fx_rate      REAL,
+  amount_krw   INTEGER,
+  payment_term TEXT,                              -- 선금, T/T, L/C …
+  stage        TEXT DEFAULT '견적' CHECK (stage IN ('발굴','견적','샘플','계약','준비','서류','선적','입금','완료','중단')),
+  ship_date    TEXT,
+  approval_id  INTEGER REFERENCES approvals(approval_id),
+  note         TEXT
+);
+
+CREATE TABLE export_docs (
+  deal_id   TEXT NOT NULL REFERENCES export_deals(deal_id),
+  doc_type  TEXT NOT NULL,                        -- 인보이스, 패킹리스트, 원산지증명, 성적서, 수출신고, B/L, 현지라벨 …
+  status    TEXT DEFAULT '필요' CHECK (status IN ('필요','작성','완료','해당없음')),
+  path      TEXT,
+  PRIMARY KEY (deal_id, doc_type)
+);
+
+CREATE TABLE imports (                             -- 해외 구매 (오크통·병·설비)
+  import_id     TEXT PRIMARY KEY,                 -- IM-27-001
+  partner_id    TEXT REFERENCES partners(partner_id),
+  item_code     TEXT REFERENCES items(item_code),
+  country       TEXT,
+  qty           REAL,
+  currency      TEXT, amount_fx REAL, fx_rate REAL,
+  freight       INTEGER DEFAULT 0,
+  duty          INTEGER DEFAULT 0,
+  customs_fee   INTEGER DEFAULT 0,
+  import_vat    INTEGER DEFAULT 0,
+  food_contact_report INTEGER,                    -- 식품용 기구 수입 신고 필요/완료 (확인 필요)
+  stage         TEXT DEFAULT '결정' CHECK (stage IN ('결정','발주','송금','운송','통관','입고','완료')),
+  arrival_date  TEXT,
+  approval_id   INTEGER REFERENCES approvals(approval_id)
+);
+
+-- 채널 가격·검수 불일치
+CREATE VIEW v_listing_mismatch AS
+SELECT channel_code, sku, listed_price, approved_price, adult_setting, compliance_ok, status
+FROM channel_listings
+WHERE status IN ('판매중','검수')
+  AND (listed_price <> approved_price OR adult_setting = 0 OR compliance_ok = 0);
+
+-- 광고 성과 (ROAS) 와 경고
+CREATE VIEW v_ad_roas AS
+SELECT a.ad_id, a.platform, a.sku, a.budget, a.target_roas,
+       SUM(d.spend) AS spend, SUM(d.revenue) AS revenue,
+       ROUND(1.0 * SUM(d.revenue) / NULLIF(SUM(d.spend),0), 2) AS roas,
+       CASE WHEN 1.0 * SUM(d.revenue) / NULLIF(SUM(d.spend),0) < a.target_roas * 0.5 THEN '중지 검토' END AS alert
+FROM ad_campaigns a LEFT JOIN ad_daily d ON d.ad_id = a.ad_id
+GROUP BY a.ad_id;
+
+-- B2B 미수금
+CREATE VIEW v_receivables AS
+SELECT o.order_id, o.partner_id, o.order_date, o.total_amount,
+       IFNULL(SUM(p.amount),0) AS paid,
+       o.total_amount - IFNULL(SUM(p.amount),0) AS balance
+FROM orders o LEFT JOIN payments p ON p.order_id = o.order_id
+WHERE o.channel = 'B2B' AND o.status NOT IN ('취소','반품')
+GROUP BY o.order_id
+HAVING balance > 0;
+
+-- B2B 출고했는데 세금계산서 없는 건
+CREATE VIEW v_missing_tax_invoice AS
+SELECT o.order_id, o.partner_id, s.ship_date, o.total_amount
+FROM orders o JOIN shipments s ON s.order_id = o.order_id
+LEFT JOIN tax_invoices t ON t.order_id = o.order_id AND t.direction = '발행' AND t.status <> '취소'
+WHERE o.channel = 'B2B' AND t.ti_id IS NULL;
+
+-- 결산 진행 현황
+CREATE VIEW v_closing_status AS
+SELECT ym, COUNT(*) AS items, SUM(status = '완료') AS done,
+       SUM(status <> '완료') AS remaining
+FROM closing_tasks GROUP BY ym;
+
+-- 재고 실사 차이와 처리 구분
+CREATE VIEW v_count_diff AS
+SELECT count_date, count_type, item_code, lot_id, book_qty, actual_qty,
+       actual_qty - book_qty AS diff,
+       ROUND(100.0 * ABS(actual_qty - book_qty) / NULLIF(book_qty,0), 2) AS diff_pct,
+       CASE WHEN ABS(actual_qty - book_qty) <= book_qty * 0.01 THEN '조정'
+            WHEN ABS(actual_qty - book_qty) <= book_qty * 0.03 THEN '사유조사'
+            ELSE '예외(대표)' END AS action
+FROM inventory_counts WHERE adjusted = 0;
+
+-- 수입 건 입고 단가 (관세·운임 포함)
+CREATE VIEW v_import_landed_cost AS
+SELECT import_id, item_code, qty,
+       ROUND(amount_fx * fx_rate) AS goods_krw,
+       ROUND(amount_fx * fx_rate + freight + duty + customs_fee) AS landed_krw,
+       ROUND((amount_fx * fx_rate + freight + duty + customs_fee) / NULLIF(qty,0)) AS unit_cost
+FROM imports;
